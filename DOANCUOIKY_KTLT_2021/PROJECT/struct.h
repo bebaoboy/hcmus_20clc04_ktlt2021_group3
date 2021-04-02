@@ -15,6 +15,7 @@ struct UserAccount {
 struct StudentCourse {
 	string course_id;
 	string course_name;
+	StudentCourse* pNext;
 };
 
 struct StudentInCourse {
@@ -23,6 +24,7 @@ struct StudentInCourse {
 	char gender;
 	int dob, mob, yob;
 	string mainclass;
+	StudentInCourse* pNext;
 };
 
 struct Student {
@@ -33,6 +35,7 @@ struct Student {
 	string social_id; //cmnnd
 	string mainclass;
 	StudentCourse* pStuCourse;
+	Student* pNext;
 
 };
 
@@ -47,6 +50,7 @@ struct Course {
 	int num_of_student;
 	//THOIKHOABIEU ???
 	StudentInCourse* pStuInCourse;
+	Course* pNext;
 };
 
 struct CourseEnrollment {
@@ -62,6 +66,7 @@ struct Class {
 	int num_of_student;
 	Student* pStudent;
 	CourseEnrollment* pEnroll;
+	Class* pNext;
 };
 
 struct Semester {
@@ -70,6 +75,7 @@ struct Semester {
 	int end_date, end_month;
 	Class* pClass;
 	Course* pCourse;
+	Semester* pNext;
 };
 
 
