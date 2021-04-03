@@ -24,9 +24,19 @@ int main() {
 	pUser->pNext->user_name = "bebaoboy2";
 	pUser->pNext->user_password = "abcdefgh";
 	pUser->pNext->user_type = 2;
-	pUser->pNext->pNext = nullptr;
+	pUser->pNext->pNext = new UserAccount;
 
-	showUserAccount(pUser, pUser->pNext->user_name);}
+	pUser->pNext->pNext->full_name = "H M aaaBap";
+	pUser->pNext->pNext->id = 20127004;
+	pUser->pNext->pNext->user_class = "20CLC02";
+	pUser->pNext->pNext->user_name = "bebaoboy3";
+	pUser->pNext->pNext->user_password = "abcdefgh";
+	pUser->pNext->pNext->user_type = 2;
+	pUser->pNext->pNext->pNext = nullptr;
+
+	showUserAccount(pUser, pUser->pNext->user_name);
+	//showUserAccount(pUser, pUser->pNext->user_name);
+	}
 
 	// PHAN 1: DANG NHAP
 

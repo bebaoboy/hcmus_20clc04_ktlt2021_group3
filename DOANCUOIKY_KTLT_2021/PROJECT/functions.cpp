@@ -1,6 +1,18 @@
 #include "Header.h"
 #include "struct.h"
 
+void removeAccount(UserAccount*& pUser, string user_name) {
+	UserAccount* pCur = pUser, *pPre = nullptr;
+	while (pCur->user_name != user_name && pCur != nullptr) {
+		pPre = pCur;
+		pCur = pCur->pNext;
+	}
+	if (pCur->user_name == user_name) {
+		pPre->pNext = pCur->pNext;
+		delete pCur;
+	}
+	else return;
+}
 void changeUserPassword(string& user_password) {
 	string temp_password1, temp_password2, old_password;
 	cin.ignore();
@@ -57,7 +69,9 @@ void showUserAccount(UserAccount* pUser, string user_name) {
 			<< "\n\tFullname: " << pUser->full_name
 			<< "\n\tLop chu nhiem: " << pUser->user_class
 			<< "\n\tPassword: Nhap 3 de xem\n\tNhap 1 de doi password."
-			<< "\n\tNhap 2 de thay doi thong tin!\n\tNhap 0 de quay lai.";
+			<< "\n\tNhap 2 de thay doi thong tin!"
+			<< "\n\tNhap 4 de xoa tai khoan."
+			<< "\n\tNhap 0 de quay lai.";
 
 		cin >> opt;
 		switch (opt) {
@@ -73,10 +87,16 @@ void showUserAccount(UserAccount* pUser, string user_name) {
 				<< "\tPassword: " << pUser->user_password
 				<< endl;
 			break;
+		case 4:
+			removeAccount(pB, pUser->user_name);
+			cout << "================================\n\n"
+				<< "\tXoa thanh cong. Bam -1 de quay lai.";
+			cin.get();
+			return;
 		case 0:
 			return;
 		default:
-			cout << "\tNhap sai cu phap. Vui long nhap lai.";
+			cout << "\tNhap sai cu phap.";
 			break;
 		}
 		cout << "\tNhap -1 de tiep tuc.";
@@ -139,10 +159,11 @@ void editUserAccount(UserAccount* pUser, string user_name) {
 				cout << "\tDoi lop thanh cong!\n\tNhap 0 de quay lai.";
 			}
 			break;
+
 		case -1:
 			return;
 		default:
-			cout << "\tNhap sai cu phap. Vui long nhap lai.";
+			cout << "\tNhap sai cu phap.";
 			break;
 
 		}
