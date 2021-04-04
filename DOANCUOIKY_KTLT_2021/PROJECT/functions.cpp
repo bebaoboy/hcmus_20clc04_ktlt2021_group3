@@ -41,6 +41,7 @@ void changeUserPassword(string& user_password) {
 	cout << "==================================\n\n"
 		<< "\tDoi mat khau thanh cong!\n\tBam -1 de quay lai!\n"
 		<< "===================================\n";
+	cin.get();
 }
 bool checkUserName(UserAccount* pUser, string user_name) {
 	int count = 0;
@@ -74,6 +75,7 @@ void showUserAccount(UserAccount* pUser, string user_name) {
 			<< "\n\tNhap 0 de quay lai.";
 
 		cin >> opt;
+		system("cls");
 		switch (opt) {
 		case 1:
 			changeUserPassword(pUser->user_password);
@@ -86,12 +88,15 @@ void showUserAccount(UserAccount* pUser, string user_name) {
 			cout << "================================\n\n"
 				<< "\tPassword: " << pUser->user_password
 				<< endl;
+			cout << "\tNhap -1 de tiep tuc.";
+			cin >> opt;
 			break;
 		case 4:
 			removeAccount(pB, pUser->user_name);
 			cout << "================================\n\n"
-				<< "\tXoa thanh cong. Bam -1 de quay lai.";
-			cin.get();
+				<< "\tXoa thanh cong.";
+			cout << "\tNhap -1 de tiep tuc.";
+			cin >> opt;
 			return;
 		case 0:
 			return;
@@ -99,8 +104,7 @@ void showUserAccount(UserAccount* pUser, string user_name) {
 			cout << "\tNhap sai cu phap.";
 			break;
 		}
-		cout << "\tNhap -1 de tiep tuc.";
-		cin >> opt;
+
 		system("cls");
 	}
 }
@@ -167,7 +171,9 @@ void editUserAccount(UserAccount* pUser, string user_name) {
 			break;
 
 		}
+		cout << "\tNhap -1 de tiep tuc.";
 		cin >> opt;
+		cin.get();
 		system("cls");
 	}
 	
