@@ -1,18 +1,7 @@
 #include "Header.h"
 #include "struct.h"
 
-void removeAccount(UserAccount*& pUser, string user_name) {
-	UserAccount* pCur = pUser, *pPre = nullptr;
-	while (pCur->user_name != user_name && pCur != nullptr) {
-		pPre = pCur;
-		pCur = pCur->pNext;
-	}
-	if (pCur->user_name == user_name) {
-		pPre->pNext = pCur->pNext;
-		delete pCur;
-	}
-	else return;
-}
+//for teacher only
 void changeUserPassword(string& user_password) {
 	string temp_password1, temp_password2, old_password;
 	cin.ignore();
@@ -42,6 +31,7 @@ void changeUserPassword(string& user_password) {
 		<< "\tDoi mat khau thanh cong!\n\tBam -1 de quay lai!\n"
 		<< "===================================\n";
 	cin.get();
+	return;
 }
 bool checkUserName(UserAccount* pUser, string user_name) {
 	int count = 0;
@@ -71,9 +61,8 @@ void showUserAccount(UserAccount* pUser, string user_name) {
 			<< "\n\tLop chu nhiem: " << pUser->user_class
 			<< "\n\tPassword: Nhap 3 de xem\n\tNhap 1 de doi password."
 			<< "\n\tNhap 2 de thay doi thong tin!"
-			<< "\n\tNhap 4 de xoa tai khoan."
 			<< "\n\tNhap 0 de quay lai.";
-
+		cin.ignore();
 		cin >> opt;
 		system("cls");
 		switch (opt) {
@@ -91,13 +80,6 @@ void showUserAccount(UserAccount* pUser, string user_name) {
 			cout << "\tNhap -1 de tiep tuc.";
 			cin >> opt;
 			break;
-		case 4:
-			removeAccount(pB, pUser->user_name);
-			cout << "================================\n\n"
-				<< "\tXoa thanh cong.";
-			cout << "\tNhap -1 de tiep tuc.";
-			cin >> opt;
-			return;
 		case 0:
 			return;
 		default:
@@ -142,7 +124,7 @@ void editUserAccount(UserAccount* pUser, string user_name) {
 					getline(cin, temp);
 				}
 				pUser->user_name = temp;
-				cout << "\tDoi username thanh cong!\n\tNhap 0 de quay lai.";
+				cout << "\tDoi username thanh cong!\n";
 			}
 			break;
 		case 2:
@@ -151,7 +133,7 @@ void editUserAccount(UserAccount* pUser, string user_name) {
 			getline(cin, temp);
 			if (temp != "0") {
 				pUser->full_name = temp;
-				cout << "\tDoi fullname thanh cong!\n\tNhap 0 de quay lai.";
+				cout << "\tDoi fullname thanh cong!\n";
 			}
 			break;
 		case 3:
@@ -160,7 +142,7 @@ void editUserAccount(UserAccount* pUser, string user_name) {
 			getline(cin, temp);
 			if (temp != "0") {
 				pUser->user_class = temp;
-				cout << "\tDoi lop thanh cong!\n\tNhap 0 de quay lai.";
+				cout << "\tDoi lop thanh cong!\n";
 			}
 			break;
 
@@ -173,8 +155,9 @@ void editUserAccount(UserAccount* pUser, string user_name) {
 		}
 		cout << "\tNhap -1 de tiep tuc.";
 		cin >> opt;
-		cin.get();
 		system("cls");
 	}
 	
 }
+
+

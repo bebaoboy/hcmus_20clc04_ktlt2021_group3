@@ -2,16 +2,6 @@
 #define _MY_S_
 #include "Header.h"
 
-struct UserAccount {
-	long int id;
-	string full_name;
-	string user_name;
-	string user_password;
-	string user_class;
-	int user_type; //1 = GV, 2 = SV
-	UserAccount* pNext;
-};
-
 struct StudentCourse {
 	string course_id;
 	string course_name;
@@ -36,7 +26,19 @@ struct Student {
 	string mainclass;
 	StudentCourse* pStuCourse;
 	Student* pNext;
+	string user_name;
+	string user_password;
+	int user_type = 1;
 
+};
+
+struct UserAccount { //teacher only
+	string full_name;
+	string user_name;
+	string user_password;
+	string user_class;
+	int user_type = 2; //1 = GV, 2 = SV
+	UserAccount* pNext;
 };
 
 struct Course {

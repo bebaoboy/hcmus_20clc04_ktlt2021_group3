@@ -13,7 +13,6 @@ using namespace std;
 
 void changeUserPassword(string& user_password);
 void showUserAccount(UserAccount* pUser, string user_name);
-void removeAccount(UserAccount*& pUser, string user_name);
 void editUserAccount(UserAccount* pUser, string user_name);
 bool checkUserName(UserAccount* pUser, string user_name);
 
