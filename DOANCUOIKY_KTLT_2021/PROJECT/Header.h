@@ -28,6 +28,9 @@ void showStudentInCourse(StudentInCourse* pStuInCourse);
 
 void editSchoolYear(SchoolYear*& pSchoolYear, Semester*& pSemester);
 void editSemester(Semester*& pSemester);
+void inputClass(Class*& pClass, ifstream& input);
+void createStudentList(Student*& pStudent);
+void createClass(Class*& pClass);
 void editClass(Class*& pClass);
 void editCourse(Course*& pCourse);
 void editCourseEnrollment(CourseEnrollment*& pEnroll);

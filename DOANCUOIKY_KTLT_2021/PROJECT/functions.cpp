@@ -161,3 +161,47 @@ void editUserAccount(UserAccount* pUser, string user_name) {
 }
 
 
+void inputClass(Class*& pClass, ifstream& input) {
+	if (pClass == nullptr)
+		pClass = new Class;
+	else {
+		pClass->pNext = new Class;
+		pClass = pClass->pNext;
+	}
+	
+	string n = " ";
+	getline(input, pClass->class_name, '\n');
+	getline(input, pClass->class_teacher, '\n');
+	getline(input, n, '\n');
+	pClass->num_of_student = stoi(n);
+
+	pClass->pStudent = nullptr;		
+	Student* pTemp = pClass->pStudent;
+	
+	while (!input.eof()) {
+		if (pTemp == nullptr)
+			pTemp = new Student;
+		else {
+			pTemp->pNext = new Student;
+			pTemp = pTemp->pNext;
+		}
+		getline(input, n, ',');
+		if (n == "") return;
+		pTemp->no = stoi(n);
+		getline(input, pTemp->id, ',');
+		getline(input, pTemp->full_name, ',');
+		getline(input, pTemp->dob, '/');
+		getline(input, pTemp->mob, '/');
+		getline(input, pTemp->yob, ',');
+		getline(input, n, '\n');
+		if (n == "Nam") pTemp->gender = 'M';
+		else pTemp->gender = 'F';
+		pTemp->user_password = "";
+		pTemp->user_password = pTemp->user_password + pTemp->dob + pTemp->mob + pTemp->yob;
+		//getline(input, n, ','); //cmnd
+		pTemp->pNext = nullptr;
+		if (pClass->pStudent == nullptr) pClass->pStudent = pTemp;
+	}
+	pClass->pNext = nullptr;
+}
+

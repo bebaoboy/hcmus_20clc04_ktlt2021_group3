@@ -5,11 +5,28 @@ void print_Student_Menu();
 
 int main() {
 	UserAccount* pUser;
+	SchoolYear* pSchoolYear = nullptr;
+	Semester* pSemester = nullptr;
+	Class* pClass = nullptr;
+	Class* pCClass = pClass;
+	Student* pStudent = nullptr;
 
-	{//ham input user account, set pUser vao Node dau tien.
-	}
+	//ham input user account, set pUser vao Node dau tien.
+	ifstream input("Class.txt");
+	inputClass(pCClass, input);
+	pClass = pCClass;
+	ifstream input2("Class2.txt");
+	inputClass(pCClass, input2);
+	ifstream input3("Class3.txt");
+	inputClass(pCClass, input3);
+	ifstream input4("Class4.txt");
+	inputClass(pCClass, input4);
+	ifstream input5("Class5.txt");
+	inputClass(pCClass, input5);
+	//
 
-	{//test ham showUserAccount
+	//ham input Teacher account
+	{
 		pUser = new UserAccount;
 		pUser->full_name = "H M Bao";
 		pUser->user_class = "20CLC04";
@@ -32,11 +49,7 @@ int main() {
 		//showUserAccount(pUser, pUser->pNext->user_name);
 	}
 
-	SchoolYear* pSchoolYear = nullptr;
-	Semester* pSemester = nullptr;
-	Class* pClass = nullptr;
 	string _ = " ";
-
 	while ( _ != "-1")
 	{
 	string user_name = " ";
@@ -87,12 +100,13 @@ int main() {
 		Student* pTemp = nullptr;
 		while (pCurClass != nullptr) {
 			pTemp = pCurClass->pStudent;
-			while (pTemp != nullptr || pTemp->id != user_name) {
-				pTemp = pTemp->pNext;
+			while (pTemp != nullptr) {
+				if (pTemp->id == user_name) break;
+				else
+					pTemp = pTemp->pNext;
 			}
 			if (pTemp == nullptr) {
 				pCurClass = pCurClass->pNext;
-				pTemp = pCurClass->pStudent;
 			}
 			else
 				break;
@@ -231,12 +245,23 @@ student:
 		<< "\n\n===================================="
 		<< endl;
 
-	// PHAN 2: CHUONG TRINH
-
 	system("pause");
 	system("cls");
 }
+	
 	cout << "\tChuong trinh ket thuc!!!\n";
+
+	//ham delete 
+	{
+
+	}
+
+	input.close();
+	input2.close();
+	input3.close();
+	input4.close();
+	input5.close();
+
 	return 0;
 }
 

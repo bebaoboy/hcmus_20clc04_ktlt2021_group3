@@ -30,4 +30,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Class.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Class2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Class3.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Class4.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Class5.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

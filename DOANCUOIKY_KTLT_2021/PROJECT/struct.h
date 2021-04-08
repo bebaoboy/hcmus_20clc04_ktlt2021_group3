@@ -18,10 +18,11 @@ struct StudentInCourse {
 };
 
 struct Student {
+	int no;
 	string full_name;
 	string id;
 	char gender; //M , F
-	int dob, mob, yob; //ngay thang nam sinh
+	string dob, mob, yob; //ngay thang nam sinh
 	string social_id; //cmnnd
 	string mainclass;
 	StudentCourse* pStuCourse;
@@ -62,7 +63,6 @@ struct CourseEnrollment {
 };
 
 struct Class {
-	string class_code;
 	string class_name;
 	string class_teacher; //gvcn
 	int num_of_student;

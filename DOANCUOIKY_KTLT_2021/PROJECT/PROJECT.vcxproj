@@ -146,6 +146,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="functions.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Class.txt" />
+    <Text Include="Class4.txt" />
+    <Text Include="Class5.txt" />
+    <Text Include="Class2.txt" />
+    <Text Include="Class3.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
