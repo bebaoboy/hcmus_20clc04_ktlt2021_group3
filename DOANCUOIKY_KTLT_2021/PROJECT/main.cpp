@@ -6,13 +6,15 @@ void print_Student_Menu();
 int main() {
 	UserAccount* pUser;
 	SchoolYear* pSchoolYear = nullptr;
+	SchoolYear* pSSchoolYear = pSchoolYear;
 	Semester* pSemester = nullptr;
 	Class* pClass = nullptr;
 	Class* pCClass = pClass;
 	Student* pStudent = nullptr;
+	Student* pTemp = nullptr; //of Student
 
-	//ham input user account, set pUser vao Node dau tien.
-	ifstream input("Class.txt");
+	//ham input user account
+	{ifstream input("Class.txt");
 	inputClass(pCClass, input);
 	pClass = pCClass;
 	ifstream input2("Class2.txt");
@@ -22,8 +24,8 @@ int main() {
 	ifstream input4("Class4.txt");
 	inputClass(pCClass, input4);
 	ifstream input5("Class5.txt");
-	inputClass(pCClass, input5);
-	//
+	inputClass(pCClass, input5);}
+	
 
 	//ham input Teacher account
 	{
@@ -49,9 +51,12 @@ int main() {
 		//showUserAccount(pUser, pUser->pNext->user_name);
 	}
 
+	//main program
 	string _ = " ";
 	while ( _ != "-1")
 	{
+
+	//dang nhap
 	string user_name = " ";
 	string user_password = " ";
 
@@ -73,6 +78,7 @@ int main() {
 		else
 			pCur = pCur->pNext;
 	}
+	
 	//neu la gv
 	if (pCur != nullptr) {
 		int i = 0;
@@ -97,7 +103,6 @@ int main() {
 
 	//neu la sv
 	else {
-		Student* pTemp = nullptr;
 		while (pCurClass != nullptr) {
 			pTemp = pCurClass->pStudent;
 			while (pTemp != nullptr) {
@@ -114,7 +119,9 @@ int main() {
 		if (pCurClass == nullptr) {
 			cout << "============================\n\n"
 				<< "\tKhong tim thay tai khoan!\n\n";
-			return -1;
+			system("pause");
+			system("cls");
+			continue;
 		}
 		int i = 0;
 		while (pTemp->user_password != user_password) {
@@ -149,7 +156,10 @@ teacher:
 		case 1: {
 			// view school year infor
 			if (pSchoolYear == nullptr) {
-				//ham tao nam hoc
+				system("cls");
+				cout << "\n\n\tChua co nam hoc nao!\n\tVui long tao nam hoc:\n\n";
+				createSchoolYear(pSSchoolYear);
+				if (pSchoolYear == nullptr) pSchoolYear = pSSchoolYear;
 				//pSchoolYear = new SchoolYear;
 			}
 			else {
@@ -162,7 +172,7 @@ teacher:
 					cout << "\t2. Xem thoi gian nam hoc. " << endl;
 					cout << "\tTiep tuc voi:";
 					cin >> option1;
-
+					system("cls");
 					switch (option1) {
 					case 0:
 						// back
@@ -171,9 +181,15 @@ teacher:
 						// showSemester
 						break;
 					case 2:
-						// show thoi gian school year
+						cout << "===================================\n\n"
+							<< "\tNam hoc: ";
+						cout << pSSchoolYear->begin_year << " / " << pSSchoolYear->end_year << endl;
+						cout << "\tNhap -1 de quay lai.";
+						cin >> option1;
 						break;
 					default:
+						cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+						cin >> option1;
 						break;
 					}
 				}
@@ -185,6 +201,8 @@ teacher:
 			// log out
 			break;
 		default:
+			cout << "\tNhap sai cu phap!\n\tNhap 0 de quay lai!";
+			cin.get();
 			break;
 		}
 		//cin >> option;
@@ -200,9 +218,10 @@ student:
 		switch (option) {
 		case 1:
 			//xem thong tin hs
+			showStudent(pTemp);
+			cin.get();
 			break;
 		case 2: {
-
 			system("CLS");
 			int option1 = 1;
 			while (option1 != 0) {
@@ -222,8 +241,15 @@ student:
 					break;
 				case 2:
 					// show school year
+					cout << "===================================\n\n"
+						<< "\tNam hoc: ";
+					cout << pSSchoolYear->begin_year << " / " << pSSchoolYear->end_year << endl;
+					cout << "\tNhap -1 de quay lai.";
+					cin >> option1;
 					break;
 				default:
+					cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+					cin >> option1;
 					break;
 				}
 			}
@@ -233,6 +259,8 @@ student:
 			// log out
 			break;
 		default:
+			cout << "\tNhap sai cu phap!\n\tNhap 0 de quay lai!";
+			cin.get();
 			break;
 		}
 		//cin >> option;
@@ -256,11 +284,11 @@ student:
 
 	}
 
-	input.close();
+	/*input.close();
 	input2.close();
 	input3.close();
 	input4.close();
-	input5.close();
+	input5.close();*/
 
 	return 0;
 }

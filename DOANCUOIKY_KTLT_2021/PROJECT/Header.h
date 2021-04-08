@@ -11,11 +11,19 @@ using namespace std;
 //khai bao struct
 #include "struct.h"
 
+//ham tai khoan
 void changeUserPassword(string& user_password);
 void showUserAccount(UserAccount* pUser, string user_name);
 void editUserAccount(UserAccount* pUser, string user_name);
 bool checkUserName(UserAccount* pUser, string user_name);
 
+//ham tao
+void createSchoolYear(SchoolYear*& pSchoolYear);
+void createSemester(Semester*& pSemester);
+void createStudentList(Student*& pStudent);
+void createClass(Class*& pClass);
+
+//ham show thong tin
 void showSchoolYear(SchoolYear* pSchoolYear, Semester* pSemester);
 void showSemester(Semester* pSemester);
 void showClass(Class* pClass);
@@ -26,17 +34,16 @@ void showStudent(Student* pStudent);
 void showStudentList(Student* pStudent);
 void showStudentInCourse(StudentInCourse* pStuInCourse);
 
+//ham chinh sua
 void editSchoolYear(SchoolYear*& pSchoolYear, Semester*& pSemester);
 void editSemester(Semester*& pSemester);
-void inputClass(Class*& pClass, ifstream& input);
-void createStudentList(Student*& pStudent);
-void createClass(Class*& pClass);
 void editClass(Class*& pClass);
 void editCourse(Course*& pCourse);
 void editCourseEnrollment(CourseEnrollment*& pEnroll);
 void editStudent(Student*& pStudent);
 
 //Ham Nhap Xuat
+void inputClass(Class*& pClass, ifstream& input);
 
 //Hamtinh diem
 

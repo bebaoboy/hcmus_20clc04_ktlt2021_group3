@@ -73,8 +73,8 @@ struct Class {
 
 struct Semester {
 	int no;
-	int begin_date, begin_month;
-	int end_date, end_month;
+	int begin_date, begin_month, begin_year;
+	int end_date, end_month, end_year;
 	Class* pClass;
 	Course* pCourse;
 	Semester* pNext;
@@ -85,6 +85,7 @@ struct SchoolYear {
 	int begin_year;
 	int end_year;
 	Semester* pSemester;
+	SchoolYear* pNext;
 };
 
 
