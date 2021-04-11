@@ -21,7 +21,6 @@ struct Semester {
 	int end_date, end_month, end_year;
 	Semester* pNext;
 };
-void editClass(Class*& pClass);
 
 //ham sua
 void editClass(Class*& pClass)
