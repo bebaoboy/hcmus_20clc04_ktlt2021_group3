@@ -67,7 +67,6 @@ struct Class {
 	string class_teacher; //gvcn
 	int num_of_student;
 	Student* pStudent;
-	CourseEnrollment* pEnroll;
 	Class* pNext;
 };
 
@@ -77,6 +76,7 @@ struct Semester {
 	int end_date, end_month, end_year;
 	Class* pClass;
 	Course* pCourse;
+	CourseEnrollment* pEnroll;
 	Semester* pNext;
 };
 

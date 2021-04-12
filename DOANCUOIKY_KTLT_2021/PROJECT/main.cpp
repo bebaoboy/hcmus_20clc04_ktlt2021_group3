@@ -8,12 +8,12 @@ int main() {
 	SchoolYear* pSchoolYear = nullptr;
 	SchoolYear* pSSchoolYear = pSchoolYear;
 	Semester* pSemester = nullptr;
-	Class* pClass = nullptr;
-	Class* pCClass = pClass;
 	Student* pStudent = nullptr;
 	Student* pTemp = nullptr; //of Student
 
 	//ham input user account
+	Class* pClass = nullptr; //not main pointer
+	Class* pCClass = pClass;
 	{ifstream input("Class.txt");
 	inputClass(pCClass, input);
 	pClass = pCClass;
@@ -25,7 +25,6 @@ int main() {
 	inputClass(pCClass, input4);
 	ifstream input5("Class5.txt");
 	inputClass(pCClass, input5);}
-	
 
 	//ham input Teacher account
 	{
@@ -51,6 +50,46 @@ int main() {
 		//showUserAccount(pUser, pUser->pNext->user_name);
 	}
 
+	//test input year
+	pSchoolYear = new SchoolYear;
+	pSchoolYear->begin_year = 2020;
+	pSchoolYear->end_year = 2021;
+
+	pSchoolYear->pSemester = new Semester;
+	Semester *p = pSchoolYear->pSemester;
+	p->no = 1;
+	p->begin_date = 1;
+	p->begin_month = 1;
+	p->begin_year = 2020;
+	p->end_date = 1;
+	p->end_month = 4;
+	p->end_year = 2020;
+
+	p->pNext = new Semester;
+	p=p->pNext;
+	p->no = 2;
+	p->begin_date = 1;
+	p->begin_month = 5;
+	p->begin_year = 2020;
+	p->end_date = 1;
+	p->end_month = 7;
+	p->end_year = 2020;
+
+	p->pNext = new Semester;
+	p=p->pNext;
+	p->no = 3;
+	p->begin_date = 1;
+	p->begin_month = 8;
+	p->begin_year = 2020;
+	p->end_date = 1;
+	p->end_month = 10;
+	p->end_year = 2020;
+	p->pNext = nullptr;
+
+	p->pClass = nullptr;
+	p->pCourse = nullptr;
+	p->pEnroll = nullptr;
+
 	//main program
 	string _ = " ";
 	while ( _ != "-1")
@@ -66,10 +105,8 @@ int main() {
 	if (user_name == "-1") break;
 	cout << "\tNhap mat khau: "; cin >> user_password;
 
-	UserAccount* pCur = pUser;
+	UserAccount* pCur = pUser; //temporary variables
 	Class* pCurClass = pClass;
-
-	system("CLS");
 	int option = 0;
 
 	while (pCur != nullptr) {
@@ -79,6 +116,12 @@ int main() {
 			pCur = pCur->pNext;
 	}
 	
+	Semester* pTempk = pSchoolYear->pSemester;
+	while (pTempk != nullptr) {
+		pTempk->pClass = pClass;
+		pTempk = pTempk->pNext;
+	}
+
 	//neu la gv
 	if (pCur != nullptr) {
 		int i = 0;
@@ -143,6 +186,7 @@ int main() {
 		goto student;
 	}
 
+
 teacher:
 	while (option != -1) {
 		print_Staff_Menu();
@@ -157,15 +201,20 @@ teacher:
 			// view school year infor
 			if (pSchoolYear == nullptr) {
 				system("cls");
-				cout << "\n\n\tChua co nam hoc nao!\n\tVui long tao nam hoc:\n\n";
+				cout << "\n\n\tChua co nam hoc nao!\n\tVui long nhap 0 de tao nam hoc:\n\n";
+				cin >> option;
 				createSchoolYear(pSSchoolYear);
 				if (pSchoolYear == nullptr) pSchoolYear = pSSchoolYear;
+				
+				
 				//pSchoolYear = new SchoolYear;
 			}
 			else {
+				pSSchoolYear = pSchoolYear;
 				int option1 = 1;
 				system("CLS");
 				while (option1 != 0) {
+					cout << "==================================\n\n";
 					cout << "\tChon cac so sau de tiep tuc :" << endl;;
 					cout << "\t0. Quay lai." << endl;
 					cout << "\t1. Xem thong tin hoc ki." << endl;
@@ -177,21 +226,77 @@ teacher:
 					case 0:
 						// back
 						break;
-					case 1:
-						// showSemester
+					case 1: {
+						// showSemester //bam -1 de quay lai
+						//chay list
+						int no = 0;
+						Semester* pTemp = pSSchoolYear->pSemester;
+						cout << "\tChon hoc ky: \n";
+
+						while (pTemp->pNext != nullptr) {
+							cout << "\t\tHoc ky " << pTemp->no << endl;
+							pTemp = pTemp->pNext;
+						}
+						cout << "\t\tHoc ky " << pTemp->no << endl;
+						cout << "\tNhap -1 de quay lai\n";
+						cin >> no;
+						if (no == -1) break;
+
+						while (no > pTemp->no) {
+							cout << "\tNhap sai hoc ky. Nhap lai: ";
+							cin >> no;
+						}
+
+						pTemp = pSSchoolYear->pSemester;
+						while (pTemp != nullptr) {
+							if (pTemp->no == no) break;
+							else
+								pTemp = pTemp->pNext;
+						}
+						
+						//chay list ngpai main	
+						int option = 10;
+						while (option != 0) {
+							system("cls");
+							cout << "=================================\n\n"
+								<< "\tNhap so de tiep tuc: \n"
+								<< "\t1. Xem thong tin cac lop hoc.\n"
+								<< "\t2. Xem thong tin cac khoa hoc.\n"
+								<< "\t3. Xem thoi gian hoc ky.\n"
+								<< "\tNhap 0 de quay lai.";
+							cin >> option;
+							switch (option) {
+							case 0:
+								system("cls");
+								break;
+							case 1:
+								showClass(pTemp->pClass);
+								break;
+							case 2:
+								//show course
+								break;
+							case 3:
+								showSemesterTime(pTemp, pSSchoolYear->begin_year);
+								break;
+							default:
+								cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+								cin >> option;
+								break;
+							}
+						}
+						if (option == 0) continue;
 						break;
+					}
+
 					case 2:
-						cout << "===================================\n\n"
-							<< "\tNam hoc: ";
-						cout << pSSchoolYear->begin_year << " / " << pSSchoolYear->end_year << endl;
-						cout << "\tNhap -1 de quay lai.";
-						cin >> option1;
+						showSchoolYear(pSSchoolYear);
 						break;
 					default:
 						cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
 						cin >> option1;
 						break;
 					}
+					system("cls");
 				}
 			}
 			break;
@@ -212,6 +317,7 @@ teacher:
 
 student:
 	while (option != -1) {
+		pSSchoolYear = pSchoolYear;
 		print_Student_Menu();
 		cin >> option;
 		system("cls");
@@ -225,25 +331,108 @@ student:
 			system("CLS");
 			int option1 = 1;
 			while (option1 != 0) {
+				cout << "==================================\n\n";
 				cout << "\tChon cac so sau de tiep tuc :" << endl;;
 				cout << "\t0. Quay lai." << endl;
 				cout << "\t1. Xem thong tin hoc ki." << endl;
 				cout << "\t2. Xem thoi gian nam hoc. " << endl;
 				cout << "\tTiep tuc voi:";
-
+				Semester* pTemp = pSSchoolYear->pSemester;
 				cin >> option1;
+				system("cls");
 				switch (option1) {
 				case 0:
 					// back
+					system("cls");
 					break;
-				case 1:
+				case 1: {
 					// showSemester
+					int no = 0;
+					Semester* pTemp = pSSchoolYear->pSemester;
+					cout << "\tChon hoc ky: \n";
+
+					while (pTemp->pNext != nullptr) {
+						cout << "\t\tHoc ky " << pTemp->no << endl;
+						pTemp = pTemp->pNext;
+					}
+					cout << "\t\tHoc ky " << pTemp->no << endl;
+					cout << "\tNhap -1 de quay lai\n";
+					cin >> no;
+					if (no == -1) break;
+
+					while (no > pTemp->no) {
+						cout << "\tNhap sai hoc ky. Nhap lai: ";
+						cin >> no;
+					}
+
+					pTemp = pSSchoolYear->pSemester;
+					while (pTemp != nullptr) {
+						if (pTemp->no == no) break;
+						else
+							pTemp = pTemp->pNext;
+					}
+					
+					int option = 10;
+					while (option != 0) {
+						system("cls");
+						cout << "=================================\n\n"
+							<< "\tNhap so de tiep tuc: \n"
+							<< "\t1. Xem thong tin lop hoc chu nhiem.\n"
+							<< "\t2. Xem thong tin phien dang ky hoc phan.\n"
+							<< "\t3. Xem thoi gian hoc ky.\n"
+							<< "\tNhap 0 de quay lai.";
+						cin >> option;
+						switch (option) {
+						case 0:
+							break;
+						case 1:
+							showMainClass(pCurClass);
+							break;
+						case 2:
+							//show courseenroll
+							break;
+						case 3:
+							Semester *pSemester = pTemp;
+							int op = 10;
+							while (op != 0) {
+								system("cls");
+								cout << "===================================" << endl;
+								cout << "\tHoc ki " << pSemester->no << ": " << endl;
+								cout << "\tThoi gian bat dau : " << pSemester->begin_date << "/" << pSemester->begin_month << "/" << pSemester->begin_year << endl;
+								cout << "\tThoi gian ket thuc: " << pSemester->end_date << "/" << pSemester->end_month << "/" << pSemester->end_year << endl;
+								cout << "\tNhap 0 de quay lai." << endl;
+								cin >> op;
+								switch (op) {
+								case 0:
+									// back
+									break;
+								default:
+									cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+									cin >> op;
+									break;
+								}
+							}
+							break;
+						default:
+							cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+							cin >> option;
+							break;
+						}
+					}
 					break;
+				}
+					
 				case 2:
 					// show school year
 					cout << "===================================\n\n"
 						<< "\tNam hoc: ";
 					cout << pSSchoolYear->begin_year << " / " << pSSchoolYear->end_year << endl;
+					cout << "\tNgay bat dau: " << pTemp->begin_date << "/" << pTemp->begin_month << "/" << pTemp->begin_year << endl;
+					while (pTemp->pNext != nullptr)
+					{
+						pTemp = pTemp->pNext;
+					}
+					cout << "\tNgay ket thuc: " << pTemp->end_date << "/" << pTemp->end_month << "/" << pTemp->end_year << endl;
 					cout << "\tNhap -1 de quay lai.";
 					cin >> option1;
 					break;
@@ -252,6 +441,7 @@ student:
 					cin >> option1;
 					break;
 				}
+				system("cls");
 			}
 			break;
 		}
