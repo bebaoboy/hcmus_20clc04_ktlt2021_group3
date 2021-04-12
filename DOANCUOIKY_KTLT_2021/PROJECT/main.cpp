@@ -381,7 +381,9 @@ student:
 							<< "\t2. Xem thong tin phien dang ky hoc phan.\n"
 							<< "\t3. Xem thoi gian hoc ky.\n"
 							<< "\tNhap 0 de quay lai.";
+						Semester* pSemester = pTemp;
 						cin >> option;
+						int op = 10;
 						switch (option) {
 						case 0:
 							break;
@@ -392,8 +394,6 @@ student:
 							//show courseenroll
 							break;
 						case 3:
-							Semester *pSemester = pTemp;
-							int op = 10;
 							while (op != 0) {
 								system("cls");
 								cout << "===================================" << endl;

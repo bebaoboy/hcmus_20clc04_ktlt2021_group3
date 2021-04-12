@@ -425,7 +425,7 @@ void showMainClass(Class* pClass) {
 			while (o != 0) {
 				int i = 1;
 				cout << "====================================\n\n"
-					<< "\tDanh sach hoc sinh (Bam so de xem): \n";
+					<< "\tDanh sach hoc sinh: \n";
 				while (pStudent != nullptr) {
 					cout << "\t" << i << ". " << pStudent->full_name << endl;
 					pStudent = pStudent->pNext;
@@ -435,14 +435,6 @@ void showMainClass(Class* pClass) {
 				cin >> o;
 				system("cls");
 				if (o == 0) break;
-				else
-				{
-					for (int j = 1; j < i; j++) {
-						pStudent = pStudent->pNext;
-					}
-					showStudent(pStudent->pNext);
-				}
-
 			}
 			break;
 		default:
@@ -451,7 +443,6 @@ void showMainClass(Class* pClass) {
 			break;
 		}
 	}
-
 }
 void showSemester(Semester* pSemester, int year) {
 	//chay list ngpai main
