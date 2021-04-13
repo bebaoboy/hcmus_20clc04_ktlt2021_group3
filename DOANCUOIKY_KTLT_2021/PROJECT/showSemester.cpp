@@ -1,9 +1,13 @@
 ﻿#include "stdafx.h"
 #include "showSemester.h"
 
+void print_SemesterMenu_ofStudent() {
+	cout << "Nhap 0 de quay lai. " << endl;
+}
 void print_SemesterMenu_ofStaff() {
+	print_SemesterMenu_ofStudent();
 	cout << "Nhap 1 de chinh sua thoi gian. " << endl;
-	cout << "Nhap 0 de quay lai." << endl;
+	
 }
 void showSemester_forStaff(Semester *pSemester) {
 	// truyền pSemester = học kì muốn truy cập
@@ -23,6 +27,15 @@ void showSemester_forStaff(Semester *pSemester) {
 	case 1:
 		editSemester(pSemester);
 	}
+}
+void showSemester_forStudent(Semester *pSemester) {
+	cout << "===================================" << endl;
+	cout << "Hoc ki " << pSemester->no << ": " << endl;
+	cout << "Thoi gian bat dau : " << pSemester->begin_date << "/" << pSemester->begin_month << "/" << pSemester->begin_year << endl;
+	cout << "Thoi gian ket thuc: " << pSemester->end_date << "/" << pSemester->end_month << "/" << pSemester->end_year << endl;
+	print_SemesterMenu_ofStudent();
+	cout << "======================================" << endl;
+	// back
 }
 void editSemester(Semester *pSemester) {
 	pSemester = nullptr;
