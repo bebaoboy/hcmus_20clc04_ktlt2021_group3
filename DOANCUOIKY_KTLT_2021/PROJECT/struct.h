@@ -29,7 +29,7 @@ struct Student {
 	Student* pNext;
 	string user_name;
 	string user_password;
-	int user_type = 1;
+	//int user_type = 1;
 
 };
 
@@ -38,7 +38,7 @@ struct UserAccount { //teacher only
 	string user_name;
 	string user_password;
 	string user_class;
-	int user_type = 2; //1 = GV, 2 = SV
+	//int user_type = 2; //1 = GV, 2 = SV
 	UserAccount* pNext;
 };
 

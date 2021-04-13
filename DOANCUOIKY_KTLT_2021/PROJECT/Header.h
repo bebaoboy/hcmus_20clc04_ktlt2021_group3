@@ -21,36 +21,46 @@ bool checkUserName(UserAccount* pUser, string user_name);
 void createSchoolYear(SchoolYear*& pSchoolYear);
 void createSemester(Semester*& pSemester, int year);
 void createClass(Class*& pClass);
-void createStudent(Student*& pStudent);
+void createCourse(Course*& pCourse);
+void createStudent(Student*& pStudent, int &num);
+void createCourseEnrollment(CourseEnrollment*& pEnroll);
+void createStudentCourse(StudentCourse* &pStudentCourse, Course* pCourse);
+void createStudentInCourse(StudentInCourse* &pStuInCourse, Student* pStudent);
 
 //ham show thong tin
 void showSchoolYear(SchoolYear* pSchoolYear);
 void showSemester(Semester* pSemester, int year);
 void showSemesterTime(Semester* pSemester, int year);
-void showClass(Class* pClass);//unfin
+void showClass(Class* pClass);
 void showCourse(Course* pCourse);
 void showStudentCourse(StudentCourse* pStuCourse);
+void showStudentInCourse(StudentInCourse* pStuInCourse);
 void showCourseEnrollment(CourseEnrollment* pEnroll);
 void showStudent(Student* pStudent);
-void showMainClass(Class* pClass);//unfin
-void showStudentList(Student* pStudent);//unfin
-void showStudentInCourse(StudentInCourse* pStuInCourse);
+void showMainClass(Class* pClass);
+void showStudentList(Student* pStudent, int& num);
 
 //ham chinh sua
 void checkDate(int& date, int& month, int& year, int year2);
 void editSchoolYear(SchoolYear*& pSchoolYear);
 void editSemester(Semester*& pSemester, int year);
-void editClass(Class*& pClass); //unfin
+void editClass(Class*& pClass); 
 void editCourse(Course*& pCourse);
+void editStudentCourse(StudentCourse* &pStuCourse);
+void editStudentInCourse(StudentInCourse* &pStuInCourse);
 void editCourseEnrollment(CourseEnrollment*& pEnroll);
-void editStudent(Student*& pStudent); //unfin
+void editStudent(Student*& pStudent); 
 
 //Ham Nhap Xuat
 void inputClass(Class*& pClass, ifstream& input);
 
+//ham delete
+void deleteClass(Class*& pClass);
+
 //Hamtinh diem
 
 //Ham dk hp
+
 
 //Ham xuat file
 void printScoreboard();
