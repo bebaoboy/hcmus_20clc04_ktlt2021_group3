@@ -1,10 +1,10 @@
 Dinh Ba Tien
-dbatien
+dbtien
 123456
 20CLC04
 
 Hoang Anh Tu
-hanhtu
+hatu
 124689
 20CLC03
 
@@ -12,13 +12,54 @@ Ta Thi Nguyet Nga
 ttnnga
 123443
 20CLC07
-
-Tran Quoc Thanh
-tquocthanh
+ 
+Truong Phuoc Loc
+tploc
 123468
 Giao vien bo mon
 
+Do Nguyen Kha
+dnkha
+123678
+Giao vien bo mon
+
 Le Thu Thao
-lthuthao
+ltthao
 124683
 20CLC04
+
+Ngo Quang Huy
+nqhuy
+124679
+20CLC09
+
+Le Van Chanh
+lvchanh
+129844
+20CLC01
+
+Bui Xuan Thang
+bxthang
+123942
+20CLC05
+
+Thai Le Vinh
+tlvinh
+129483
+Giao vien bo mon
+
+Hoang Ha My
+hhmy
+129384
+20CLC06
+
+Nguyen Thi My Dung
+ntmdung
+392481
+20CLC08
+
+Ngo Dinh Hy
+ndhy
+329210
+20CLC10
+
