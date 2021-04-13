@@ -4,7 +4,7 @@ void print_Staff_Menu();
 void print_Student_Menu();
 
 int main() {
-	UserAccount* pUser;
+	UserAccount* pUser = nullptr;
 	SchoolYear* pSchoolYear = nullptr;
 	SchoolYear* pSSchoolYear = pSchoolYear;
 	Semester* pSemester = nullptr;
@@ -28,7 +28,9 @@ int main() {
 
 	//ham input Teacher account
 	{
-		pUser = new UserAccount;
+		ifstream input("TeacherUser.txt");
+		inputTeacher(pUser, input);
+		/*pUser = new UserAccount;
 		pUser->full_name = "H M Bao";
 		pUser->user_class = "20CLC04";
 		pUser->user_name = "bebaoboy";
@@ -45,9 +47,10 @@ int main() {
 		pUser->pNext->pNext->user_class = "20CLC02";
 		pUser->pNext->pNext->user_name = "bebaoboy3";
 		pUser->pNext->pNext->user_password = "abcdefgh";
-		pUser->pNext->pNext->pNext = nullptr;
+		pUser->pNext->pNext->pNext = nullptr;*/
 
 		//showUserAccount(pUser, pUser->pNext->user_name);
+		input.close();
 	}
 
 	//test input year

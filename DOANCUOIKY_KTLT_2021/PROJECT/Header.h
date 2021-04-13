@@ -53,6 +53,7 @@ void editStudent(Student*& pStudent);
 
 //Ham Nhap Xuat
 void inputClass(Class*& pClass, ifstream& input);
+void inputTeacher(UserAccount*& pUser, ifstream& input);
 
 //ham delete
 void deleteClass(Class*& pClass);

@@ -830,6 +830,26 @@ void inputClass(Class*& pClass, ifstream& input) {
 	}
 	pClass->pNext = nullptr;
 }
+void inputTeacher(UserAccount*& pUser, ifstream& input) {
+	UserAccount* pB = pUser;
+	while (!input.eof()) {
+		if (pUser == nullptr) {
+			pUser = new UserAccount;
+			pB = pUser;
+		}
+		else {
+			pUser->pNext = new UserAccount;
+			pUser = pUser->pNext;
+		}
+		getline(input, pUser->full_name, '\n');
+		input >> pUser->user_name;
+		input >> pUser->user_password;
+		input.ignore();
+		getline(input, pUser->user_class, '\n');
+		input.ignore(2, '\n');
+	}
+	pUser = pB;
+}
 
 //ham delete
 void deleteClass(Class* &pClass) {
