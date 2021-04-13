@@ -1,0 +1,23 @@
+Ky thuat lap trinh,CSC10002
+He thong thong tin phuc vu tri tue kinh doanh,CSC12107
+An ninh may tinh,CSC15001
+Automata va ngon ngu hinh thuc,CSC14001
+Chu nghia xa hoi khoa hoc,BAA00103
+Co so du lieu,CSC10006
+Co so tri tue nhan tao,CSC14003
+Dai so tuyen tinh,MTH00030
+Giao duc the chat 1,BAA00021
+HTTT phuc vu tri tue KD,CSC12107
+Khoi nghiep,CSC10103
+Kiem thu phan mem,CSC13003
+Kien truc phan mem,CSC13106
+Kinh te chinh tri Mac-Lenin,BAA00102
+Nhap mon Khoa hoc du lieu,CSC14119
+Phat trien UD HTTT hien dai,CSC12005
+Phuong phap lap trinh huong doi tuong,CSC10003
+Quan ly du an phan mem,CSC13112
+Thiet ke giao dien,CSC13112
+Toan ung dung va thong ke,MTH00051
+Truc quan hoa du lieu,CSC10108
+Vat ly dai cuong 2,PHY00006
+Vi tich phan 2,MTH00006
