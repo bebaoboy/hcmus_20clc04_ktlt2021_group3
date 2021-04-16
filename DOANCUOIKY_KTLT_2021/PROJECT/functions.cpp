@@ -244,15 +244,13 @@ void createSemester(Semester*& pSemester, int year) {
 	cin >> i;
 
 }
-
 void createClass(Class*& pClass) {
 
 }
-
 void createCourse(Course*& pCourse) {
 
 }
-void createStudent(Student*& pStudent, int &num) {
+void createStudent(Student*& pStudent, int& num) {
 	system("cls");
 	if (pStudent == nullptr)
 		pStudent = new Student;
@@ -261,30 +259,46 @@ void createStudent(Student*& pStudent, int &num) {
 		pStudent = pStudent->pNext;
 	}
 	int opt = 10;
-		string n = "";
-		cout << "===================================\n\n"
-			<< "\tNhap 0 de quay lai.\n"
-			<< "\tNhap Fullname: ";
-		cin.ignore();
-		getline(cin, n, '\n');
-		if (n == "0") return;
-		num++;
-		pStudent->full_name = n;
-		cout << "\tNhap MSSV: ";
-		cin >> pStudent->id;
-		cout << "\tNhap gioi tinh (nam = M, nu = F): ";
-		cin >> pStudent->gender;
-		cout << "\tNhap ngay sinh: dd/mm/yyyy: ";
-		getline(cin, pStudent->dob, '/');
-		getline(cin, pStudent->mob, '/');
-		getline(cin, pStudent->yob, '\n');
-		pStudent->user_name = pStudent->id;
-		pStudent->user_password = "";
-		pStudent->user_password = pStudent->user_password + pStudent->dob + pStudent->mob + pStudent->yob;
-		pStudent->pStuCourse = nullptr;
-		pStudent->pNext = nullptr;
+	string n = "";
+	cout << "===================================\n\n"
+		<< "\tNhap 0 de quay lai.\n"
+		<< "\tNhap Fullname: ";
+	cin.ignore();
+	getline(cin, n, '\n');
+	if (n == "0") return;
+	num++;
+	pStudent->full_name = n;
+	cout << "\tNhap MSSV: ";
+	cin >> pStudent->id;
+	cout << "\tNhap gioi tinh (nam = M, nu = F): ";
+	cin >> pStudent->gender;
+	cout << "\tNhap ngay sinh: dd/mm/yyyy: ";
+	getline(cin, pStudent->dob, '/');
+	getline(cin, pStudent->mob, '/');
+	getline(cin, pStudent->yob, '\n');
+	pStudent->user_name = pStudent->id;
+	pStudent->user_password = "";
+	pStudent->user_password = pStudent->user_password + pStudent->dob + pStudent->mob + pStudent->yob;
+	pStudent->pStuCourse = nullptr;
+	pStudent->pNext = nullptr;
+	createTimeTable(pStudent);
 }
-
+void createTimeTable(Student* pStudent) {
+	pStudent->pTable = new Time[6];
+	Time* p = pStudent->pTable;
+	p[0].day = "Mon";
+	p[1].day = "Tue";
+	p[2].day = "Wed";
+	p[3].day = "Thu";
+	p[4].day = "Fri";
+	p[5].day = "Sat";
+	for (int i = 0; i <= 5; i++) {
+		p[i].session = new string[4];
+		for (int j = 0; j < 4; j++) {
+			p[i].session[j] = "0";
+		}
+	}
+}
 
 //ham xem
 void showStudent(Student* pStudent) {
@@ -357,12 +371,87 @@ void showStudentList(Student* pStudent, int &num) {
 		}
 		else
 		{	pStudent = pB;
+		while (o > i) {
+			cout << "\tSo khong hop le, vui long nhap lai: ";
+			cin >> o;
+		}
 			for (int j = 1; j < o; j++) {
 				pStudent = pStudent->pNext;
 			}
 			showStudent(pStudent);
 		}
 
+	}
+}
+void showCourse(Course* pCourse) {
+	int o = 10;
+	while (o != 0) {
+		system("cls");
+		cout << "================================\n\n";
+		cout << "\tTen khoa hoc: " << pCourse->course_name << endl
+			<< "\tMa hoc phan: " << pCourse->course_id << endl
+			<< "\tTen GVLT: " << pCourse->course_mainteacher << endl
+			<< "\tTen GVTH: " << pCourse->course_name << endl
+			<< "\tSo tin chi: " << pCourse->num_of_credit << endl
+			<< "\tSo hoc sinh toi da: " << pCourse->max_student << endl
+			<< "\tSo hoc sinh da dang ky: " << pCourse->num_of_student << endl;
+		cout << "\tThoi gian hoc: \n";
+		cout << "\tS1 = 7h30, S2 = 9h30, S3 = 13h30, S4 = 15h30\n";
+		
+		Time* pT = pCourse->pTime;
+		for (int i = 0; i < 6; i++) {
+			cout << "\t" << pT[i].day << ": ";
+			for (int j = 0; j < 4; j++) {
+				if (pT[i].session[j] == "X")
+					cout << "\tS" << j;
+				cout << " ";
+			}
+			cout << endl;
+		}
+		cout << "\n\tNhap 0 de quay lai.";
+		cin >> o;
+	}
+}
+void showCourseList(Course* pCourse) {
+	int o = 10;	
+	Course* pB = pCourse;
+	while (o != 0) {
+		pCourse = pB;
+		system("cls");
+		cout << "================================\n\n"
+			<< "\tDanh sach khoa hoc (Bam so tuong ung de truy cap): \n";
+		int i = 1;
+		while (pCourse != nullptr) {
+			cout << "\t";
+			cout << i << ". " << pCourse->course_name << endl;
+			pCourse = pCourse->pNext;
+			i++;
+		}
+		pCourse = pB;
+		cout << "\tBam 0 de quay lai\n"
+			<< "\tBam -1 + so thu tu de xoa khoa hoc\n"
+			<< "\tBam 1 de them khoa hoc";
+		cin >> o;
+		switch (o) {
+		case 0:
+			return;
+		case 1:
+			//them khoa hoc
+			break;
+		case -1:
+			//xoa khoa hoc
+			break;
+		default:
+			while (o > i) {
+				cout << "\tSo khong hop le, vui long nhap lai: ";
+				cin >> o;
+			}
+			for (int j = 1; j < o; j++) {
+				pCourse = pCourse->pNext;
+			}
+			showCourse(pCourse);
+			break;
+		}
 	}
 }
 void showClass(Class* pClass) {
@@ -786,6 +875,45 @@ void editStudent(Student*& pStudent) {
 }
 
 //ham input
+void inputSchoolYear(SchoolYear*& pSchoolYear) {
+	pSchoolYear = new SchoolYear;
+	pSchoolYear->begin_year = 2020;
+	pSchoolYear->end_year = 2021;
+	pSchoolYear->pSemester = new Semester;
+	Semester* p = pSchoolYear->pSemester;
+	p->no = 1;
+	p->begin_date = 1;
+	p->begin_month = 1;
+	p->begin_year = 2020;
+	p->end_date = 1;
+	p->end_month = 4;
+	p->end_year = 2020;
+
+	p->pNext = new Semester;
+	p = p->pNext;
+	p->no = 2;
+	p->begin_date = 1;
+	p->begin_month = 5;
+	p->begin_year = 2020;
+	p->end_date = 1;
+	p->end_month = 7;
+	p->end_year = 2020;
+
+	p->pNext = new Semester;
+	p = p->pNext;
+	p->no = 3;
+	p->begin_date = 1;
+	p->begin_month = 8;
+	p->begin_year = 2020;
+	p->end_date = 1;
+	p->end_month = 10;
+	p->end_year = 2020;
+	p->pNext = nullptr;
+
+	p->pClass = nullptr;
+	p->pCourse = nullptr;
+	p->pEnroll = nullptr;
+}
 void inputClass(Class*& pClass, ifstream& input) {
 	if (pClass == nullptr)
 		pClass = new Class;
@@ -826,6 +954,7 @@ void inputClass(Class*& pClass, ifstream& input) {
 		//getline(input, n, ','); //cmnd
 		pTemp->mainclass = pClass->class_name;
 		pTemp->pNext = nullptr;
+		createTimeTable(pTemp);
 		if (pClass->pStudent == nullptr) pClass->pStudent = pTemp;
 	}
 	pClass->pNext = nullptr;
@@ -847,8 +976,70 @@ void inputTeacher(UserAccount*& pUser, ifstream& input) {
 		input.ignore();
 		getline(input, pUser->user_class, '\n');
 		input.ignore(2, '\n');
+		pUser->pNext = nullptr;
 	}
 	pUser = pB;
+}
+void inputCourse(Course*& pCourse, ifstream& input) {
+	Course* pB = pCourse;
+	//int l = 1;
+	while (!input.eof()) {
+		if (pCourse == nullptr) {
+			pCourse = new Course;
+			pB = pCourse;
+		}
+		else {
+			pCourse->pNext = new Course;
+			pCourse = pCourse->pNext;
+		}
+		pCourse->pTime = new Time[6];
+		Time* p = pCourse->pTime;
+		p[0].day = "Mon";
+		p[1].day = "Tue";
+		p[2].day = "Wed";
+		p[3].day = "Thu";
+		p[4].day = "Fri";
+		p[5].day = "Sat";
+		for (int i = 0; i <= 5; i++) {
+			p[i].session = new string[4];
+			for (int j = 0; j < 4; j++) {
+				p[i].session[j] = "0";
+			}
+		}
+
+		string n = "";
+		char _ = ' ';
+		getline(input, pCourse->course_name, ',');
+		getline(input, pCourse->course_id, ',');
+		getline(input, n, ',');
+		pCourse->course_class = " ";
+		pCourse->num_of_credit = stoi(n);
+		pCourse->num_of_student = 0;
+		getline(input, pCourse->course_mainteacher, ',');
+		getline(input, pCourse->course_teacher, ',');
+		
+		int i = 0;
+		
+		for (int j = 1; j <= pCourse->num_of_credit; j++) {
+			getline(input, n, '(');
+			for (i = 0; i < 6; i++) {
+				if (pCourse->pTime[i].day == n) {
+					break;
+				}
+			}
+			getline(input, n, ')');
+			pCourse->pTime[i].session[stoi(n)-1] = "X";
+			if (j < pCourse->num_of_credit)
+				input >> _;
+			else
+				input.ignore(2);
+		}
+
+		pCourse->pNext = nullptr;
+		pCourse->pStuInCourse = nullptr;
+		//l++;
+	}
+	pCourse = pB;
 }
 
 //ham delete
@@ -860,4 +1051,11 @@ void deleteClass(Class* &pClass) {
 		delete pTmp;
 	}
 	delete pClass;
+}
+void deleteUser(UserAccount*& pUser) {
+	while (pUser != nullptr) {
+		UserAccount* p = pUser;
+		pUser = pUser->pNext;
+		delete p;
+	}
 }

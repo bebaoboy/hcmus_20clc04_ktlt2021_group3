@@ -26,12 +26,14 @@ void createStudent(Student*& pStudent, int &num);
 void createCourseEnrollment(CourseEnrollment*& pEnroll);
 void createStudentCourse(StudentCourse* &pStudentCourse, Course* pCourse);
 void createStudentInCourse(StudentInCourse* &pStuInCourse, Student* pStudent);
+void createTimeTable(Student* pStudent);
 
 //ham show thong tin
 void showSchoolYear(SchoolYear* pSchoolYear);
 void showSemester(Semester* pSemester, int year);
 void showSemesterTime(Semester* pSemester, int year);
 void showClass(Class* pClass);
+void showCourseList(Course* pCourse);
 void showCourse(Course* pCourse);
 void showStudentCourse(StudentCourse* pStuCourse);
 void showStudentInCourse(StudentInCourse* pStuInCourse);
@@ -52,16 +54,20 @@ void editCourseEnrollment(CourseEnrollment*& pEnroll);
 void editStudent(Student*& pStudent); 
 
 //Ham Nhap Xuat
+void inputSchoolYear(SchoolYear* &pSchoolYear);
 void inputClass(Class*& pClass, ifstream& input);
 void inputTeacher(UserAccount*& pUser, ifstream& input);
+void inputCourse(Course*& pCourse, ifstream& input);
 
 //ham delete
 void deleteClass(Class*& pClass);
+void deleteUser(UserAccount*& pUser);
 
 //Hamtinh diem
 
-//Ham dk hp
-
+//Ham dk hp 
+void toStudentCourse(StudentCourse *&pSC, Course *pCourse);
+void toStudentInCourse(StudentInCourse *&pSIC, Course *pCourse);
 
 //Ham xuat file
 void printScoreboard();

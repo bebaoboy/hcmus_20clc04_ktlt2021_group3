@@ -2,6 +2,11 @@
 #define _MY_S_
 #include "Header.h"
 
+struct Time {
+	string day; //mon to sat
+	string *session; //1(7h30), 2(9h30), 3(1h30), 4(15h30)
+};
+
 struct StudentCourse {
 	string course_id;
 	string course_name;
@@ -27,6 +32,7 @@ struct Student {
 	string mainclass;
 	StudentCourse* pStuCourse;
 	Student* pNext;
+	Time* pTable;
 	string user_name;
 	string user_password;
 	//int user_type = 1;
@@ -43,20 +49,21 @@ struct UserAccount { //teacher only
 };
 
 struct Course {
-	string course_id;
 	string course_class;
+	string course_id;
 	string course_name;
 	string course_mainteacher; //gvlt
 	string course_teacher; //gvth
 	int num_of_credit;
-	int max_student;
+	int max_student = 30;
 	int num_of_student;
-	//THOIKHOABIEU ???
+	Time* pTime;
 	StudentInCourse* pStuInCourse;
 	Course* pNext;
 };
 
 struct CourseEnrollment {
+	int status = 0;
 	int start_date, start_month;
 	int end_date, end_month;
 	Course* pCourse;
@@ -79,7 +86,6 @@ struct Semester {
 	CourseEnrollment* pEnroll;
 	Semester* pNext;
 };
-
 
 struct SchoolYear {
 	int begin_year;

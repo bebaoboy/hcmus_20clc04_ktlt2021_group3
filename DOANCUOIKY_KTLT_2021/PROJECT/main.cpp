@@ -8,6 +8,7 @@ int main() {
 	SchoolYear* pSchoolYear = nullptr;
 	SchoolYear* pSSchoolYear = pSchoolYear;
 	Semester* pSemester = nullptr;
+	Course* pCourse = nullptr;
 	Student* pStudent = nullptr;
 	Student* pTemp = nullptr; //of Student
 
@@ -24,7 +25,13 @@ int main() {
 	ifstream input4("Class4.txt");
 	inputClass(pCClass, input4);
 	ifstream input5("Class5.txt");
-	inputClass(pCClass, input5);}
+	inputClass(pCClass, input5);
+	input.close();
+	input2.close();
+	input3.close();
+	input4.close();
+	input5.close();
+	}
 
 	//ham input Teacher account
 	{
@@ -53,45 +60,16 @@ int main() {
 		input.close();
 	}
 
-	//test input year
-	pSchoolYear = new SchoolYear;
-	pSchoolYear->begin_year = 2020;
-	pSchoolYear->end_year = 2021;
-
-	pSchoolYear->pSemester = new Semester;
-	Semester *p = pSchoolYear->pSemester;
-	p->no = 1;
-	p->begin_date = 1;
-	p->begin_month = 1;
-	p->begin_year = 2020;
-	p->end_date = 1;
-	p->end_month = 4;
-	p->end_year = 2020;
-
-	p->pNext = new Semester;
-	p=p->pNext;
-	p->no = 2;
-	p->begin_date = 1;
-	p->begin_month = 5;
-	p->begin_year = 2020;
-	p->end_date = 1;
-	p->end_month = 7;
-	p->end_year = 2020;
-
-	p->pNext = new Semester;
-	p=p->pNext;
-	p->no = 3;
-	p->begin_date = 1;
-	p->begin_month = 8;
-	p->begin_year = 2020;
-	p->end_date = 1;
-	p->end_month = 10;
-	p->end_year = 2020;
-	p->pNext = nullptr;
-
-	p->pClass = nullptr;
-	p->pCourse = nullptr;
-	p->pEnroll = nullptr;
+	//input courses
+	{ifstream inputt("Courses.txt");
+	inputCourse(pCourse, inputt);
+	/*ifstream inputt2("Course2.txt");
+	inputCourse(pCourse, inputt2);
+	ifstream inputt3("Course3.txt");
+	inputCourse(pCourse, inputt3);*/
+	inputt.close();
+	/*inputt2.close();
+	inputt3.close();*/}
 
 	//main program
 	string _ = " ";
@@ -117,12 +95,6 @@ int main() {
 			break;
 		else
 			pCur = pCur->pNext;
-	}
-	
-	Semester* pTempk = pSchoolYear->pSemester;
-	while (pTempk != nullptr) {
-		pTempk->pClass = pClass;
-		pTempk = pTempk->pNext;
 	}
 
 	//neu la gv
@@ -150,6 +122,7 @@ int main() {
 	//neu la sv
 	else {
 		while (pCurClass != nullptr) {
+			//if (pSchoolYear == nullptr) break;
 			pTemp = pCurClass->pStudent;
 			while (pTemp != nullptr) {
 				if (pTemp->id == user_name) break;
@@ -162,7 +135,7 @@ int main() {
 			else
 				break;
 		}
-		if (pCurClass == nullptr) {
+		if (pCurClass == nullptr && pCur==nullptr) {
 			cout << "============================\n\n"
 				<< "\tKhong tim thay tai khoan!\n\n";
 			system("pause");
@@ -194,7 +167,18 @@ teacher:
 	while (option != -1) {
 		print_Staff_Menu();
 		cin >> option;
+		int _ = 0;
 		system("cls");
+
+		if (pSchoolYear != nullptr) {
+			Semester* pTempk = pSchoolYear->pSemester;
+			while (pTempk != nullptr) {
+				pTempk->pClass = pClass;
+				pTempk = pTempk->pNext;
+			}
+			pSchoolYear->pSemester->pCourse = pCourse;
+		}
+
 		switch (option) {
 		case 0:
 			showUserAccount(pUser, pCur->user_name);
@@ -203,13 +187,23 @@ teacher:
 		case 1: {
 			// view school year infor
 			if (pSchoolYear == nullptr) {
-				system("cls");
-				cout << "\n\n\tChua co nam hoc nao!\n\tVui long nhap 0 de tao nam hoc:\n\n";
-				cin >> option;
-				createSchoolYear(pSSchoolYear);
-				if (pSchoolYear == nullptr) pSchoolYear = pSSchoolYear;
-				
-				
+				cout << "==============================\n\n"
+					<< "\tChua co nam hoc nao!\n"
+					<< "\tNhap nam hoc thu cong (1) hay tu dong (2)?";
+				cin >> _;
+				if (_ == 2) {
+					cout << "\tDang nhap thong tin nam hoc ...\n";
+					inputSchoolYear(pSchoolYear);
+					cout << "\tNhap thanh cong! Bam -1 de tiep tuc";
+					cin >> _;
+				}
+				else {
+					system("cls");
+					cout << "\n\n\tChua co nam hoc nao!\n\tVui long nhap 0 de tao nam hoc:\n\n";
+					cin >> option;
+					createSchoolYear(pSSchoolYear);
+					if (pSchoolYear == nullptr) pSchoolYear = pSSchoolYear;
+				}
 				//pSchoolYear = new SchoolYear;
 			}
 			else {
@@ -276,7 +270,7 @@ teacher:
 								showClass(pTemp->pClass);
 								break;
 							case 2:
-								//show course
+								showCourseList(pTemp->pCourse);
 								break;
 							case 3:
 								showSemesterTime(pTemp, pSSchoolYear->begin_year);
@@ -340,8 +334,16 @@ student:
 				cout << "\t1. Xem thong tin hoc ki." << endl;
 				cout << "\t2. Xem thoi gian nam hoc. " << endl;
 				cout << "\tTiep tuc voi:";
-				Semester* pTemp = pSSchoolYear->pSemester;
+
 				cin >> option1;
+				if (pSSchoolYear == nullptr) {
+					system("cls");
+					cout << "\tChua co du lieu. Vui long quay lai sau!\n\tBam -1 de quay lai.\n";
+					cin >> option1;
+					continue;
+				}
+				
+				Semester* pTemp = pSSchoolYear->pSemester;
 				system("cls");
 				switch (option1) {
 				case 0:
@@ -351,7 +353,8 @@ student:
 				case 1: {
 					// showSemester
 					int no = 0;
-					Semester* pTemp = pSSchoolYear->pSemester;
+
+					//Semester* pTemp = pSSchoolYear->pSemester;
 					cout << "\tChon hoc ky: \n";
 
 					while (pTemp->pNext != nullptr) {
@@ -470,18 +473,13 @@ student:
 	system("cls");
 }
 	
-	cout << "\tChuong trinh ket thuc!!!\n";
+	cout << "\n\n\tChuong trinh ket thuc!!!\n\n";
 
 	//ham delete 
 	{
-
+		deleteClass(pClass);
+		deleteUser(pUser);
 	}
-
-	/*input.close();
-	input2.close();
-	input3.close();
-	input4.close();
-	input5.close();*/
 
 	return 0;
 }
@@ -496,7 +494,6 @@ void print_Staff_Menu() {
 	cout << "\t-1. Dang xuat. " << endl;
 	cout << "\tTiep tuc voi : ";
 }
-
 void print_Student_Menu() {
 	cout << "=======================================" << endl;
 	cout << "           WELCOME, STUDENT !             " << endl;

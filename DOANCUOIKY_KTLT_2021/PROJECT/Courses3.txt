@@ -1,0 +1,7 @@
+Phuong phap lap trinh huong doi tuong,CSC10003
+Quan ly du an phan mem,CSC13112
+Thiet ke giao dien,CSC13112
+Toan ung dung va thong ke,MTH00051
+Truc quan hoa du lieu,CSC10108
+Vat ly dai cuong 2,PHY00006
+Vi tich phan 2,MTH00006

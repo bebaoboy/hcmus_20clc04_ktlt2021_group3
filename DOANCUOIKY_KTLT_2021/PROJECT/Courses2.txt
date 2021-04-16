@@ -1,0 +1,8 @@
+Giao duc the chat 1,BAA00021
+HTTT phuc vu tri tue KD,CSC12107
+Khoi nghiep,CSC10103
+Kiem thu phan mem,CSC13003
+Kien truc phan mem,CSC13106
+Kinh te chinh tri Mac-Lenin,BAA00102
+Nhap mon Khoa hoc du lieu,CSC14119
+Phat trien UD HTTT hien dai,CSC12005

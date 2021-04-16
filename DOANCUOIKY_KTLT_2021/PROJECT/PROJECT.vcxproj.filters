@@ -49,5 +49,17 @@
     <Text Include="TeacherUser.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="Courses.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Courses2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Courses3.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="StudentList.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

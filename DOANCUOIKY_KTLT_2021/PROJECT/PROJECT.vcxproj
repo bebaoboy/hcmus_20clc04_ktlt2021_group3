@@ -152,6 +152,10 @@
     <Text Include="Class5.txt" />
     <Text Include="Class2.txt" />
     <Text Include="Class3.txt" />
+    <Text Include="Courses.txt" />
+    <Text Include="Courses2.txt" />
+    <Text Include="Courses3.txt" />
+    <Text Include="StudentList.txt" />
     <Text Include="TeacherUser.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
