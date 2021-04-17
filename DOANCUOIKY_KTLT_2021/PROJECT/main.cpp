@@ -75,7 +75,7 @@ int main() {
 	string _ = " ";
 	while ( _ != "-1")
 	{
-
+		pSchoolYear = pSSchoolYear;
 	//dang nhap
 	string user_name = " ";
 	string user_password = " ";
@@ -170,13 +170,13 @@ teacher:
 		int _ = 0;
 		system("cls");
 
-		if (pSchoolYear != nullptr) {
-			Semester* pTempk = pSchoolYear->pSemester;
+		if (pSSchoolYear != nullptr) {
+			Semester* pTempk = pSSchoolYear->pSemester;
 			while (pTempk != nullptr) {
 				pTempk->pClass = pClass;
 				pTempk = pTempk->pNext;
 			}
-			pSchoolYear->pSemester->pCourse = pCourse;
+			pSSchoolYear->pSemester->pCourse = pCourse;
 		}
 
 		switch (option) {
@@ -186,14 +186,14 @@ teacher:
 
 		case 1: {
 			// view school year infor
-			if (pSchoolYear == nullptr) {
+			if (pSSchoolYear == nullptr) {
 				cout << "==============================\n\n"
 					<< "\tChua co nam hoc nao!\n"
 					<< "\tNhap nam hoc thu cong (1) hay tu dong (2)?";
 				cin >> _;
 				if (_ == 2) {
 					cout << "\n\tDang nhap thong tin nam hoc ...\n";
-					inputSchoolYear(pSchoolYear);
+					inputSchoolYear(pSSchoolYear);
 					cout << "\tNhap thanh cong! Bam -1 de tiep tuc\n\t";
 					cin >> _;
 				}
@@ -207,7 +207,7 @@ teacher:
 				//pSchoolYear = new SchoolYear;
 			}
 			else {
-				pSSchoolYear = pSchoolYear;
+				//pSSchoolYear = pSchoolYear;
 				int option1 = 1;
 				system("CLS");
 				while (option1 != 0) {
@@ -219,6 +219,7 @@ teacher:
 					cout << "\tTiep tuc voi:";
 					cin >> option1;
 					system("cls");
+					Semester* p = pSSchoolYear->pSemester;
 					switch (option1) {
 					case 0:
 						// back
@@ -282,6 +283,7 @@ teacher:
 							}
 						}
 						if (option == 0) continue;
+						pSSchoolYear->pSemester = p;
 						break;
 					}
 
