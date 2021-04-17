@@ -10,6 +10,12 @@ struct Time {
 struct StudentCourse {
 	string course_id;
 	string course_name;
+	string course_class;
+	int num_of_credit;
+	double final_mark;
+	double mmidterm_mark;
+	double total_mark;
+	double GPA;
 	StudentCourse* pNext;
 };
 
@@ -19,6 +25,11 @@ struct StudentInCourse {
 	char gender;
 	int dob, mob, yob;
 	string mainclass;
+	int course_class;
+	double final_mark;
+	double mmidterm_mark;
+	double total_mark;
+	double GPA;
 	StudentInCourse* pNext;
 };
 
@@ -35,6 +46,7 @@ struct Student {
 	Time* pTable;
 	string user_name;
 	string user_password;
+	double GPA;
 	//int user_type = 1;
 
 };
@@ -49,7 +61,6 @@ struct UserAccount { //teacher only
 };
 
 struct Course {
-	string course_class;
 	string course_id;
 	string course_name;
 	string course_mainteacher; //gvlt
@@ -57,6 +68,7 @@ struct Course {
 	int num_of_credit;
 	int max_student = 30;
 	int num_of_student;
+	double class_GPA;
 	Time* pTime;
 	StudentInCourse* pStuInCourse;
 	Course* pNext;
@@ -74,6 +86,7 @@ struct Class {
 	string class_teacher; //gvcn
 	int num_of_student;
 	Student* pStudent;
+	double GPA;
 	Class* pNext;
 };
 

@@ -192,9 +192,9 @@ teacher:
 					<< "\tNhap nam hoc thu cong (1) hay tu dong (2)?";
 				cin >> _;
 				if (_ == 2) {
-					cout << "\tDang nhap thong tin nam hoc ...\n";
+					cout << "\n\tDang nhap thong tin nam hoc ...\n";
 					inputSchoolYear(pSchoolYear);
-					cout << "\tNhap thanh cong! Bam -1 de tiep tuc";
+					cout << "\tNhap thanh cong! Bam -1 de tiep tuc\n\t";
 					cin >> _;
 				}
 				else {

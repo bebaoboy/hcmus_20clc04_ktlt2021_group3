@@ -61,9 +61,12 @@ void inputCourse(Course*& pCourse, ifstream& input);
 
 //ham delete
 void deleteClass(Class*& pClass);
+void deleteCourse(Course*& pCourse);
+void deleteStudent(Student*& pStudent);
 void deleteUser(UserAccount*& pUser);
 
-//Hamtinh diem
+//Ham phu
+void courseClass(StudentInCourse* p);
 
 //Ham dk hp 
 void toStudentCourse(StudentCourse *&pSC, Course *pCourse);
