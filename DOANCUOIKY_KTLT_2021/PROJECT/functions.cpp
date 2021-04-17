@@ -499,7 +499,7 @@ void showCourseList(Course* pCourse) {
 		}
 	}
 }
-void showClass(Class* pClass) {
+void showClass(Class* &pClass) {
 	int opt = 100;
 	while (opt != 0) {
 		system("cls");
@@ -684,12 +684,14 @@ void showSemesterTime(Semester* pSemester, int year) {
 void showSchoolYear(SchoolYear* pSchoolYear) {
 	system("cls");
 	int opt = 10;
+	Semester* p = pSchoolYear->pSemester;
 	while (opt != 0) {
 		system("cls");
 		cout << "===================================\n\n"
 			<< "\tNam hoc: ";
 		cout << pSchoolYear->begin_year << " / " << pSchoolYear->end_year << endl;
 		cout << "\tThoi gian bat dau: " << pSchoolYear->pSemester->begin_date << "/" << pSchoolYear->pSemester->begin_month << "/" << pSchoolYear->pSemester->begin_year << endl;
+		
 		while (pSchoolYear->pSemester->pNext != nullptr) {
 			pSchoolYear->pSemester = pSchoolYear->pSemester->pNext;
 		}
@@ -709,6 +711,7 @@ void showSchoolYear(SchoolYear* pSchoolYear) {
 			break;
 		}
 	}
+	pSchoolYear->pSemester = p;
 }
 
 //ham edit

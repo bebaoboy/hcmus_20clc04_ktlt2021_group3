@@ -32,7 +32,7 @@ void createTimeTable(Student* pStudent);
 void showSchoolYear(SchoolYear* pSchoolYear);
 void showSemester(Semester* pSemester, int year);
 void showSemesterTime(Semester* pSemester, int year);
-void showClass(Class* pClass);
+void showClass(Class* &pClass);
 void showCourseList(Course* pCourse);
 void showCourse(Course* pCourse);
 void showStudentCourse(StudentCourse* pStuCourse);
