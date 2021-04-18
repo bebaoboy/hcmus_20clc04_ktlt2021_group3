@@ -60,16 +60,17 @@ int main() {
 		input.close();
 	}
 
+	Course* pCourse2 = nullptr, * pCourse3 = nullptr;
 	//input courses
 	{ifstream inputt("Courses.txt");
 	inputCourse(pCourse, inputt);
-	/*ifstream inputt2("Course2.txt");
-	inputCourse(pCourse, inputt2);
-	ifstream inputt3("Course3.txt");
-	inputCourse(pCourse, inputt3);*/
+	ifstream inputt2("Courses2.txt");
+	inputCourse(pCourse2, inputt2);
+	ifstream inputt3("Courses3.txt");
+	inputCourse(pCourse3, inputt3);
 	inputt.close();
-	/*inputt2.close();
-	inputt3.close();*/}
+	inputt2.close();
+	inputt3.close();}
 
 	//main program
 	string _ = " ";
@@ -178,6 +179,8 @@ teacher:
 				pTempk = pTempk->pNext;
 			}
 			pSSchoolYear->pSemester->pCourse = pCourse;
+			pSSchoolYear->pSemester->pNext->pCourse = pCourse2;
+			pSSchoolYear->pSemester->pNext->pNext->pCourse = pCourse3;
 		}
 
 		switch (option) {
@@ -230,7 +233,7 @@ teacher:
 						//chay list
 						int no = 0;
 						Semester* pTemp = pSSchoolYear->pSemester;
-						cout << "\tChon hoc ky: \n";
+						cout << "\n\tChon hoc ky: \n";
 
 						while (pTemp->pNext != nullptr) {
 							cout << "\t\tHoc ky " << pTemp->no << endl;
@@ -363,7 +366,7 @@ student:
 					int no = 0;
 
 					//Semester* pTemp = pSSchoolYear->pSemester;
-					cout << "\tChon hoc ky: \n";
+					cout << "\n\tChon hoc ky: \n";
 
 					while (pTemp->pNext != nullptr) {
 						cout << "\t\tHoc ky " << pTemp->no << endl;

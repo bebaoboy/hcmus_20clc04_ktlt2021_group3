@@ -26,14 +26,14 @@ void createStudent(Student*& pStudent, int &num);
 void createCourseEnrollment(CourseEnrollment*& pEnroll);
 void createStudentCourse(StudentCourse* &pStudentCourse, Course* pCourse);
 void createStudentInCourse(StudentInCourse* &pStuInCourse, Student* pStudent);
-void createTimeTable(Student* pStudent);
+void createTimeTable(Time*& p);
 
 //ham show thong tin
 void showSchoolYear(SchoolYear* pSchoolYear);
 void showSemester(Semester* pSemester, int year);
 void showSemesterTime(Semester* pSemester, int year);
 void showClass(Class* &pClass);
-void showCourseList(Course* pCourse);
+void showCourseList(Course* &pCourse);
 void showCourse(Course* pCourse);
 void showStudentCourse(StudentCourse* pStuCourse);
 void showStudentInCourse(StudentInCourse* pStuInCourse);
@@ -58,11 +58,13 @@ void inputSchoolYear(SchoolYear* &pSchoolYear);
 void inputClass(Class*& pClass, ifstream& input);
 void inputTeacher(UserAccount*& pUser, ifstream& input);
 void inputCourse(Course*& pCourse, ifstream& input);
+void inputTimeTable(Time* p, int a, int b);
 
 //ham delete
 void deleteClass(Class*& pClass);
 void deleteCourse(Course*& pCourse);
 void deleteStudent(Student*& pStudent);
+void deleteTimeTable(Time*& p);
 void deleteUser(UserAccount*& pUser);
 
 //Ham phu

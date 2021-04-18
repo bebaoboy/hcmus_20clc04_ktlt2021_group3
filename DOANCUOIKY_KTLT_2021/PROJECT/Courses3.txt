@@ -1,7 +1,7 @@
-Phuong phap lap trinh huong doi tuong,CSC10003
-Quan ly du an phan mem,CSC13112
-Thiet ke giao dien,CSC13112
-Toan ung dung va thong ke,MTH00051
-Truc quan hoa du lieu,CSC10108
-Vat ly dai cuong 2,PHY00006
-Vi tich phan 2,MTH00006
+Phuong phap lap trinh huong doi tuong,CSC10003,4,Mr. Ngo Dinh Hy,Ms. Le Bao Ngoc,Tue(1),Tue(2),Tue(3),Tue(4),
+Quan ly du an phan mem,CSC13112,4,Mr. Dinh Thai Lam Quang,Mr. Ngo Ha Lam,Tue(3),Tue(4),Thu(1),Thu(2),
+Thiet ke giao dien,CSC13112,4,Mr. Pham Thai Hung,Ms. Dang Thuy Tram,Tue(1),Tue(2),Sat(1),Sat(2),
+Toan ung dung va thong ke,MTH00051,4,Mr. Le Van Chanh,Ms. Ta Thi Nguyet Nga,Mon(1),Mon(2),Thu(1),Thu(2),
+Truc quan hoa du lieu,CSC10108,4,Mr. Huynh Minh Thong,Mr. Le Van Tam,Mon(3),Fri(1),Wed(3),Wed(4),
+Vat ly dai cuong 2,PHY00006,4,Ms. Nguyen Thi Thu,Ms. Le Thanh Ngan,Mon(1),Mon(2),Thu(3),Thu(4),
+Vi tich phan 2,MTH00006,4,Mr. Le Van Chanh,Mr. Ngo Xuan Thang,Mon(1),Mon(2),Wed(3),Wed(4),

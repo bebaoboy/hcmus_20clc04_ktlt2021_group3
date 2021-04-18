@@ -245,27 +245,96 @@ void createSemester(Semester*& pSemester, int year) {
 
 }
 void createClass(Class*& pClass) {
+	system("cls");
+	int o = 10;
 	Class* pB = pClass;
-	while (pB->pNext != nullptr) {
+	if (pClass == nullptr) {
+		pClass = new Class;
+		pB = pClass;
+	}
+	else {
+		while (pB->pNext != nullptr)
+			pB = pB->pNext;
+		pB->pNext = new Class;
 		pB = pB->pNext;
+	}
+	while (o != 0) {
+
 	}
 }
 void createCourse(Course*& pCourse) {
+	system("cls");
+	int o = 10;
 	Course* pB = pCourse;
-	while (pB->pNext != nullptr) {
-		pB = pB->pNext;
+	if (pCourse == nullptr) {
+		pCourse = new Course;
+		pB = pCourse;
+	}	
+	else {
+		while (pB->pNext != nullptr)
+			pB = pB->pNext;
+		pB->pNext = new Course;
+		pB= pB->pNext;
 	}
+
+	while (o != 0) {
+		string n = "";
+		cout << "====================================\n\n"
+			<< "\tNhap 0 de quay lai!.\n";
+		cout << "\tNhap ten hoc phan: ";
+		cin.ignore();
+		getline(cin, n);
+		if (n == "0") {
+			delete pB;
+			return;
+		}
+		pB->course_name = n;
+		cout << "\tNhap ma hoc phan: ";
+		cin >> pB->course_id;
+		cout << "\tNhap ten giao vien ly thuyet: ";
+		cin.ignore();
+		getline(cin, pB->course_mainteacher);
+		cout << "\tNhap ten giao vien thuc hanh: ";
+		getline(cin, pB->course_teacher);
+		cout << "\tNhap so tin chi: ";
+		cin >> pB->num_of_credit;
+		cout << "\n\tNhap thoi gian hoc: Ngay trong tuan + Tiet hoc \n\n"
+			<< "\tNgay trong tuan: 2 -> 7 cho thu 2 -> thu 7\n"
+			<< "\tTiet hoc: S1 = 7h30, S2 = 9h30, S3 = 13h30, S4 = 15h30\n\n";
+		cout << "\tVi du: Thu 2 (tiet 1) thi nhap vao: 2 1\n\tNhap tung tiet hoc mot!\n";
+		cout << "\tNhap -1 de dung lai!\n";
+		
+		createTimeTable(pB->pTime);
+
+		int a = 0, b = 0;
+		while (a != -1) {
+			cout << "\tThoi gian hoc: ";
+			cin >> a;
+			if (a == -1) break;
+			cin >> b;
+			inputTimeTable(pB->pTime, a, b);
+		}
+
+		pB->pNext = nullptr;
+		pB->pStuInCourse = nullptr;
+		cout << "\tNhap khoa hoc thanh cong. Nhan 0 de quay lai!\n";
+		cin >> o;
+		system("cls");
+	}
+	
 }
 void createStudent(Student*& pStudent, int& num) {
 	system("cls");
-
-	if (pStudent == nullptr)
+	Student* pS = pStudent;
+	if (pStudent == nullptr) {
 		pStudent = new Student;
+		pS = pStudent;
+	}	
 	else {
-		while (pStudent->pNext != nullptr)
-			pStudent = pStudent->pNext;
-		pStudent->pNext = new Student;
-		pStudent = pStudent->pNext;
+		while (pS->pNext != nullptr)
+			pS = pS->pNext;
+		pS->pNext = new Student;
+		pS = pS->pNext;
 	}
 	int opt = 10;
 	string n = "";
@@ -274,27 +343,34 @@ void createStudent(Student*& pStudent, int& num) {
 		<< "\tNhap Fullname: ";
 	cin.ignore();
 	getline(cin, n, '\n');
-	if (n == "0") return;
+	if (n == "0") {
+		delete pS;
+		return;
+	}
 	num++;
-	pStudent->full_name = n;
+	pS->full_name = n;
 	cout << "\tNhap MSSV: ";
-	cin >> pStudent->id;
+	cin >> pS->id;
 	cout << "\tNhap gioi tinh (nam = M, nu = F): ";
-	cin >> pStudent->gender;
+	cin >> pS->gender;
 	cout << "\tNhap ngay sinh: dd/mm/yyyy: ";
-	getline(cin, pStudent->dob, '/');
-	getline(cin, pStudent->mob, '/');
-	getline(cin, pStudent->yob, '\n');
-	pStudent->user_name = pStudent->id;
-	pStudent->user_password = "";
-	pStudent->user_password = pStudent->user_password + pStudent->dob + pStudent->mob + pStudent->yob;
-	pStudent->pStuCourse = nullptr;
-	pStudent->pNext = nullptr;
-	createTimeTable(pStudent);
+	getline(cin, pS->dob, '/');
+	getline(cin, pS->mob, '/');
+	getline(cin, pS->yob, '\n');
+	pS->user_name = pStudent->id;
+	pS->user_password = "";
+	pS->user_password = pS->user_password + pS->dob + pS->mob + pS->yob;
+	pS->pStuCourse = nullptr;
+	pS->pNext = nullptr;
+	createTimeTable(pS->pTable);
+	cout << "\tNhap hoc sinh thanh cong. Nhap 0 de quay lai!\n";
+	cin >> n;
+	system("cls");
 }
-void createTimeTable(Student* pStudent) {
-	pStudent->pTable = new Time[6];
-	Time* p = pStudent->pTable;
+void createTimeTable(Time* &p) {
+	//create student
+	//input class
+	p = new Time[6];
 	p[0].day = "Mon";
 	p[1].day = "Tue";
 	p[2].day = "Wed";
@@ -422,28 +498,29 @@ void showCourse(Course* pCourse) {
 		cout << "\tTen khoa hoc: " << pCourse->course_name << endl
 			<< "\tMa hoc phan: " << pCourse->course_id << endl
 			<< "\tTen GVLT: " << pCourse->course_mainteacher << endl
-			<< "\tTen GVTH: " << pCourse->course_name << endl
+			<< "\tTen GVTH: " << pCourse->course_teacher << endl
 			<< "\tSo tin chi: " << pCourse->num_of_credit << endl
 			<< "\tSo hoc sinh toi da: " << pCourse->max_student << endl
 			<< "\tSo hoc sinh da dang ky: " << pCourse->num_of_student << endl;
+		//xem thoi gian hoc
 		cout << "\tThoi gian hoc: \n";
 		cout << "\tS1 = 7h30, S2 = 9h30, S3 = 13h30, S4 = 15h30\n";
-		
+		cout << "\t\tS1\tS2\tS3\tS4\n";
 		Time* pT = pCourse->pTime;
 		for (int i = 0; i < 6; i++) {
-			cout << "\t" << pT[i].day << ": ";
+			cout << "\t" << pT[i].day << ":\t";
 			for (int j = 0; j < 4; j++) {
-				if (pT[i].session[j] == "X")
-					cout << "\tS" << j;
-				cout << " ";
+				cout <<  pT[i].session[j] << "\t";
 			}
 			cout << endl;
+			/*if (pT[i].session[j] == "X")
+				cout << "\tS" << j;cout << " ";*/
 		}
 		cout << "\n\tNhap 0 de quay lai.";
 		cin >> o;
 	}
 }
-void showCourseList(Course* pCourse) {
+void showCourseList(Course* &pCourse) {
 	int o = 10;	
 	Course* pB = pCourse;
 	while (o != 0) {
@@ -459,16 +536,16 @@ void showCourseList(Course* pCourse) {
 			i++;
 		}
 		pCourse = pB;
-		Course* pTmp = pCourse;
-		cout << "\tBam 0 de quay lai\n"
+		Course* pTmp = pB;
+		cout << "\n\tBam 0 de quay lai\n"
 			<< "\tBam -1 + so thu tu de xoa khoa hoc\n"
-			<< "\tBam 1 de them khoa hoc\n\t";
+			<< "\tBam -2 de them khoa hoc\n\t";
 		cin >> o;
 		int t = 0;
 		switch (o) {
 		case 0:
 			return;
-		case 1:
+		case -2:
 			//them khoa hoc
 			createCourse(pCourse);
 			break;
@@ -492,9 +569,9 @@ void showCourseList(Course* pCourse) {
 				cin >> o;
 			}
 			for (int j = 1; j < o; j++) {
-				pCourse = pCourse->pNext;
+				pTmp = pTmp->pNext;
 			}
-			showCourse(pCourse);
+			showCourse(pTmp);
 			break;
 		}
 	}
@@ -976,7 +1053,7 @@ void inputClass(Class*& pClass, ifstream& input) {
 		//getline(input, n, ','); //cmnd
 		pTemp->mainclass = pClass->class_name;
 		pTemp->pNext = nullptr;
-		createTimeTable(pTemp);
+		createTimeTable(pTemp->pTable);
 		if (pClass->pStudent == nullptr) pClass->pStudent = pTemp;
 	}
 	pClass->pNext = nullptr;
@@ -1003,8 +1080,8 @@ void inputTeacher(UserAccount*& pUser, ifstream& input) {
 	pUser = pB;
 }
 void inputCourse(Course*& pCourse, ifstream& input) {
-	Course* pB = pCourse;
 	//int l = 1;
+	Course* pB = pCourse;
 	while (!input.eof()) {
 		if (pCourse == nullptr) {
 			pCourse = new Course;
@@ -1014,20 +1091,7 @@ void inputCourse(Course*& pCourse, ifstream& input) {
 			pCourse->pNext = new Course;
 			pCourse = pCourse->pNext;
 		}
-		pCourse->pTime = new Time[6];
-		Time* p = pCourse->pTime;
-		p[0].day = "Mon";
-		p[1].day = "Tue";
-		p[2].day = "Wed";
-		p[3].day = "Thu";
-		p[4].day = "Fri";
-		p[5].day = "Sat";
-		for (int i = 0; i <= 5; i++) {
-			p[i].session = new string[4];
-			for (int j = 0; j < 4; j++) {
-				p[i].session[j] = "0";
-			}
-		}
+		createTimeTable(pCourse->pTime);
 
 		string n = "";
 		char _ = ' ';
@@ -1063,6 +1127,11 @@ void inputCourse(Course*& pCourse, ifstream& input) {
 	}
 	pCourse = pB;
 }
+void inputTimeTable(Time* p, int a, int b) {
+	a -= 2;
+	b -= 1;
+	p[a].session[b] = "X";
+}
 
 //ham dkhp
 void toStudentCourse(StudentCourse*& pSC, Course* pCourse) {
@@ -1082,6 +1151,7 @@ void deleteClass(Class* &pClass) {
 }
 void deleteStudent(Student*& pStudent) {
 	Student* pTmp = pStudent;
+	deleteTimeTable(pStudent->pTable);
 	pStudent = pStudent->pNext;
 	delete pTmp;
 }
@@ -1092,11 +1162,14 @@ void deleteCourse(Course*& pCourse) {
 		p = p->pNext;
 		delete pTmp;
 	}
-	for (int i = 0; i < 6; i++) {
-		delete[] pCourse->pTime[i].session;
-	}
-	delete[] pCourse->pTime;
+	deleteTimeTable(pCourse->pTime);
 	delete pCourse;
+}
+void deleteTimeTable(Time*& p) {
+	for (int i = 0; i < 6; i++) {
+		delete[] p[i].session;
+	}
+	delete[] p;
 }
 void deleteUser(UserAccount*& pUser) {
 	while (pUser != nullptr) {
@@ -1106,7 +1179,8 @@ void deleteUser(UserAccount*& pUser) {
 	}
 }
 void courseClass(StudentInCourse* p) {
-
+	//ham chia lop trong hoc phan
+	//cout ds lop trong 1hp
 }
 void checkDate(int& date, int& month, int& year, int year2) {
 	while (year < year2 || year > year2 + 1) {

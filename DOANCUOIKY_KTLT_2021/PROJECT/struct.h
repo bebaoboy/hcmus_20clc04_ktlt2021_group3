@@ -26,10 +26,10 @@ struct StudentInCourse {
 	int dob, mob, yob;
 	string mainclass;
 	int course_class;
-	double final_mark;
-	double mmidterm_mark;
-	double total_mark;
-	double GPA;
+	double final_mark = 0;
+	double mmidterm_mark = 0;
+	double total_mark = 0;
+	double GPA = 0;
 	StudentInCourse* pNext;
 };
 
@@ -46,7 +46,7 @@ struct Student {
 	Time* pTable;
 	string user_name;
 	string user_password;
-	double GPA;
+	double GPA = 0;
 	//int user_type = 1;
 
 };
@@ -67,8 +67,9 @@ struct Course {
 	string course_teacher; //gvth
 	int num_of_credit;
 	int max_student = 30;
-	int num_of_student;
-	double class_GPA;
+	int num_of_student = 0;
+	int num_of_class = 0;
+	double class_GPA = 0;
 	Time* pTime;
 	StudentInCourse* pStuInCourse;
 	Course* pNext;
@@ -86,7 +87,7 @@ struct Class {
 	string class_teacher; //gvcn
 	int num_of_student;
 	Student* pStudent;
-	double GPA;
+	double GPA = 0;
 	Class* pNext;
 };
 
