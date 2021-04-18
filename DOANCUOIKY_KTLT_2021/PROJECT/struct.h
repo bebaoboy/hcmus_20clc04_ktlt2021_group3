@@ -11,11 +11,13 @@ struct StudentCourse {
 	string course_id;
 	string course_name;
 	string course_class;
+	string course_teacher;
 	int num_of_credit;
-	double final_mark;
-	double mmidterm_mark;
-	double total_mark;
-	double GPA;
+	int num_of_course=0;
+	double final_mark=0;
+	double midterm_mark=0;
+	double total_mark=0;
+	double GPA=0;
 	StudentCourse* pNext;
 };
 
@@ -23,11 +25,11 @@ struct StudentInCourse {
 	string full_name;
 	string id;
 	char gender;
-	int dob, mob, yob;
+	string dob, mob, yob;
 	string mainclass;
 	int course_class;
 	double final_mark = 0;
-	double mmidterm_mark = 0;
+	double midterm_mark = 0;
 	double total_mark = 0;
 	double GPA = 0;
 	StudentInCourse* pNext;
@@ -85,7 +87,7 @@ struct CourseEnrollment {
 struct Class {
 	string class_name;
 	string class_teacher; //gvcn
-	int num_of_student;
+	int num_of_student=0;
 	Student* pStudent;
 	double GPA = 0;
 	Class* pNext;

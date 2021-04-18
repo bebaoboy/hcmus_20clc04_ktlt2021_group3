@@ -37,7 +37,6 @@ void showCourseList(Course* &pCourse);
 void showCourse(Course* pCourse);
 void showStudentCourse(StudentCourse* pStuCourse);
 void showStudentInCourse(StudentInCourse* pStuInCourse);
-void showCourseEnrollment(CourseEnrollment* pEnroll);
 void showStudent(Student* pStudent);
 void showMainClass(Class* pClass);
 void showStudentList(Student* pStudent, int& num);
@@ -67,12 +66,12 @@ void deleteStudent(Student*& pStudent);
 void deleteTimeTable(Time*& p);
 void deleteUser(UserAccount*& pUser);
 
-//Ham phu
-void courseClass(StudentInCourse* p);
-
 //Ham dk hp 
+void showCourseEnrollment(CourseEnrollment* p, Student* pStudent, Course* pCourse);
 void toStudentCourse(StudentCourse *&pSC, Course *pCourse);
-void toStudentInCourse(StudentInCourse *&pSIC, Course *pCourse);
+void toStudentInCourse(StudentInCourse *&pSIC, Student* pStudent);
+void courseClass(StudentInCourse* p);
+void courseClassEnum(Class* pClass, StudentInCourse* p);
 
 //Ham xuat file
 void printScoreboard();
