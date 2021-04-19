@@ -23,7 +23,6 @@ void createSemester(Semester*& pSemester, int year);
 void createClass(Class*& pClass);
 void createCourse(Course*& pCourse);
 void createStudent(Student*& pStudent, int &num);
-void createCourseEnrollment(CourseEnrollment*& pEnroll);
 void createStudentCourse(StudentCourse* &pStudentCourse, Course* pCourse);
 void createStudentInCourse(StudentInCourse* &pStuInCourse, Student* pStudent);
 void createTimeTable(Time*& p);
@@ -37,7 +36,7 @@ void showCourseList(Course* &pCourse);
 void showCourse(Course* pCourse);
 void showStudentCourse(StudentCourse* pStuCourse);
 void showStudentInCourse(StudentInCourse* pStuInCourse);
-void showStudent(Student* pStudent);
+void showStudent(Student* &pStudent);
 void showMainClass(Class* pClass);
 void showStudentList(Student* pStudent, int& num);
 
@@ -49,7 +48,6 @@ void editClass(Class*& pClass);
 void editCourse(Course*& pCourse);
 void editStudentCourse(StudentCourse* &pStuCourse);
 void editStudentInCourse(StudentInCourse* &pStuInCourse);
-void editCourseEnrollment(CourseEnrollment*& pEnroll);
 void editStudent(Student*& pStudent); 
 
 //Ham Nhap Xuat
@@ -67,6 +65,8 @@ void deleteTimeTable(Time*& p);
 void deleteUser(UserAccount*& pUser);
 
 //Ham dk hp 
+void createCourseEnrollment(CourseEnrollment*& pEnroll);
+void editCourseEnrollment(CourseEnrollment*& pEnroll);
 void showCourseEnrollment(CourseEnrollment* p, Student* pStudent, Course* pCourse);
 void toStudentCourse(StudentCourse *&pSC, Course *pCourse);
 void toStudentInCourse(StudentInCourse *&pSIC, Student* pStudent);
@@ -74,5 +74,7 @@ void courseClass(StudentInCourse* p);
 void courseClassEnum(Class* pClass, StudentInCourse* p);
 
 //Ham xuat file
-void printScoreboard();
+void printCourseScoreboard();
+void printClassScoreboard();
+void printStudentScoreboard();
 #endif // !_MY_H_

@@ -36,6 +36,7 @@ struct StudentInCourse {
 };
 
 struct Student {
+	//student in class
 	int no;
 	string full_name;
 	string id;

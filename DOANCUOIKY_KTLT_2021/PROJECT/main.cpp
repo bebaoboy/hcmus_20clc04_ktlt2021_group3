@@ -10,9 +10,10 @@ int main() {
 	Semester* pSemester = nullptr;
 	Course* pCourse = nullptr; //main
 	Student* pStudent = nullptr;
-	Student* pTemp = nullptr; //of Student
+	Student* pTemp10 = nullptr; //of Student
+	CourseEnrollment* pEnroll = nullptr;
 
-	//ham input user account
+	//ham input sv
 	Class* pClass = nullptr; //not main pointer
 	Class* pCClass = pClass;
 	{ifstream input("Class.txt");
@@ -125,13 +126,13 @@ int main() {
 	else {
 		while (pCurClass != nullptr) {
 			//if (pSchoolYear == nullptr) break;
-			pTemp = pCurClass->pStudent;
-			while (pTemp != nullptr) {
-				if (pTemp->id == user_name) break;
+			pTemp10 = pCurClass->pStudent;
+			while (pTemp10 != nullptr) {
+				if (pTemp10->id == user_name) break;
 				else
-					pTemp = pTemp->pNext;
+					pTemp10 = pTemp10->pNext;
 			}
-			if (pTemp == nullptr) {
+			if (pTemp10 == nullptr) {
 				pCurClass = pCurClass->pNext;
 			}
 			else
@@ -145,14 +146,14 @@ int main() {
 			continue;
 		}
 		int i = 0;
-		while (pTemp->user_password != user_password) {
+		while (pTemp10->user_password != user_password) {
 			cout << "\tSai mat khau, nhap lai: ";
 			cin >> user_password;
 			if (i == 3) {
 				int h = 0;
 				cout << "\tQuen mat khau? Nhap 1 de duoc giup do!";
 				cin >> h;
-				cout << "\tMat khau cua ban la: " << pTemp->user_password << endl;
+				cout << "\tMat khau cua ban la: " << pTemp10->user_password << endl;
 			}
 			i++;
 		}
@@ -308,6 +309,8 @@ teacher:
 			break;
 		}
 
+		//case 2: tao nam hoc
+
 		case -1:
 			// log out
 			break;
@@ -330,7 +333,7 @@ student:
 		switch (option) {
 		case 1:
 			//xem thong tin hs
-			showStudent(pTemp);
+			showStudent(pTemp10);
 			cin.get();
 			break;
 		case 2: {
@@ -348,7 +351,7 @@ student:
 				if (pSSchoolYear == nullptr) {
 					if (option1 == 0) break;
 					system("cls");
-					cout << "\tChua co du lieu. Vui long quay lai sau!\n\tBam -1 de quay lai.\n";
+					cout << "\n\tChua co du lieu. Vui long quay lai sau!\n\tBam -1 de quay lai.\n";
 					cin >> option1;
 					system("cls");
 					continue;
@@ -408,7 +411,7 @@ student:
 							showMainClass(pCurClass);
 							break;
 						case 2:
-							//show courseenroll
+							showCourseEnrollment(pEnroll, pTemp10, pCourse);
 							break;
 						case 3:
 							while (op != 0) {
@@ -491,7 +494,7 @@ student:
 		deleteClass(pClass);
 		deleteUser(pUser);
 	}
-
+	system("pause");
 	return 0;
 }
 
@@ -501,7 +504,7 @@ void print_Staff_Menu() {
 	cout << "\tChon cac so sau de tiep tuc : " << endl;
 	cout << "\t0. Xem thong tin tai khoan. " << endl;
 	cout << "\t1. Xem thong tin nam hoc. " << endl;
-	cout << "\t2. Xem......... " << endl;
+	cout << "\t2. Tao nam hoc moi. " << endl;
 	cout << "\t-1. Dang xuat. " << endl;
 	cout << "\tTiep tuc voi : ";
 }
@@ -511,7 +514,7 @@ void print_Student_Menu() {
 	cout << "\tChon cac so sau de tiep tuc : " << endl;
 	cout << "\t1. Xem thong tin sinh vien." << endl;
 	cout << "\t2. Xem thong tin nam hoc. " << endl;
-	cout << "\t3. FOR WHAT??" << endl;
+	//cout << "\t3. FOR WHAT??" << endl;
 	cout << "\t-1. Dang xuat. " << endl;
 	cout << "\tTiep tuc voi : ";
 }
