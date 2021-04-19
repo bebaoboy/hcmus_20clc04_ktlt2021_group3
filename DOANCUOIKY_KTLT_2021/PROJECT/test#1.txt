@@ -1,0 +1,5 @@
+Error:
+- Loi giao dien chu
+- Tien do: 85%
+- Chua thuc hien nhung thu lien quan den hoc phan 
+(chinh sua, dang ky)
