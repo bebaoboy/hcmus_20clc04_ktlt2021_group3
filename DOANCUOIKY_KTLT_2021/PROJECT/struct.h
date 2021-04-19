@@ -28,6 +28,7 @@ struct StudentInCourse {
 	string dob, mob, yob;
 	string mainclass;
 	int course_class;
+	string course_id;
 	double final_mark = 0;
 	double midterm_mark = 0;
 	double total_mark = 0;
@@ -80,9 +81,11 @@ struct Course {
 
 struct CourseEnrollment {
 	int status = 0;
-	int start_date, start_month;
-	int end_date, end_month;
+	string id;
+	int start_date, start_month, start_year;
+	int end_date, end_month, end_year;
 	Course* pCourse;
+	CourseEnrollment* pNext;
 };
 
 struct Class {

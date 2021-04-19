@@ -158,6 +158,10 @@
     <Text Include="StudentList.txt" />
     <Text Include="TeacherUser.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassScoreboard.csv" />
+    <None Include="CourseScoreboard.csv" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

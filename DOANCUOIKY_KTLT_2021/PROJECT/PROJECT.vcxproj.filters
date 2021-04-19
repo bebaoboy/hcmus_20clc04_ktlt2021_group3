@@ -62,4 +62,12 @@
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassScoreboard.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="CourseScoreboard.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

@@ -11,7 +11,8 @@ int main() {
 	Course* pCourse = nullptr; //main
 	Student* pStudent = nullptr;
 	Student* pTemp10 = nullptr; //of Student
-	CourseEnrollment* pEnroll = nullptr;
+	CourseEnrollment* pEnroll = nullptr;//main
+	CourseEnrollment* pEnroll2 = nullptr;
 
 	//ham input sv
 	Class* pClass = nullptr; //not main pointer
@@ -267,6 +268,7 @@ teacher:
 								<< "\t1. Xem thong tin cac lop hoc.\n"
 								<< "\t2. Xem thong tin cac khoa hoc.\n"
 								<< "\t3. Xem thoi gian hoc ky.\n"
+								<< "\t4. Xem phien dang ky hoc phan.\n"
 								<< "\tNhap 0 de quay lai.";
 							cin >> option;
 							switch (option) {
@@ -283,6 +285,15 @@ teacher:
 								break;
 							case 3:
 								showSemesterTime(pTemp, pSSchoolYear->begin_year);
+								break;
+							case 4:
+								if (pEnroll == nullptr) {
+									createCourseEnrollment(pEnroll, pTemp);
+									pEnroll2 = pEnroll;
+								}
+								else {
+									showCourseEnrollment(pEnroll2, pTemp);
+								}	
 								break;
 							default:
 								cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
@@ -411,7 +422,7 @@ student:
 							showMainClass(pCurClass);
 							break;
 						case 2:
-							showCourseEnrollment(pEnroll, pTemp10, pCourse);
+							Enroll(pEnroll, pTemp10, pCourse);
 							break;
 						case 3:
 							while (op != 0) {

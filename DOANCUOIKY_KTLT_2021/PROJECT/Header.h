@@ -39,6 +39,7 @@ void showStudentInCourse(StudentInCourse* pStuInCourse);
 void showStudent(Student* &pStudent);
 void showMainClass(Class* pClass);
 void showStudentList(Student* pStudent, int& num);
+void showTimeTable(Time* pT);
 
 //ham chinh sua
 void checkDate(int& date, int& month, int& year, int year2);
@@ -65,16 +66,21 @@ void deleteTimeTable(Time*& p);
 void deleteUser(UserAccount*& pUser);
 
 //Ham dk hp 
-void createCourseEnrollment(CourseEnrollment*& pEnroll);
+void createCourseEnrollment(CourseEnrollment*& pEnroll, Semester *pSemester);
 void editCourseEnrollment(CourseEnrollment*& pEnroll);
-void showCourseEnrollment(CourseEnrollment* p, Student* pStudent, Course* pCourse);
+void showCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester);
+void Enroll(CourseEnrollment* pEnroll, Student* pStudent, Course* pCourse);
 void toStudentCourse(StudentCourse *&pSC, Course *pCourse);
-void toStudentInCourse(StudentInCourse *&pSIC, Student* pStudent);
+void toStudentInCourse(Course* pC, Student* pStudent);
 void courseClass(StudentInCourse* p);
 void courseClassEnum(Class* pClass, StudentInCourse* p);
+bool checkSchedule(Time* pTime, Time* pTable);
 
-//Ham xuat file
+//Ham diem
 void printCourseScoreboard();
 void printClassScoreboard();
 void printStudentScoreboard();
+
+//Ham xuat file
+
 #endif // !_MY_H_
