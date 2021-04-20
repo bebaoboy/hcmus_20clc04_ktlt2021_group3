@@ -1696,7 +1696,26 @@ void Enroll(CourseEnrollment* pEnroll, Student* pStudent, Course* pCourse) {
 	}
 }
 void editCourseEnrollment(CourseEnrollment*& pEnroll) {
-
+	pEnroll = nullptr;
+	cout << "=====================================" << endl;
+	cout << "Chinh sua phien dang ki hoc phan ! " << endl;
+	cout << "=======================================" << endl;
+	int d, m;
+	cout << "Vui long nhap lai ngay, thang bat dau ( cach nhau boi space ): ";
+	cin >> d >> m;
+	int ed, em;
+	cout << "Vui long nhap lai ngay thang ket thuc ( cach nhau boi space ) :  ";
+	cin >> ed >> em;
+	if (pEnroll == nullptr) {
+		pEnroll = new CourseEnrollment;
+		pEnroll->status = 0;
+		pEnroll->start_date = d;
+		pEnroll->start_month = m;
+		pEnroll->end_date = ed;
+		pEnroll->end_month = em;
+		pEnroll->pCourse = nullptr;
+		cout << "Thoi gian bat dau : " << pEnroll->start_date << "/" << pEnroll->start_month << endl;
+		cout << "Thoi gian ket thuc : " << pEnroll->end_date << "/" << pEnroll->end_month << endl;
 }
 void toStudentCourse(StudentCourse*& pSC, Course* pCourse) {
 	//course to student course list
