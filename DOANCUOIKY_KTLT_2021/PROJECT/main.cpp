@@ -290,6 +290,7 @@ teacher:
 								if (pEnroll == nullptr) {
 									createCourseEnrollment(pEnroll, pTemp);
 									pEnroll2 = pEnroll;
+									editCourseEnrollment(pEnroll);
 								}
 								else {
 									showCourseEnrollment(pEnroll2, pTemp);
