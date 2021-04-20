@@ -74,6 +74,43 @@ int main() {
 	inputt2.close();
 	inputt3.close();}
 
+	//input phien dkhp hk1
+	{
+		/*pEnroll = new CourseEnrollment;
+		pEnroll2 = pEnroll;
+		pEnroll2->id = "WX00001";
+		pEnroll2->start_date = 1;
+		pEnroll2->start_month = 5;
+		pEnroll2->start_year = 2020;
+		pEnroll2->end_date = 1;
+		pEnroll2->end_month = 6;
+		pEnroll2->end_year = 2020;
+
+		pEnroll2->pNext = new CourseEnrollment;
+		pEnroll2 = pEnroll2->pNext;
+		pEnroll2->id = "WX00002";
+		pEnroll2->start_date = 15;
+		pEnroll2->start_month = 5;
+		pEnroll2->start_year = 2020;
+		pEnroll2->end_date = 20;
+		pEnroll2->end_month = 6;
+		pEnroll2->end_year = 2020;
+
+		pEnroll2->pNext = new CourseEnrollment;
+		pEnroll2 = pEnroll2->pNext;
+		pEnroll2->id = "WX00003";
+		pEnroll2->start_date = 1;
+		pEnroll2->start_month = 5;
+		pEnroll2->start_year = 2020;
+		pEnroll2->end_date = 1;
+		pEnroll2->end_month = 6;
+		pEnroll2->end_year = 2020;
+
+		pEnroll2->pNext = nullptr;
+		pEnroll2 = pEnroll;*/
+
+	}
+
 	//main program
 	string _ = " ";
 	while ( _ != "-1")
@@ -183,6 +220,44 @@ teacher:
 			pSSchoolYear->pSemester->pCourse = pCourse;
 			pSSchoolYear->pSemester->pNext->pCourse = pCourse2;
 			pSSchoolYear->pSemester->pNext->pNext->pCourse = pCourse3;
+
+			Semester* pp = pSSchoolYear->pSemester;
+			
+			while (pp != nullptr) {
+				//phien 1: 1 - 15 tay thang dau tien
+				if (pp->pEnroll == nullptr) {
+					pEnroll = new CourseEnrollment;
+					pEnroll2 = pEnroll;
+					pEnroll2->id = "WX00001";
+					pEnroll2->start_date = pp->begin_date;
+					pEnroll2->start_month = pp->begin_month;
+					pEnroll2->start_year = pp->begin_year;
+					pEnroll2->end_date = pp->begin_date + 15;
+					pEnroll2->end_month = pp->begin_month;
+					pEnroll2->end_year = pp->begin_year;
+					pEnroll2->pCourse = pp->pCourse;
+
+					pEnroll2->pNext = new CourseEnrollment;
+					pEnroll2 = pEnroll2->pNext;
+					pEnroll2->id = "WX00002";
+					pEnroll2->start_date = 1;
+					pEnroll2->start_month = pp->begin_month + 1;
+					pEnroll2->start_year = pp->begin_year;
+					pEnroll2->end_date = 20;
+					pEnroll2->end_month = pp->begin_month + 1;
+					pEnroll2->end_year = pp->begin_year;
+					pEnroll2->pCourse = pp->pCourse;
+
+					pEnroll2->pNext = nullptr;
+					pEnroll2 = pEnroll;
+					pEnroll = nullptr;
+
+					pp->pEnroll = pEnroll2;
+				}
+				
+				pp = pp->pNext;
+			}
+			
 		}
 
 		switch (option) {
@@ -251,6 +326,7 @@ teacher:
 							cout << "\tNhap sai hoc ky. Nhap lai: ";
 							cin >> no;
 						}
+						if (no == 0) break;
 
 						pTemp = pSSchoolYear->pSemester;
 						while (pTemp != nullptr) {
@@ -287,12 +363,11 @@ teacher:
 								showSemesterTime(pTemp, pSSchoolYear->begin_year);
 								break;
 							case 4:
-								if (pEnroll == nullptr) {
-									createCourseEnrollment(pEnroll, pTemp);
-									pEnroll2 = pEnroll;
+								if (pTemp->pEnroll == nullptr) {
+									createCourseEnrollment(pTemp->pEnroll, pTemp);
 								}
 								else {
-									showCourseEnrollment(pEnroll2, pTemp);
+									showCourseEnrollment(pTemp->pEnroll, pTemp);
 								}	
 								break;
 							default:
@@ -394,8 +469,9 @@ student:
 					while (no > pTemp->no) {
 						cout << "\tNhap sai hoc ky. Nhap lai: ";
 						cin >> no;
+						
 					}
-
+					if (no == 0) break;
 					pTemp = pSSchoolYear->pSemester;
 					while (pTemp != nullptr) {
 						if (pTemp->no == no) break;
@@ -410,7 +486,9 @@ student:
 							<< "\tNhap so de tiep tuc: \n"
 							<< "\t1. Xem thong tin lop hoc chu nhiem.\n"
 							<< "\t2. Xem thong tin phien dang ky hoc phan.\n"
-							<< "\t3. Xem thoi gian hoc ky.\n"
+							<< "\t3. Xem khoa hoc da dang ky trong hoc ky.\n"
+							<< "\t4. Xem thoi khoa bieu hoc ky.\n"
+							<< "\t5. Xem thoi gian hoc ky.\n"
 							<< "\tNhap 0 de quay lai.";
 						Semester* pSemester = pTemp;
 						cin >> option;
@@ -422,12 +500,20 @@ student:
 							showMainClass(pCurClass);
 							break;
 						case 2:
-							Enroll(pEnroll, pTemp10, pCourse);
+							Enroll(pTemp->pEnroll, pTemp10, pTemp->pCourse);
 							break;
 						case 3:
+							showStudentCourse(pTemp10->pStuCourse, pTemp->pCourse);
+							break;
+						case 4:
+							system("cls");
+							cout << endl << endl;
+							showTimeTable(pTemp10->pTable);
+							break;
+						case 5:
 							while (op != 0) {
 								system("cls");
-								cout << "===================================" << endl;
+								cout << "===================================\n\n" << endl;
 								cout << "\tHoc ki " << pSemester->no << ": " << endl;
 								cout << "\tThoi gian bat dau : " << pSemester->begin_date << "/" << pSemester->begin_month << "/" << pSemester->begin_year << endl;
 								cout << "\tThoi gian ket thuc: " << pSemester->end_date << "/" << pSemester->end_month << "/" << pSemester->end_year << endl;

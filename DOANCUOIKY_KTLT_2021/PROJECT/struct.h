@@ -2,6 +2,12 @@
 #define _MY_S_
 #include "Header.h"
 
+struct StudentHistory
+{
+	Student* pStudent;
+	StudentHistory* pNext;
+};
+
 struct Time {
 	string day; //mon to sat
 	string *session; //1(7h30), 2(9h30), 3(1h30), 4(15h30)
@@ -10,34 +16,20 @@ struct Time {
 struct StudentCourse {
 	string course_id;
 	string course_name;
-	string course_class;
+	int course_class;
 	string course_teacher;
 	int num_of_credit;
-	int num_of_course=0;
 	double final_mark=0;
 	double midterm_mark=0;
 	double total_mark=0;
 	double GPA=0;
 	StudentCourse* pNext;
+	Time* pTime;
 };
 
-struct StudentInCourse {
-	string full_name;
-	string id;
-	char gender;
-	string dob, mob, yob;
-	string mainclass;
-	int course_class;
-	string course_id;
-	double final_mark = 0;
-	double midterm_mark = 0;
-	double total_mark = 0;
-	double GPA = 0;
-	StudentInCourse* pNext;
-};
-
-struct Student {
-	//student in class
+struct Student
+{
+//student in class
 	int no;
 	string full_name;
 	string id;
@@ -46,6 +38,7 @@ struct Student {
 	string social_id; //cmnnd
 	string mainclass;
 	StudentCourse* pStuCourse;
+	int num_of_course = 0;
 	Student* pNext;
 	Time* pTable;
 	string user_name;
@@ -54,6 +47,24 @@ struct Student {
 	//int user_type = 1;
 
 };
+struct StudentInCourse {
+	/*string full_name;
+	string id;
+	char gender;
+	string dob, mob, yob;
+	string mainclass;*/
+
+	int course_class;
+	string course_id;
+	double final_mark = 0;
+	double midterm_mark = 0;
+	double total_mark = 0;
+	double GPA = 0;
+	StudentInCourse* pNext;
+	Student* pStudent;
+};
+
+
 
 struct UserAccount { //teacher only
 	string full_name;
@@ -70,10 +81,10 @@ struct Course {
 	string course_mainteacher; //gvlt
 	string course_teacher; //gvth
 	int num_of_credit;
-	int max_student = 30;
+	int max_student = 15;
 	int num_of_student = 0;
 	int num_of_class = 0;
-	double class_GPA = 0;
+	double *class_GPA;
 	Time* pTime;
 	StudentInCourse* pStuInCourse;
 	Course* pNext;
@@ -86,6 +97,7 @@ struct CourseEnrollment {
 	int end_date, end_month, end_year;
 	Course* pCourse;
 	CourseEnrollment* pNext;
+	StudentHistory* pStudentHistory;
 };
 
 struct Class {

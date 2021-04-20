@@ -34,8 +34,8 @@ void showSemesterTime(Semester* pSemester, int year);
 void showClass(Class* &pClass);
 void showCourseList(Course* &pCourse);
 void showCourse(Course* pCourse);
-void showStudentCourse(StudentCourse* pStuCourse);
-void showStudentInCourse(StudentInCourse* pStuInCourse);
+void showStudentCourse(StudentCourse* pStuCourse, Course* pCourse);
+void showStudentInCourse(StudentInCourse* &pStuInCourse);
 void showStudent(Student* &pStudent);
 void showMainClass(Class* pClass);
 void showStudentList(Student* pStudent, int& num);
@@ -75,6 +75,7 @@ void toStudentInCourse(Course* pC, Student* pStudent);
 void courseClass(StudentInCourse* p);
 void courseClassEnum(Class* pClass, StudentInCourse* p);
 bool checkSchedule(Time* pTime, Time* pTable);
+void createHistory(StudentHistory*& pH, Student* pS);
 
 //Ham diem
 void printCourseScoreboard();
