@@ -34,8 +34,8 @@ void showSemesterTime(Semester* pSemester, int year);
 void showClass(Class* &pClass);
 void showCourseList(Course* &pCourse);
 void showCourse(Course* pCourse);
-void showStudentCourse(StudentCourse* pStuCourse, Course* pCourse);
-void showStudentInCourse(StudentInCourse* &pStuInCourse);
+void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS);
+void showStudentInCourse(StudentInCourse* &pStuInCourse, Course* &pCourse);
 void showStudent(Student* &pStudent);
 void showMainClass(Class* pClass);
 void showStudentList(Student* pStudent, int& num);
@@ -64,18 +64,23 @@ void deleteCourse(Course*& pCourse);
 void deleteStudent(Student*& pStudent);
 void deleteTimeTable(Time*& p);
 void deleteUser(UserAccount*& pUser);
+void deleteStuInCourse(StudentInCourse*& pTemp2);
+void deleteStuCourse(StudentCourse*& pTemp2);
 
 //Ham dk hp 
 void createCourseEnrollment(CourseEnrollment*& pEnroll, Semester *pSemester);
-void editCourseEnrollment(CourseEnrollment*& pEnroll);
+void editCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester);
 void showCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester);
-void Enroll(CourseEnrollment* pEnroll, Student* pStudent, Course* pCourse);
-void toStudentCourse(StudentCourse *&pSC, Course *pCourse);
-void toStudentInCourse(Course* pC, Student* pStudent);
+void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse);
+void toStudentCourse(Student *&pSC, Course *&pCourse);
+void toStudentInCourse(Course* &pC, Student* &pStudent);
 void courseClass(StudentInCourse* p);
 void courseClassEnum(Class* pClass, StudentInCourse* p);
 bool checkSchedule(Time* pTime, Time* pTable);
 void createHistory(StudentHistory*& pH, Student* pS);
+void removeRegCourse1(Student* &pS, int t);
+void removeRegCourse2(Course *&pC, int t);
+void schedule(Time* pTime, Time* pTable);
 
 //Ham diem
 void printCourseScoreboard();

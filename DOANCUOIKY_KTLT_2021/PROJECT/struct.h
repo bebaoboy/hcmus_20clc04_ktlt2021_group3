@@ -2,11 +2,17 @@
 #define _MY_S_
 #include "Header.h"
 
-struct StudentHistory
-{
-	Student* pStudent;
-	StudentHistory* pNext;
-};
+struct SchoolYear;
+struct Semester;
+struct Course;
+struct Class;
+struct Student;
+struct StudentCourse;
+struct StudentInCourse;
+struct Time;
+struct StudentHistory;
+struct CourseEnrollment;
+struct UserAccount;
 
 struct Time {
 	string day; //mon to sat
@@ -25,6 +31,7 @@ struct StudentCourse {
 	double GPA=0;
 	StudentCourse* pNext;
 	Time* pTime;
+	Course* pCourse;
 };
 
 struct Student
@@ -47,12 +54,14 @@ struct Student
 	//int user_type = 1;
 
 };
-struct StudentInCourse {
-	/*string full_name;
-	string id;
-	char gender;
-	string dob, mob, yob;
-	string mainclass;*/
+
+struct StudentInCourse
+{
+/*string full_name;
+string id;
+char gender;
+string dob, mob, yob;
+string mainclass;*/
 
 	int course_class;
 	string course_id;
@@ -64,7 +73,11 @@ struct StudentInCourse {
 	Student* pStudent;
 };
 
-
+struct StudentHistory
+{
+	Student* pStudent;
+	StudentHistory* pNext;
+};
 
 struct UserAccount { //teacher only
 	string full_name;

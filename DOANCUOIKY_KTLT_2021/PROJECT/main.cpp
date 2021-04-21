@@ -503,7 +503,7 @@ student:
 							Enroll(pTemp->pEnroll, pTemp10, pTemp->pCourse);
 							break;
 						case 3:
-							showStudentCourse(pTemp10->pStuCourse, pTemp->pCourse);
+							showStudentCourse(pTemp10->pStuCourse, pTemp10);
 							break;
 						case 4:
 							system("cls");
