@@ -23,15 +23,13 @@ void createSemester(Semester*& pSemester, int year);
 void createClass(Class*& pClass);
 void createCourse(Course*& pCourse);
 void createStudent(Student*& pStudent, int &num);
-void createStudentCourse(StudentCourse* &pStudentCourse, Course* pCourse);
-void createStudentInCourse(StudentInCourse* &pStuInCourse, Student* pStudent);
 void createTimeTable(Time*& p);
 
 //ham show thong tin
 void showSchoolYear(SchoolYear* pSchoolYear);
 void showSemester(Semester* pSemester, int year);
 void showSemesterTime(Semester* pSemester, int year);
-void showClass(Class* &pClass);
+void showClass(Class* &pClass, Semester *&pSemester);
 void showCourseList(Course* &pCourse);
 void showCourse(Course* &pCourse);
 void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS);
@@ -40,6 +38,7 @@ void showStudent(Student* &pStudent);
 void showMainClass(Class* pClass);
 void showStudentList(Student* pStudent, int& num);
 void showTimeTable(Time* pT);
+Student* searchStudent(string full_name, string id, Class* &pClass, Semester* &pSemester);
 
 //ham chinh sua
 void checkDate(int& date, int& month, int& year, int year2);
@@ -47,8 +46,6 @@ void editSchoolYear(SchoolYear*& pSchoolYear);
 void editSemester(Semester*& pSemester, int year);
 void editClass(Class*& pClass); 
 void editCourse(Course*& pCourse);
-void editStudentCourse(StudentCourse* &pStuCourse);
-void editStudentInCourse(StudentInCourse* &pStuInCourse);
 void editStudent(Student*& pStudent); 
 
 //Ham Nhap Xuat
@@ -72,22 +69,31 @@ void createCourseEnrollment(CourseEnrollment*& pEnroll, Semester *pSemester);
 void editCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester);
 void showCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester);
 void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse);
-void toStudentCourse(Student *&pSC, Course *&pCourse);
-void toStudentInCourse(Course* &pC, Student* &pStudent);
+void toStudentCourse(Student *&pSC, Course *&pCourse, int no);
+void toStudentInCourse(Course*& pC, Student*& pStudent);
 void courseClass(StudentInCourse* p);
-void courseClassEnum(Class* pClass, StudentInCourse* p);
 bool checkSchedule(Time* pTime, Time* pTable);
-void createHistory(StudentHistory*& pH, Student* pS);
 void removeRegCourse1(Student* &pS, int t);
 void removeRegCourse2(Course *&pC, int t);
 void schedule(Time* pTime, Time* pTable);
 void deschedule(Time* pTime, Time* pTable);
+void createHistory(StudentHistory*& pH, Student* pS);
+void showStudentHistory(StudentHistory* pH);
 
 //Ham diem
+void inputCourseScore(Course*& pC, Class* pClass, ifstream& input); //nhap hoc sinh va diem cua hoc phan
+void randomScore();
 void printCourseScoreboard();
 void printClassScoreboard();
 void printStudentScoreboard();
 
 //Ham xuat file
+void exportStuInCourse(StudentInCourse* pStuInCourse, ofstream& output);
+void exportClass(); //student and score/gpa
+void exportStudentCourse(); //sv/gv chon
+void exportStudentHistory();
+void exportCourseScore(); //xuat diem cua rieng hoc sinh
 
+
+//void courseClassEnum(Class* pClass, StudentInCourse* p);
 #endif // !_MY_H_

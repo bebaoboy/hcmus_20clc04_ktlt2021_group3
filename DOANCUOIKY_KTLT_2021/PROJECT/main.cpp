@@ -74,7 +74,7 @@ int main() {
 	inputt2.close();
 	inputt3.close();}
 
-	//input phien dkhp hk1
+	//input phien dkhp hk1 (unused)
 	{
 		/*pEnroll = new CourseEnrollment;
 		pEnroll2 = pEnroll;
@@ -236,6 +236,7 @@ teacher:
 					pEnroll2->end_month = pp->begin_month;
 					pEnroll2->end_year = pp->begin_year;
 					pEnroll2->pCourse = pp->pCourse;
+					pEnroll2->semester_no = pp->no;
 
 					pEnroll2->pNext = new CourseEnrollment;
 					pEnroll2 = pEnroll2->pNext;
@@ -247,6 +248,7 @@ teacher:
 					pEnroll2->end_month = pp->begin_month + 1;
 					pEnroll2->end_year = pp->begin_year;
 					pEnroll2->pCourse = pp->pCourse;
+					pEnroll2->semester_no = pp->no;
 
 					pEnroll2->pNext = nullptr;
 					pEnroll2 = pEnroll;
@@ -318,7 +320,7 @@ teacher:
 						}
 						cout << "\t\tHoc ky " << pTemp->no << endl;
 						
-						cout << "\tNhap -1 de quay lai\n";
+						cout << "\tNhap -1 de quay lai\n\t";
 						cin >> no;
 						if (no == -1) break;
 
@@ -352,7 +354,7 @@ teacher:
 								system("cls");
 								break;
 							case 1:
-								showClass(pTemp->pClass);
+								showClass(pTemp->pClass, pTemp);
 								pSSchoolYear->pSemester->pClass = pTemp->pClass;
 								break;
 							case 2:
@@ -462,7 +464,7 @@ student:
 						pTemp = pTemp->pNext;
 					}
 					cout << "\t\tHoc ky " << pTemp->no << endl;
-					cout << "\tNhap -1 de quay lai\n";
+					cout << "\tNhap -1 de quay lai\n\t";
 					cin >> no;
 					if (no == -1) break;
 

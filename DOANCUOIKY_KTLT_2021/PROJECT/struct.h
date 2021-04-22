@@ -20,11 +20,13 @@ struct Time {
 };
 
 struct StudentCourse {
+	int semester_no;
 	string course_id;
 	string course_name;
 	int course_class;
 	string course_teacher;
 	int num_of_credit;
+	double progress_mark = 0;
 	double final_mark=0;
 	double midterm_mark=0;
 	double total_mark=0;
@@ -63,10 +65,11 @@ char gender;
 string dob, mob, yob;
 string mainclass;*/
 
-	int course_class;
+	int course_class=0;
 	string course_id;
 	double final_mark = 0;
 	double midterm_mark = 0;
+	double progress_mark = 0;
 	double total_mark = 0;
 	double GPA = 0;
 	StudentInCourse* pNext;
@@ -76,7 +79,7 @@ string mainclass;*/
 struct StudentHistory
 {
 	Student* pStudent;
-	StudentHistory* pNext;
+	StudentHistory* pNext = nullptr;
 };
 
 struct UserAccount { //teacher only
@@ -105,12 +108,13 @@ struct Course {
 
 struct CourseEnrollment {
 	int status = 0;
+	int semester_no = 0;
 	string id;
 	int start_date, start_month, start_year;
 	int end_date, end_month, end_year;
 	Course* pCourse;
 	CourseEnrollment* pNext;
-	StudentHistory* pStudentHistory;
+	StudentHistory* pStudentHistory=nullptr;
 };
 
 struct Class {
