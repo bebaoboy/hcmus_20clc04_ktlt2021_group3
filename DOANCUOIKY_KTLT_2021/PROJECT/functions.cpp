@@ -586,7 +586,7 @@ void showStudentList(Student* pStudent, int &num) {
 
 	}
 }
-void showCourse(Course* pCourse) {
+void showCourse(Course* &pCourse) {
 	int o = 10;
 	while (o != 0) {
 		system("cls");
@@ -1567,7 +1567,8 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 	//student num of course ++, max = 5
 	//cho sv dang ky show list cac phien dkhp
 	CourseEnrollment* p = pEnroll;
-	Course* pC = pCourse;
+	Course* P = pCourse;
+	Course* &pC = pCourse;
 	int o = 10, o2 = 10, t = 0;
 	int _ = 0;
 	while (o != 0) {
@@ -1606,7 +1607,7 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 					pEnroll = pEnroll->pNext;
 				}
 				while (o2 != 0) {
-					pC = pCourse;
+					pC = P;
 					system("cls");
 					createHistory(pEnroll->pStudentHistory, pStudent);
 					cout << "================================\n\n"
@@ -1628,7 +1629,7 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 					}
 					cout << endl;
 					cout << "\tNhap -1 + so thu tu de dang ky khoa hoc.\n";
-					pC = pCourse;
+					pC = P;
 					cin >> o2;
 					switch (o2) {
 					case 0:
@@ -1649,6 +1650,7 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 								toStudentInCourse(pC, pStudent);
 								schedule(pC->pTime, pStudent->pTable);
 								pC->num_of_student++;
+								pStudent->num_of_course++;
 								//thanh cong
 								cout << "\n\n\tDang ky thanh cong!\n\tNhap -1 de quay lai.";
 								cin >> o2;
@@ -1794,7 +1796,7 @@ void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
 			//xoa
 			cin >> t;
 			removeRegCourse1(pS, t);
-
+			pS->num_of_course--;
 			break;
 		default:
 			if (o > i || o < -1) {
@@ -1850,6 +1852,7 @@ void showStudentInCourse(StudentInCourse* &pStuInCourse, Course *&pCourse) {
 		case -1:
 			cin >> t;
 			removeRegCourse2(pCourse, t);
+			pCourse->num_of_student--;
 			break;
 		default:
 			if (o > i || o < -1) {
@@ -1929,7 +1932,9 @@ void createHistory(StudentHistory*& pH, Student* pS) {
 	//copy pS qua pH
 }
 void removeRegCourse1(Student* &pS, int t) {
-	StudentCourse* pTemp = pS->pStuCourse;
+	StudentCourse* P = pS->pStuCourse;
+	StudentCourse* pT = pS->pStuCourse;
+	StudentCourse* &pTemp = pS->pStuCourse;
 	StudentCourse* p = pS->pStuCourse;
 	for (int i = t - 2; i > 0; i--) {
 		p = p->pNext;
@@ -1938,19 +1943,21 @@ void removeRegCourse1(Student* &pS, int t) {
 	for (int i = t - 1; i > 0; i--) {
 		pTemp = pTemp->pNext;
 	}
+	pT = pTemp;
 	p->pNext = pTemp->pNext;
-	if (pTemp == p)
-		pS->pStuCourse = pS->pStuCourse->pNext;
-	
-	StudentInCourse* p2 = pTemp->pCourse->pStuInCourse;
-	StudentInCourse* pTemp2 = pTemp->pCourse->pStuInCourse;
+	deschedule(pT->pCourse->pTime, pS->pTable);
+	pT->pCourse->num_of_student--;
+	StudentInCourse*pT2 = pT->pCourse->pStuInCourse;
+	StudentInCourse* P2 = pT->pCourse->pStuInCourse;
+	StudentInCourse* p2 = pT->pCourse->pStuInCourse;
+	StudentInCourse* &pTemp2 = pT->pCourse->pStuInCourse;
 
 	while (pTemp2 != nullptr)
 		if (pTemp2->pStudent->full_name == pS->full_name)
 			break;
 		else
 			pTemp2 = pTemp2->pNext;
-
+	pT2 = pTemp2;
 	while (p2->pNext != nullptr)
 		if (p2->pNext == pTemp2)
 			break;
@@ -1958,33 +1965,52 @@ void removeRegCourse1(Student* &pS, int t) {
 			p2 = p2->pNext;
 	p2->pNext = pTemp2->pNext;
 	if (pTemp2 == p2)
-		if (pS->pStuCourse != nullptr)
+		if (pS->pStuCourse != nullptr) {
 			pS->pStuCourse->pCourse->pStuInCourse = pS->pStuCourse->pCourse->pStuInCourse->pNext;
-	deleteStuInCourse(pTemp2);
-	deleteStuCourse(pTemp);
+			P2 = pS->pStuCourse->pCourse->pStuInCourse;
+		}
+	if (pTemp == p) {
+		pS->pStuCourse = pS->pStuCourse->pNext;
+		P = pS->pStuCourse;
+	}
+
+	deleteStuInCourse(pT2);
+	deleteStuCourse(pT);
+	pTemp2 = P2;
+	pTemp = P;
+	
 }
 void removeRegCourse2(Course* &pC, int t) {
-	StudentInCourse* pTemp = pC->pStuInCourse;
+	StudentInCourse* P = pC->pStuInCourse;
+	StudentInCourse* pT = pC->pStuInCourse;
+	StudentInCourse*& pTemp = pC->pStuInCourse; //mainpointer
 	StudentInCourse* p = pC->pStuInCourse;
 	for (int i = t - 2; i > 0; i--) {
 		p = p->pNext;
 	}
 
 	for (int i = t - 1; i > 0; i--) {
-		pTemp = pTemp->pNext;
+		pTemp = pTemp->pNext;	
 	}
+	pT = pTemp;
 	p->pNext = pTemp->pNext;
-	if (pTemp == p)
+	/*if (pTemp == p) {
 		pC->pStuInCourse = pC->pStuInCourse->pNext;
-
-	StudentCourse* p2 = pTemp->pStudent->pStuCourse;
-	StudentCourse* pTemp2 = pTemp->pStudent->pStuCourse;
+		P = pC->pStuInCourse;
+	}*/
+	pT->pStudent->num_of_course--;
+	deschedule(pC->pTime, pT->pStudent->pTable);
+	StudentCourse* P2 = pT->pStudent->pStuCourse;
+	StudentCourse*pT2 = pT->pStudent->pStuCourse;
+	StudentCourse* p2 = pT->pStudent->pStuCourse;
+	StudentCourse* &pTemp2 = pT->pStudent->pStuCourse;
 
 	while (pTemp2 != nullptr)
 		if (pTemp2->pCourse->course_id == pC->course_id)
 			break;
 		else
 			pTemp2 = pTemp2->pNext;
+	pT2 = pTemp2;
 
 	while (p2->pNext != nullptr)
 		if (p2->pNext == pTemp2)
@@ -1994,11 +2020,19 @@ void removeRegCourse2(Course* &pC, int t) {
 	p2->pNext = pTemp2->pNext;
 
 	if (pTemp2 == p2)
-		if (pC->pStuInCourse != nullptr)
+		if (pC->pStuInCourse != nullptr) {
 			pC->pStuInCourse->pStudent->pStuCourse = pC->pStuInCourse->pStudent->pStuCourse->pNext;
-	deleteStuCourse(pTemp2);
-	deleteStuInCourse(pTemp);
-	
+			P2 = pC->pStuInCourse->pStudent->pStuCourse;
+		}
+	if (pTemp == p) {
+		pC->pStuInCourse = pC->pStuInCourse->pNext;
+		P = pC->pStuInCourse;
+	}
+	deleteStuCourse(pT2);
+	deleteStuInCourse(pT);
+	pTemp2 = P2;
+	pTemp = P;
+
 }
 void schedule(Time* pTime, Time* pTable) {
 	for (int i = 0; i < 6; i++) {
@@ -2008,7 +2042,14 @@ void schedule(Time* pTime, Time* pTable) {
 		}
 	}
 }
-
+void deschedule(Time* pTime, Time* pTable) {
+	for (int i = 0; i < 6; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (pTime[i].session[j] == "X")
+				pTable[i].session[j] = "0";
+		}
+	}
+}
 //ham diem(score)
 
 //ham phu

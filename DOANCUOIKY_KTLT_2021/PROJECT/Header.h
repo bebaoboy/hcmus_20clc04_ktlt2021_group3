@@ -33,7 +33,7 @@ void showSemester(Semester* pSemester, int year);
 void showSemesterTime(Semester* pSemester, int year);
 void showClass(Class* &pClass);
 void showCourseList(Course* &pCourse);
-void showCourse(Course* pCourse);
+void showCourse(Course* &pCourse);
 void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS);
 void showStudentInCourse(StudentInCourse* &pStuInCourse, Course* &pCourse);
 void showStudent(Student* &pStudent);
@@ -81,6 +81,7 @@ void createHistory(StudentHistory*& pH, Student* pS);
 void removeRegCourse1(Student* &pS, int t);
 void removeRegCourse2(Course *&pC, int t);
 void schedule(Time* pTime, Time* pTable);
+void deschedule(Time* pTime, Time* pTable);
 
 //Ham diem
 void printCourseScoreboard();

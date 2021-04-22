@@ -509,6 +509,8 @@ student:
 							system("cls");
 							cout << endl << endl;
 							showTimeTable(pTemp10->pTable);
+							cout << "\tNhap -1 de quay lai.";
+							cin >> op;
 							break;
 						case 5:
 							while (op != 0) {
