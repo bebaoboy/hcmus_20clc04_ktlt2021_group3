@@ -1447,7 +1447,7 @@ void createCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester) {
 		p->start_date = stoi(n);
 		getline(cin, n, '\n');
 		p->start_month = stoi(n);
-		while ( ((p->start_month==pSemester->begin_month) && p->start_date < pSemester->begin_date) || p->start_month < pSemester->begin_month) {
+		while ( ((p->start_month==pSemester->begin_month) && p->start_date < pSemester->begin_date) || p->start_month < pSemester->begin_month || p->end_month > pSemester->end_month) {
 			cout << "\tNhap sai ngay thang. Nhap lai (dd/mm): ";
 			getline(cin, n, '/');
 			p->start_date = stoi(n);
@@ -1508,7 +1508,7 @@ void showCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester) {
 		pEnroll = p;
 		cout << "\n\tNhap 0 de quay lai."
 			<< "\n\tNhan -1 + so thu tu de bat/tat phien dkhp."
-			<< "\n\tNhap -2 de them phien dang ky hoc phan.";
+			<< "\n\tNhap -2 de them phien dang ky hoc phan.\n\t";
 		cin >> o;
 		switch (o) {
 		case 0:
@@ -1539,7 +1539,7 @@ void showCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester) {
 						<< "\tThoi gian: " << pEnroll->start_date << "/" << pEnroll->start_month << "/" << pEnroll->start_year << " - " << pEnroll->end_date << "/" << pEnroll->end_month << "/" << pEnroll->end_year << endl
 						<< "\tNhap 0 de quay lai.\n"
 						<< "\tNhap 1 de chinh sua thoi gian.\n"
-						<< "\tNhap 2 de xem danh sach khoa hoc.\n";
+						<< "\tNhap 2 de xem danh sach khoa hoc.\n\t";
 					cin >> o2;
 					switch (o2) {
 					case 0:
@@ -1699,26 +1699,60 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 	}
 }
 void editCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester) {
-	pEnroll = nullptr;
-	cout << "=====================================" << endl;
-	cout << "Chinh sua phien dang ki hoc phan ! " << endl;
-	cout << "=======================================" << endl;
-	int d, m;
-	cout << "Vui long nhap lai ngay, thang bat dau ( cach nhau boi space ): ";
-	cin >> d >> m;
-	int ed, em;
-	cout << "Vui long nhap lai ngay thang ket thuc ( cach nhau boi space ) :  ";
-	cin >> ed >> em;
-	if (pEnroll == nullptr) {
-		pEnroll = new CourseEnrollment;
-		pEnroll->status = 0;
-		pEnroll->start_date = d;
-		pEnroll->start_month = m;
-		pEnroll->end_date = ed;
-		pEnroll->end_month = em;
-		pEnroll->pCourse = nullptr;
-		cout << "Thoi gian bat dau : " << pEnroll->start_date << "/" << pEnroll->start_month << endl;
-		cout << "Thoi gian ket thuc : " << pEnroll->end_date << "/" << pEnroll->end_month << endl;
+	int o = 10;
+	CourseEnrollment* p = pEnroll;
+	while (o != 0) {
+		system("cls");
+		string n = "";
+		cout << "=====================================\n\n" << endl;
+		cout << "Chinh sua phien dang ki hoc phan ! " << endl;
+
+		cout << "\tPhien dang ky hoc phan - Hoc ky " << pSemester->no << endl
+			<< "\tThoi gian hoc ky: " << pSemester->begin_date << "/" << pSemester->begin_month << "/" << pSemester->begin_year << " - " << pSemester->end_date << "/" << pSemester->end_month << "/" << pSemester->end_year << endl
+			<< "\tNhap 0 de quay lai. ";
+
+		cout << "\n\tNhap ngay bat dau (dd/mm): ";
+		getline(cin, n, '/');
+		if (n == "0") {
+			o == 0;
+			break;
+		}
+		p->start_date = stoi(n);
+		getline(cin, n, '\n');
+		p->start_month = stoi(n);
+		while (((p->start_month == pSemester->begin_month) && p->start_date < pSemester->begin_date) || p->start_month < pSemester->begin_month || p->end_month > pSemester->end_month) {
+			cout << "\tNhap sai ngay thang. Nhap lai (dd/mm): ";
+			getline(cin, n, '/');
+			p->start_date = stoi(n);
+			getline(cin, n, '\n');
+			p->start_month = stoi(n);
+		}
+		p->start_year = pSemester->begin_year;
+		checkDate(p->start_date, p->start_month, p->start_year, pSemester->begin_year);
+
+		cout << "\n\tNhap ngay ket thuc (dd/mm/yyyy): ";
+		getline(cin, n, '/');
+		p->end_date = stoi(n);
+		getline(cin, n, '/');
+		p->end_month = stoi(n);
+		while (((p->end_month == pSemester->end_month) && p->end_date > pSemester->end_date) || p->end_month > pSemester->end_month) {
+			cout << "\tNhap sai ngay thang. Nhap lai (dd/mm): ";
+			getline(cin, n, '/');
+			p->end_date = stoi(n);
+			getline(cin, n, '\n');
+			p->end_month = stoi(n);
+		}
+		getline(cin, n, '\n');
+		p->end_year = stoi(n);
+		checkDate(p->end_date, p->end_month, p->end_year, pSemester->begin_year);
+		while (p->end_year > pSemester->end_year) {
+			cout << "\tNhap sai nam. Nhap lai (yyyy): ";
+			cin >> p->end_year;
+		}
+
+		system("cls");
+		cout << "\n\n\tChinh sua phien dang ky hoc phan thanh cong. Bam 0 de quay lai.";
+		cin >> n;
 	}
 }
 void toStudentCourse(Student*& pSC, Course* &pCourse) {
