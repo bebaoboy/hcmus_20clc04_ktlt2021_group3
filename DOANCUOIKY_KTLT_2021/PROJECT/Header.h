@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iomanip>
 #include <string>
+#include <windows.h> 
 
 using namespace std;
 
@@ -27,11 +28,11 @@ void createTimeTable(Time*& p);
 
 //ham show thong tin
 void showSchoolYear(SchoolYear* pSchoolYear);
-void showSemester(Semester* pSemester, int year);
 void showSemesterTime(Semester* pSemester, int year);
 void showClass(Class* &pClass, Semester *&pSemester);
 void showCourseList(Course* &pCourse);
 void showCourse(Course* &pCourse);
+void showCourseClass(Course* pCourse);
 void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS);
 void showStudentInCourse(StudentInCourse* &pStuInCourse, Course* &pCourse);
 void showStudent(Student* &pStudent);
@@ -89,7 +90,7 @@ void printStudentScoreboard();
 
 //Ham xuat file
 void exportStuInCourse(StudentInCourse* pStuInCourse, ofstream& output);
-void exportClass(); //student and score/gpa
+void exportClass(Class *pClass); //student and score/gpa
 void exportStudentCourse(); //sv/gv chon
 void exportStudentHistory();
 void exportCourseScore(); //xuat diem cua rieng hoc sinh

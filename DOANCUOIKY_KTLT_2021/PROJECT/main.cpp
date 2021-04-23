@@ -4,6 +4,7 @@ void print_Staff_Menu();
 void print_Student_Menu();
 
 int main() {
+	system("Color F4");
 	UserAccount* pUser = nullptr;
 	SchoolYear* pSchoolYear = nullptr;//main year
 	SchoolYear* pSSchoolYear = pSchoolYear;
@@ -120,8 +121,8 @@ int main() {
 	string user_name = " ";
 	string user_password = " ";
 
-	cout << "=======================================\n\n"
-		<< "\tVui long dang nhap de tiep tuc\n\tHoac bam -1 de ket thuc chuong trinh: \n";
+	cout << "=======================================================\n\n"
+		<< "\tVui long dang nhap de tiep tuc.\n\tHoac bam -1 de ket thuc chuong trinh: \n\n";
 	cout << "\tNhap username: "; cin >> user_name;
 	if (user_name == "-1") break;
 	cout << "\tNhap mat khau: "; cin >> user_password;
@@ -582,14 +583,14 @@ student:
 	cout << "===================================\n\n"
 		<< "\tDang xuat thanh cong!"
 		<< "\n\n===================================="
-		<< endl;
+		<< endl << endl;
 
 	system("pause");
 	system("cls");
 }
 	
-	cout << "\n\n\tChuong trinh ket thuc!!!\n\n";
-
+	cout << "\n\n\tChuong trinh ket thuc!!!\n\n\n";
+	exportClass(pClass);
 	//ham delete 
 	{
 		deleteClass(pClass);
