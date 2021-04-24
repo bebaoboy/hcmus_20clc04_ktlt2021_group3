@@ -118,14 +118,15 @@ int main() {
 	{
 		pSchoolYear = pSSchoolYear;
 	//dang nhap
-	string user_name = " ";
-	string user_password = " ";
+	string user_name = "";
+	string user_password = "";
 
 	cout << "=======================================================\n\n"
 		<< "\tVui long dang nhap de tiep tuc.\n\tHoac bam -1 de ket thuc chuong trinh: \n\n";
 	cout << "\tNhap username: "; cin >> user_name;
 	if (user_name == "-1") break;
-	cout << "\tNhap mat khau: "; cin >> user_password;
+	cout << "\tNhap mat khau: "; //cin >> user_password;
+	getPassword(user_password);
 
 	UserAccount* pCur = pUser; //temporary variables
 	Class* pCurClass = pClass;
@@ -157,7 +158,7 @@ int main() {
 		cout << "===============================\n\n"
 			<< "\tDang nhap thanh cong!!\n\tNhap 0 de tiep tuc.";
 		cin >> option;
-		system("cls");
+		//system("cls");
 		goto teacher;
 	}
 
@@ -200,17 +201,19 @@ int main() {
 		cout << "===============================\n\n"
 			<< "\tDang nhap thanh cong!!\n\tNhap 0 de tiep tuc.";
 		cin >> option;
-		system("cls");
+		//system("cls");
 		goto student;
 	}
 
 
 teacher:
 	while (option != -1) {
+		system("CLS");
 		print_Staff_Menu();
+		teacherClass(pUser, pClass);
 		cin >> option;
 		int _ = 0;
-		system("cls");
+		//system("cls");
 
 		if (pSSchoolYear != nullptr) {
 			Semester* pTempk = pSSchoolYear->pSemester;
@@ -269,6 +272,7 @@ teacher:
 			break;
 
 		case 1: {
+			system("cls");
 			// view school year infor
 			if (pSSchoolYear == nullptr) {
 				cout << "==============================\n\n"
@@ -276,13 +280,17 @@ teacher:
 					<< "\tNhap nam hoc thu cong (1) hay tu dong (2)?";
 				cin >> _;
 				if (_ == 2) {
-					cout << "\n\tDang nhap thong tin nam hoc ...\n";
+					cout << "\n\tDang nhap thong tin nam hoc . . .\n";
 					inputSchoolYear(pSSchoolYear);
+					Sleep(2000);
+					cout << "\tDang nhap khoa hoc . . .\n";
+					Sleep(2000);
+					cout << "\tDang nhap lop hoc va sinh vien . . . \n\n";
+					Sleep(3000);
 					cout << "\tNhap thanh cong! Bam -1 de tiep tuc\n\t";
 					cin >> _;
 				}
 				else {
-					system("cls");
 					cout << "\n\n\tChua co nam hoc nao!\n\tVui long nhap 0 de tao nam hoc:\n\n";
 					cin >> option;
 					createSchoolYear(pSchoolYear);
@@ -294,6 +302,7 @@ teacher:
 				//pSSchoolYear = pSchoolYear;
 				int option1 = 1;
 				system("CLS");
+
 				while (option1 != 0) {
 					cout << "==================================\n\n";
 					cout << "\tChon cac so sau de tiep tuc :" << endl;;
@@ -355,6 +364,7 @@ teacher:
 								system("cls");
 								break;
 							case 1:
+								teacherClass(pUser, pClass);
 								showClass(pTemp->pClass, pTemp);
 								pSSchoolYear->pSemester->pClass = pTemp->pClass;
 								break;
@@ -415,10 +425,11 @@ teacher:
 
 student:
 	while (option != -1) {
+		system("CLS");
 		pSSchoolYear = pSchoolYear;
 		print_Student_Menu();
 		cin >> option;
-		system("cls");
+		//system("cls");
 		switch (option) {
 		case 1:
 			//xem thong tin hs
@@ -426,9 +437,10 @@ student:
 			cin.get();
 			break;
 		case 2: {
-			system("CLS");
+			
 			int option1 = 1;
 			while (option1 != 0) {
+				system("CLS");
 				cout << "==================================\n\n";
 				cout << "\tChon cac so sau de tiep tuc :" << endl;;
 				cout << "\t0. Quay lai." << endl;
@@ -442,7 +454,7 @@ student:
 					system("cls");
 					cout << "\n\tChua co du lieu. Vui long quay lai sau!\n\tBam -1 de quay lai.\n";
 					cin >> option1;
-					system("cls");
+					//system("cls");
 					continue;
 				}
 				
@@ -451,7 +463,7 @@ student:
 				switch (option1) {
 				case 0:
 					// back
-					system("cls");
+					//system("cls");
 					break;
 				case 1: {
 					// showSemester
@@ -563,7 +575,7 @@ student:
 					cin >> option1;
 					break;
 				}
-				system("cls");
+				//system("cls");
 			}
 			break;
 		}
@@ -577,9 +589,10 @@ student:
 		}
 		//cin >> option;
 		//cout << "\tNhap -1 de tiep tuc.";
-		system("cls");
+		//system("cls");
 	}
 
+	system("CLS");
 	cout << "===================================\n\n"
 		<< "\tDang xuat thanh cong!"
 		<< "\n\n===================================="
@@ -602,23 +615,27 @@ student:
 
 void print_Staff_Menu() {
 	cout << "===========================================" << endl;
-	cout << "             WELCOME, TEACHER !     " << endl;
+	cout << "             WELCOME, TEACHER !     " << endl<<endl;
+	showTime();
 	cout << "\tChon cac so sau de tiep tuc : " << endl;
 	cout << "\t0. Xem thong tin tai khoan. " << endl;
 	cout << "\t1. Xem thong tin nam hoc. " << endl;
 	cout << "\t2. Tao nam hoc moi. " << endl;
 	cout << "\t-1. Dang xuat. " << endl;
-	cout << "\tTiep tuc voi : ";
+	
+	cout << "\n\tTiep tuc voi : ";
 }
 void print_Student_Menu() {
 	cout << "=======================================" << endl;
-	cout << "           WELCOME, STUDENT !             " << endl;
+	cout << "           WELCOME, STUDENT !             " << endl << endl;
+	showTime();
 	cout << "\tChon cac so sau de tiep tuc : " << endl;
 	cout << "\t1. Xem thong tin sinh vien." << endl;
 	cout << "\t2. Xem thong tin nam hoc. " << endl;
 	//cout << "\t3. FOR WHAT??" << endl;
 	cout << "\t-1. Dang xuat. " << endl;
-	cout << "\tTiep tuc voi : ";
+	
+	cout << "\n\tTiep tuc voi : ";
 }
 
 

@@ -6,6 +6,8 @@
 #include <iomanip>
 #include <string>
 #include <windows.h> 
+#include <ctime>
+#include <conio.h>
 
 using namespace std;
 
@@ -13,10 +15,13 @@ using namespace std;
 #include "struct.h"
 
 //ham tai khoan
+void getPassword(string& a);
 void changeUserPassword(string& user_password);
 void showUserAccount(UserAccount* pUser, string user_name);
 void editUserAccount(UserAccount* pUser, string user_name);
 bool checkUserName(UserAccount* pUser, string user_name);
+void showTime();
+void teacherClass(UserAccount* pUser, Class* pClass);
 
 //ham tao
 void createSchoolYear(SchoolYear*& pSchoolYear);
@@ -91,7 +96,7 @@ void printStudentScoreboard();
 //Ham xuat file
 void exportStuInCourse(StudentInCourse* pStuInCourse, ofstream& output);
 void exportClass(Class *pClass); //student and score/gpa
-void exportStudentCourse(); //sv/gv chon
+void exportStudentCourse(); //gv chon
 void exportStudentHistory();
 void exportCourseScore(); //xuat diem cua rieng hoc sinh
 

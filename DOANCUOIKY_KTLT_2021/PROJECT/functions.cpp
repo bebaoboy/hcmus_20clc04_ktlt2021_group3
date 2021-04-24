@@ -4,7 +4,29 @@
 //trong ham: nhap 0 quay lai, trong switch: nhap -1 quay lai
 
 //for teacher only
+void getPassword(string& a) {
+	char c = '0';
+
+	while (c != '\r')
+	{
+		c = _getch();
+		if (c == '\b')
+		{
+			if (a.length() > 0)
+			{
+				a.erase(a.length() - 1, 1);
+				cout << "\b \b";
+			}
+		}
+		else if (c != '\r')
+		{
+			cout << "*";
+			a.push_back(c);
+		}
+	}
+}
 void changeUserPassword(string& user_password) {
+	system("cls");
 	string temp_password1, temp_password2, old_password;
 	cin.ignore();
 	cout << "=====================================\n\n"
@@ -48,39 +70,86 @@ bool checkUserName(UserAccount* pUser, string user_name) {
 	return 1;
 }
 void showUserAccount(UserAccount* pUser, string user_name) {
+	//system("cls");
 	UserAccount* pB = pUser;
-	int opt = 10;
+	
+	int opt = 10, o = 10, i = 1;
 	while (pUser != nullptr) {
 		if (pUser->user_name == user_name) break;
 		else {
 			pUser = pUser->pNext;
 		}
 	}
+	Class* pTemp2 = pUser->pClass;
 	while (opt != 0) {
+		system("cls");
 		cout << "=============================\n\n"
 			<< "\tUsername: " << pUser->user_name
 			<< "\n\tFullname: " << pUser->full_name
 			<< "\n\tLop chu nhiem: " << pUser->user_class
-			<< "\n\tPassword: Nhap 3 de xem\n\tNhap 1 de doi password."
-			<< "\n\tNhap 2 de thay doi thong tin!"
-			<< "\n\tNhap 0 de quay lai.";
+			<< "\n\tPassword: Nhap 1 de xem\n\tNhap 2 de doi password."
+			<< "\n\tNhap 3 de thay doi thong tin!";
+		if (pUser->user_class != "Giao vien bo mon")
+			cout << "\n\tNhap 4 de xem thong tin lop chu nhiem.";
+		cout << "\n\tNhap 0 de quay lai.";
 		cin.ignore();
 		cin >> opt;
 		system("cls");
 		switch (opt) {
-		case 1:
+		case 2:
 			changeUserPassword(pUser->user_password);
 			break;
-		case 2:
+		case 3:
 			editUserAccount(pB, pUser->user_name);
 			break;
-		case 3:
-			system("cls");
+		case 1:
+			//system("cls");
 			cout << "================================\n\n"
 				<< "\tPassword: " << pUser->user_password
 				<< endl;
 			cout << "\tNhap -1 de tiep tuc.";
 			cin >> opt;
+			break;
+		case 4:
+			if (pTemp2 == nullptr) {
+				cout << "\n\n\tChua co du lieu. Nhap -1 de quay lai.";
+				cin >> opt;
+			}
+			else
+			while (o != 0) {
+				cout << "=====================================\n\n"
+					<< "\tLop: " << pTemp2->class_name << endl
+					<< "\tGVCN: " << pTemp2->class_teacher << endl
+					<< "\tSo luong hoc sinh: " << pTemp2->num_of_student << endl
+					<< "\n\tNhap 1 de xem danh sach hoc sinh: "
+					<< "\n\tNhap 2 de chinh sua thong tin"
+					<< "\n\tNhap 3 de xem GPA cua lop"
+					<< "\n\tNhap 0 de quay lai.";
+				cin >> o;
+				system("cls");
+				switch (o) {
+				case 0:
+					break;
+				case 1:
+					if (pTemp2->pStudent == nullptr) {
+						cout << "\n\n\tChua co hoc sinh nao. Bam -1 de quay lai.";
+						cin >> o;
+					}
+					else
+						showStudentList(pTemp2->pStudent, pTemp2->num_of_student);
+					break;
+				case 2:
+					editClass(pTemp2);
+					break;
+				case 3:
+					//xem gpa tung nguoi va overall (list)
+					break;
+				default:
+					cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+					cin >> o;
+					break;
+				}
+			}
 			break;
 		case 0:
 			return;
@@ -88,8 +157,7 @@ void showUserAccount(UserAccount* pUser, string user_name) {
 			cout << "\tNhap sai cu phap.";
 			break;
 		}
-
-		system("cls");
+		//system("cls");
 	}
 }
 void editUserAccount(UserAccount* pUser, string user_name) {
@@ -114,6 +182,7 @@ void editUserAccount(UserAccount* pUser, string user_name) {
 		
 		string temp;
 		cin >> opt;
+		system("cls");
 		cin.ignore();
 		switch (opt) {
 		case 1:
@@ -160,6 +229,44 @@ void editUserAccount(UserAccount* pUser, string user_name) {
 		system("cls");
 	}
 	
+}
+void showTime() {
+	struct tm ltm;
+	time_t now = time(0);
+	localtime_s(&ltm, &now);
+	cout << "\tCurrent time: ";
+	if (ltm.tm_hour < 10)
+		cout << "0" << ltm.tm_hour << ":";
+	else
+		cout << ltm.tm_hour << ":";
+	if (ltm.tm_min < 10)
+		cout << "0" << ltm.tm_min << ":";
+	else
+		cout << ltm.tm_min << ":";
+	if (ltm.tm_sec < 10)
+		cout << "0" << ltm.tm_sec;
+	else
+		cout << ltm.tm_sec;
+	cout << endl;
+}
+void teacherClass(UserAccount* pUser, Class* pClass) {
+	UserAccount* p = pUser;
+	while (p != nullptr) {
+		if (p->user_class == "Giao vien bo mon")
+		{
+		}
+		else {
+			Class* pC = pClass;
+			while (pC != nullptr) {
+				if (pC->class_name == p->user_class) {
+					pC->pU = p;
+					p->pClass = pC;
+				}
+				pC = pC->pNext;
+			}
+		}
+		p = p->pNext;
+	}
 }
 
 //ham tao
@@ -831,7 +938,7 @@ void showMainClass(Class* pClass) {
 		case 0:
 			break;
 		case 1:
-			system("cls");
+			//system("cls");
 			while (o != 0) {
 				int i = 1;
 				cout << "====================================\n\n"
@@ -1371,6 +1478,7 @@ void inputClass(Class*& pClass, ifstream& input) {
 		getline(input, n, '\n');
 		if (n == "Nam") pTemp->gender = 'M';
 		else pTemp->gender = 'F';
+		pTemp->user_name = pTemp->id;
 		pTemp->user_password = "";
 		pTemp->user_password = pTemp->user_password + pTemp->dob + pTemp->mob + pTemp->yob;
 		//getline(input, n, ','); //cmnd
@@ -1787,7 +1895,7 @@ void editCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester) {
 		cout << "\n\tNhap ngay bat dau (dd/mm): ";
 		getline(cin, n, '/');
 		if (n == "0") {
-			o == 0;
+			o = 0;
 			break;
 		}
 		p->start_date = stoi(n);

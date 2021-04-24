@@ -89,6 +89,7 @@ struct UserAccount { //teacher only
 	string user_class;
 	//int user_type = 2; //1 = GV, 2 = SV
 	UserAccount* pNext;
+	Class* pClass = nullptr;
 };
 
 struct Course {
@@ -124,6 +125,7 @@ struct Class {
 	Student* pStudent;
 	double GPA = 0;
 	Class* pNext;
+	UserAccount* pU = nullptr;
 };
 
 struct Semester {
