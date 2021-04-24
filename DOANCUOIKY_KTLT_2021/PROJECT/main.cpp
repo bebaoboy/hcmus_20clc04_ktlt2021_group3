@@ -14,6 +14,7 @@ int main() {
 	Student* pTemp10 = nullptr; //of Student
 	CourseEnrollment* pEnroll = nullptr;//main
 	CourseEnrollment* pEnroll2 = nullptr;
+	extraStudent* pExtra = nullptr;
 
 	//ham input sv
 	Class* pClass = nullptr; //not main pointer
@@ -35,6 +36,8 @@ int main() {
 	input4.close();
 	input5.close();
 	}
+
+	//inputExtraStudent(pExtra);
 
 	//ham input Teacher account
 	{
@@ -223,7 +226,8 @@ teacher:
 			}
 			pSSchoolYear->pSemester->pCourse = pCourse;
 			pSSchoolYear->pSemester->pNext->pCourse = pCourse2;
-			pSSchoolYear->pSemester->pNext->pNext->pCourse = pCourse3;
+			if (pSSchoolYear->pSemester->pNext->pNext != nullptr)
+				pSSchoolYear->pSemester->pNext->pNext->pCourse = pCourse3;
 
 			Semester* pp = pSSchoolYear->pSemester;
 			
@@ -291,10 +295,10 @@ teacher:
 					cin >> _;
 				}
 				else {
-					cout << "\n\n\tChua co nam hoc nao!\n\tVui long nhap 0 de tao nam hoc:\n\n";
+					cout << "\n\n\tChua co nam hoc nao!\n\tVui long nhap 0 de tao nam hoc:\n\t";
 					cin >> option;
 					createSchoolYear(pSchoolYear);
-					if (pSchoolYear == nullptr) pSSchoolYear = pSchoolYear;
+					if (pSSchoolYear == nullptr) pSSchoolYear = pSchoolYear;
 				}
 				//pSchoolYear = new SchoolYear;
 			}
@@ -603,7 +607,7 @@ student:
 }
 	
 	cout << "\n\n\tChuong trinh ket thuc!!!\n\n\n";
-	exportClass(pClass);
+	//exportClass(pClass);
 	//ham delete 
 	{
 		deleteClass(pClass);

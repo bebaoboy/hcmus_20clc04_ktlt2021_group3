@@ -155,7 +155,7 @@
     <Text Include="Courses.txt" />
     <Text Include="Courses2.txt" />
     <Text Include="Courses3.txt" />
-    <Text Include="StudentList.txt" />
+    <Text Include="StudentList.csv" />
     <Text Include="TeacherUser.txt" />
   </ItemGroup>
   <ItemGroup>

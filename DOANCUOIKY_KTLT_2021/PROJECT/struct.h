@@ -7,6 +7,7 @@ struct Semester;
 struct Course;
 struct Class;
 struct Student;
+struct extraStudent;
 struct StudentCourse;
 struct StudentInCourse;
 struct Time;
@@ -46,7 +47,7 @@ struct Student
 	string dob, mob, yob; //ngay thang nam sinh
 	string social_id; //cmnnd
 	string mainclass;
-	StudentCourse* pStuCourse;
+	StudentCourse* pStuCourse = nullptr;
 	int num_of_course = 0;
 	Student* pNext;
 	Time* pTable;
@@ -57,6 +58,15 @@ struct Student
 
 };
 
+struct extraStudent
+{
+	int no;
+	string full_name;
+	string id;
+	char gender; //M , F
+	string dob, mob, yob;
+};
+
 struct StudentInCourse
 {
 /*string full_name;
@@ -64,8 +74,8 @@ string id;
 char gender;
 string dob, mob, yob;
 string mainclass;*/
-
 	int course_class=0;
+	string course_classroom;
 	string course_id;
 	double final_mark = 0;
 	double midterm_mark = 0;

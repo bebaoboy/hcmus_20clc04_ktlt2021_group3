@@ -58,7 +58,7 @@
     <Text Include="Courses3.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="StudentList.txt">
+    <Text Include="StudentList.csv">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

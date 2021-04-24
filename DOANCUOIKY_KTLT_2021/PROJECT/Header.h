@@ -60,6 +60,7 @@ void inputClass(Class*& pClass, ifstream& input);
 void inputTeacher(UserAccount*& pUser, ifstream& input);
 void inputCourse(Course*& pCourse, ifstream& input);
 void inputTimeTable(Time* p, int a, int b);
+void inputExtraStudent(extraStudent*& pExtra);
 
 //ham delete
 void deleteClass(Class*& pClass);
