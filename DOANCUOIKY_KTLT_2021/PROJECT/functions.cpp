@@ -1,5 +1,4 @@
 #include "Header.h"
-#include "struct.h"
 
 //trong ham: nhap 0 quay lai, trong switch: nhap -1 quay lai
 
@@ -377,7 +376,7 @@ void createSemester(Semester*& pSemester, int year) {
 	cin >> i;
 
 }
-void createClass(Class*& pClass) {
+void createClass(Class*& pClass, extraStudent *pExtra) {
 	system("cls");
 	int o = 10;
 	Class* pB = pClass;
@@ -419,6 +418,7 @@ void createClass(Class*& pClass) {
 
 		pB->pNext = nullptr;
 		pB->pStudent = nullptr;
+		showExtraStudent(pExtra);
 		cout << "\tNhap lop hoc thanh cong. Nhan 0 de quay lai!\n";
 		cin >> o;
 		system("cls");
@@ -860,7 +860,7 @@ void showClass(Class* &pClass, Semester* &pSemester) {
 			break;
 		case -2:
 			//ham tao -> unpractical
-			createClass(pB);
+			createClass(pB, pSemester->pE);
 			break;
 		case -3:
 			cin.ignore();
@@ -1083,6 +1083,28 @@ Student* searchStudent(string full_name, string id, Class* &pClass, Semester*& p
 			<< "\tKhong tim thay sinh vien!\n\tBam -1 de quay lai";
 		cin >> _;
 		return nullptr;
+	}
+}
+void showExtraStudent(extraStudent* pExtra) {
+	extraStudent* pB = pExtra;
+	int o = -1;
+	while (o != 0) {
+		system("cls");
+		int i = 0;
+		cout << "====================================\n\n"
+			<< "\tDanh sach hoc sinh (Bam so de xem): \n";
+
+		pExtra = pB;
+		while (pExtra != nullptr) {
+			cout << "\t" << i + 1 << ". " << pExtra->full_name << endl;
+			pExtra = pExtra->pNext;
+			i++;
+		}
+
+		cout << "\tNhap -1 + so thu tu de them hoc sinh vao lop.\n"
+			<< "\tNhap 0 de quay lai.";
+		cin >> o;
+		system("cls");
 	}
 }
 
@@ -1574,10 +1596,29 @@ void inputTimeTable(Time* p, int a, int b) {
 void inputExtraStudent(extraStudent*& pExtra) {
 	ifstream input("StudentList.csv");
 	string line = "";
+	string n = "";
+	extraStudent* pTemp = pExtra;
 	getline(input, line);
 	while (!input.eof()) {
-
+		if (pExtra == nullptr) {
+			pExtra = new extraStudent;
+			pTemp = pExtra;
+		}
+		else {
+			pTemp->pNext = new extraStudent;
+			pTemp = pTemp->pNext;
+		}
+		getline(input, pTemp->id, ',');
+		getline(input, pTemp->full_name, ',');
+		getline(input, pTemp->dob, '/');
+		getline(input, pTemp->mob, '/');
+		getline(input, pTemp->yob, ',');
+		getline(input, n, '\n');
+		if (n == "Nam") pTemp->gender = 'M';
+		else pTemp->gender = 'F';
 	}
+
+	input.close();
 }
 
 //ham dkhp
@@ -2489,5 +2530,54 @@ void exportClass(Class* pClass) {
 		cout << "\tXuat file thanh cong! Nhan -1 de quay lai.";
 		cin >> _;
 		return;
+	}
+}
+
+//ham console
+void gotoXY(int x, int y) {
+	COORD coord;
+	coord.X = x;
+	coord.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+void TextColor(int color) {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+void Flashing(string s) {
+	while (1) {
+		system("cls");
+		gotoXY(1, 0);
+		TextColor(rand() % 15 + 1);
+		cout << s.c_str();
+		if (_kbhit())
+			break;
+		Sleep(500);
+	}
+	TextColor(15);
+}
+void Run(string s) {
+	Word a;
+	a.x = 1;
+	a.y = 1;
+	a.t = RIGHT;
+	while (1) {
+		system("cls");
+		gotoXY(a.x, a.y);
+		TextColor(rand() % 15 + 1);
+		cout << s.c_str();
+
+		if (_kbhit())
+			break;
+
+		if (a.x >= 30)
+			a.t = LEFT;
+		else if (a.x <= 0)
+			a.t = RIGHT;
+
+		if (a.t == LEFT)
+			a.x--;
+		else if (a.t == RIGHT)
+			a.x++;
+		Sleep(30);
 	}
 }

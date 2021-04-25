@@ -15,6 +15,14 @@ struct StudentHistory;
 struct CourseEnrollment;
 struct UserAccount;
 
+enum Status { LEFT, RIGHT };
+struct Word
+{
+	string s;
+	int x, y;
+	Status t;
+};
+
 struct Time {
 	string day; //mon to sat
 	string *session; //1(7h30), 2(9h30), 3(1h30), 4(15h30)
@@ -65,6 +73,7 @@ struct extraStudent
 	string id;
 	char gender; //M , F
 	string dob, mob, yob;
+	extraStudent* pNext = nullptr;
 };
 
 struct StudentInCourse
@@ -146,6 +155,7 @@ struct Semester {
 	Course* pCourse;
 	CourseEnrollment* pEnroll;
 	Semester* pNext;
+	extraStudent* pE;
 };
 
 struct SchoolYear {

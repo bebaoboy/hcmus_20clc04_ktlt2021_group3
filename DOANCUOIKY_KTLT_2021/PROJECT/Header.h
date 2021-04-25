@@ -14,6 +14,11 @@ using namespace std;
 //khai bao struct
 #include "struct.h"
 
+void gotoXY(int x, int y);
+void TextColor(int color);
+void Flashing(string s);
+void Run(string s);
+
 //ham tai khoan
 void getPassword(string& a);
 void changeUserPassword(string& user_password);
@@ -26,7 +31,7 @@ void teacherClass(UserAccount* pUser, Class* pClass);
 //ham tao
 void createSchoolYear(SchoolYear*& pSchoolYear);
 void createSemester(Semester*& pSemester, int year);
-void createClass(Class*& pClass);
+void createClass(Class*& pClass, extraStudent* pExtra);
 void createCourse(Course*& pCourse);
 void createStudent(Student*& pStudent, int &num);
 void createTimeTable(Time*& p);
@@ -45,6 +50,7 @@ void showMainClass(Class* pClass);
 void showStudentList(Student* pStudent, int& num);
 void showTimeTable(Time* pT);
 Student* searchStudent(string full_name, string id, Class* &pClass, Semester* &pSemester);
+void showExtraStudent(extraStudent* pExtra);
 
 //ham chinh sua
 void checkDate(int& date, int& month, int& year, int year2);
