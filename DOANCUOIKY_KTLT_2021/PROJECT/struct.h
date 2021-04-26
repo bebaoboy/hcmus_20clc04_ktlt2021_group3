@@ -40,6 +40,7 @@ struct StudentCourse {
 	double midterm_mark=0;
 	double total_mark=0;
 	double GPA=0;
+	string grade = "A";
 	StudentCourse* pNext;
 	Time* pTime;
 	Course* pCourse;

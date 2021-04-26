@@ -283,6 +283,7 @@ int main() {
 						pEnroll2->end_year = pp->begin_year;
 						pEnroll2->pCourse = pp->pCourse;
 						pEnroll2->semester_no = pp->no;
+						pEnroll2->status = 1;
 
 						pEnroll2->pNext = new CourseEnrollment;
 						pEnroll2 = pEnroll2->pNext;

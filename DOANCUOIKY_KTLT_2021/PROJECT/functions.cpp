@@ -604,7 +604,8 @@ void showStudent(Student* &pStudent) {
 			<< "\n\tLop chu nhiem: " << pStudent->mainclass << endl;
 		cout << "\tNhap 2 de xem danh sach hoc phan da dang ky." << endl;
 		cout << "\tNhap 3 de xem thoi khoa bieu" << endl;
-		cout << "\tNhap 4 de chinh sua thong tin" << endl;
+		cout << "\tNhap 4 de xem bang diem hoc ky" << endl;
+		cout << "\tNhap 5 de chinh sua thong tin" << endl;
 		cout << "\tNhap 0 de quay lai!";
 		cin >> o;
 		system("cls");
@@ -616,7 +617,7 @@ void showStudent(Student* &pStudent) {
 			cin >> o;
 			system("cls");
 			break;
-		case 4:
+		case 5:
 			editStudent(pStudent);
 			break;
 		case 0:
@@ -631,6 +632,9 @@ void showStudent(Student* &pStudent) {
 			cout << "\n\tNhap -1 de quay lai.";
 			cin >> o;
 			system("cls");
+			break;
+		case 4:
+			printStudentScoreboard(pStudent);
 			break;
 		default:
 			cout << "\tNhap sai cu phap\nNhap -1 de tiep tuc.";
@@ -1882,6 +1886,8 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 				for (int j = 1; j <= o; j++) {
 					if (pEnroll->status == 0)
 						i--;
+					else if (o == 1) break;
+					else
 					pEnroll = pEnroll->pNext;
 				}
 				while (pTempp != nullptr) {
@@ -1891,6 +1897,7 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 						pTempp = pTempp->pNext;
 				}
 				createHistory(pTempp->pStudentHistory, pStudent);
+				o2 = 10;
 				while (o2 != 0) {
 					pC = P;
 					system("cls");
@@ -2455,6 +2462,67 @@ void showStudentHistory(StudentHistory* pH) {
 }
 
 //ham diem(score)
+double toGPA(int n, string &grade) {
+	if (n < 0 || n > 10) {
+		grade = "F";
+		return 0;
+	}
+	if (n <= 9) {
+		grade = "A+";
+		return 4;
+	}
+	else if (n <= 8) {
+		grade = "A";
+		return 3.5;
+	}
+	else if (n <= 7) {
+		grade = "B+";
+		return 3;
+	}	
+	else if (n <= 6) {
+		grade = "B";
+		return 2.5;
+	}
+	else if (n <= 5) {
+		grade = "C";
+		return 2;
+	}	
+	else if (n <= 4) {
+		grade = "D";
+		return 1.5;
+	}	
+	else if (n <= 3) {
+		grade = "F";
+		return 1;
+	}
+	else {
+		grade = "F-";
+		return 0;
+	}
+}
+void printCourseScoreboard() {
+
+}
+void printClassScoreboard() {
+
+}
+void printStudentScoreboard(Student *pS) {
+	system("cls");
+	int _ = 0;
+	StudentCourse* pSC = pS->pStuCourse;
+	cout << "\n\n\tSo khoa hoc trong hoc ki: " << pS->num_of_course << endl << endl;
+	cout << setw(60) << left << "\tMon hoc";
+	cout << "\tMidterm   Final   Progress   Total   GPA   Grade" << endl;
+
+	while (pSC != nullptr) {
+		cout << setw(60) << left << "\t" << pSC->course_name << "\t" << pSC->midterm_mark << "   " << pSC->final_mark << "   " << pSC->progress_mark << "   " << pSC->total_mark << "   " << pSC->GPA <<"   " << pSC->grade << endl;
+		pSC = pSC->pNext;
+	}
+
+	cout << "\n\tNhap 0 de quay lai.";
+	cin >> _;
+
+}
 
 //ham delete tung cai
 void deleteClass(Class* &pClass) {

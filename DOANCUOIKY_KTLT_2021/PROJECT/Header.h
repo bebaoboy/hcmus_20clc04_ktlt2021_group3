@@ -96,9 +96,10 @@ void showStudentHistory(StudentHistory* pH);
 //Ham diem
 void inputCourseScore(Course*& pC, Class* pClass, ifstream& input); //nhap hoc sinh va diem cua hoc phan
 void randomScore();
+double toGPA(int n, string &grade);
 void printCourseScoreboard();
 void printClassScoreboard();
-void printStudentScoreboard();
+void printStudentScoreboard(Student *pS);
 
 //Ham xuat file
 void exportStuInCourse(StudentInCourse* pStuInCourse, ofstream& output);
