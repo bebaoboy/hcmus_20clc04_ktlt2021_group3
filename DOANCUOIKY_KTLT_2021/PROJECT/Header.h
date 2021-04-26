@@ -50,7 +50,7 @@ void showMainClass(Class* pClass);
 void showStudentList(Student* pStudent, int& num);
 void showTimeTable(Time* pT);
 Student* searchStudent(string full_name, string id, Class* &pClass, Semester* &pSemester);
-void showExtraStudent(extraStudent* pExtra);
+void showExtraStudent(extraStudent* pExtra, Class *pClass);
 
 //ham chinh sua
 void checkDate(int& date, int& month, int& year, int year2);

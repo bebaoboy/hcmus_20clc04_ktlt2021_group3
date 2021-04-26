@@ -418,8 +418,8 @@ void createClass(Class*& pClass, extraStudent *pExtra) {
 
 		pB->pNext = nullptr;
 		pB->pStudent = nullptr;
-		showExtraStudent(pExtra);
-		cout << "\tNhap lop hoc thanh cong. Nhan 0 de quay lai!\n";
+		showExtraStudent(pExtra, pB);
+		cout << "\n\tNhap lop hoc thanh cong. Nhan 0 de quay lai!\n";
 		cin >> o;
 		system("cls");
 	}
@@ -831,7 +831,7 @@ void showClass(Class* &pClass, Semester* &pSemester) {
 		cout << "\n\tNhap -1 + so thu tu lop hoc de xoa lop hoc\n"
 			<< "\tNhap -2 de tao lop hoc\n"
 			<< "\tNhap -3 de TRA CUU hoc sinh.\n\t"			
-			<< "\tNhap 0 de quay lai.\n";
+			<< "\tNhap 0 de quay lai.\n\t";
 		cin >> opt;
 	system("cls");
 	Class* pTemp2 = pClass;
@@ -1045,7 +1045,7 @@ Student* searchStudent(string full_name, string id, Class* &pClass, Semester*& p
 	int _ = 0;
 	system("cls");
 	cout << "\n\n\tDang tim kiem . . . \n\n";
-	Sleep(3000);
+	Sleep(1000);
 	while (pCurClass != nullptr) {
 		pTemp = pCurClass->pStudent;
 		while (pTemp != nullptr) {
@@ -1085,25 +1085,72 @@ Student* searchStudent(string full_name, string id, Class* &pClass, Semester*& p
 		return nullptr;
 	}
 }
-void showExtraStudent(extraStudent* pExtra) {
+void showExtraStudent(extraStudent* pExtra, Class* pClass) {
 	extraStudent* pB = pExtra;
-	int o = -1;
+	int o = -1, t = 0, j = 1;
 	while (o != 0) {
+		Student* pS = pClass->pStudent;
 		system("cls");
 		int i = 0;
 		cout << "====================================\n\n"
-			<< "\tDanh sach hoc sinh (Bam so de xem): \n";
+			<< "\tDanh sach hoc sinh: \n";
 
 		pExtra = pB;
 		while (pExtra != nullptr) {
-			cout << "\t" << i + 1 << ". " << pExtra->full_name << endl;
+			if (pExtra->active == 1) {
+				cout << "\t" << i + 1 << ". " << pExtra->full_name << endl;
+				i++;
+			}
 			pExtra = pExtra->pNext;
-			i++;
 		}
 
-		cout << "\tNhap -1 + so thu tu de them hoc sinh vao lop.\n"
+		pExtra = pB;
+		cout << "\n\tNhap -1 + so thu tu de them hoc sinh vao lop.\n"
 			<< "\tNhap 0 de quay lai.";
 		cin >> o;
+		switch (o) {
+		case 0: 
+			return;
+		default: 
+			cin >> t;
+			if (t > i+1 || t < -1) {
+				cout << "\tNhap sai cu phap. Nhap -1 de quay lai.";
+				cin >> o;
+			}
+			else {
+				if (pClass->pStudent == nullptr) {
+					pClass->pStudent = new Student;
+					pS = pClass->pStudent;
+				}
+				else {
+					while (pS->pNext != nullptr)
+						pS = pS->pNext;
+					pS->pNext = new Student;
+					pS = pS->pNext;
+				}
+				for (int i = 1; i < t; i++)
+					pExtra = pExtra->pNext;
+
+				pS->full_name = pExtra->full_name;
+				pS->id = pExtra->id;
+				pS->gender = pExtra->gender;
+				pS->dob = pExtra->dob;
+				pS->mob = pExtra->mob;
+				pS->yob = pExtra->yob;
+				pS->mainclass = pClass->class_name;
+				pS->no = j;
+				j++;
+				createTimeTable(pS->pTable);
+				pS->user_name = pS->id;
+				
+				pS->user_password = "";
+				pS->user_password = pS->user_password + pS->dob + pS->mob + pS->yob;
+				pS->pNext = nullptr;
+				pS->pStuCourse = nullptr;
+				pExtra->active = 0;
+			}
+			break;
+		}
 		system("cls");
 	}
 }
@@ -1832,7 +1879,9 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 				break;
 			}
 			else {
-				for (int j = 1; j < o; j++) {
+				for (int j = 1; j <= o; j++) {
+					if (pEnroll->status == 0)
+						i--;
 					pEnroll = pEnroll->pNext;
 				}
 				while (pTempp != nullptr) {
@@ -1879,7 +1928,7 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 						cout << "\n\tBan co chac muon dang ky khoa hoc: " << pC->course_name << "?(Yes = 1, No = 0)\n\t";
 						cin >> _;
 						system("cls");
-						Sleep(2000);
+						//Sleep(2000);
 						if (_ == 0) break;
 						else {
 							if (checkSchedule(pC->pTime, pStudent->pTable)) {
@@ -2369,6 +2418,25 @@ void createHistory(StudentHistory*& pH, Student* pS) {
 		p->pNext = new StudentHistory;
 		p = p->pNext;
 	}
+	p->time = "";
+	struct tm ltm;
+	time_t now = time(0);
+	localtime_s(&ltm, &now);
+
+	if (ltm.tm_hour < 10)
+		p->time += "0" + to_string(ltm.tm_hour);
+	else
+		p->time += to_string(ltm.tm_hour);
+	p->time += ":";
+	if (ltm.tm_min < 10)
+		p->time += "0" + to_string(ltm.tm_min);
+	else
+		p->time += to_string(ltm.tm_min);
+	p->time += ":";
+	if (ltm.tm_sec < 10)
+		p->time += "0" + to_string(ltm.tm_sec);
+	else
+		p->time += to_string(ltm.tm_sec);
 
 	p->pStudent = pS;
 	p->pNext = nullptr;
@@ -2378,7 +2446,7 @@ void showStudentHistory(StudentHistory* pH) {
 	int i = 0;
 	cout << "\n\n\tHoc sinh da vao xem: \n";
 	while (pH != nullptr) {
-		cout << "\t" << i + 1 << ". " << pH->pStudent->full_name << endl;
+		cout << "\t" << i + 1 << ". " << pH->pStudent->full_name << " (" << pH->time << ")" << endl;
 		pH = pH->pNext;
 		i++;
 	}

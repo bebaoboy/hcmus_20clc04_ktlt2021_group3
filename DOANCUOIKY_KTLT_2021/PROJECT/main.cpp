@@ -332,13 +332,13 @@ int main() {
 						TextColor(9);
 						cout << "\n\tDang nhap thong tin nam hoc . . .\n";
 						inputSchoolYear(pSSchoolYear);
-						Sleep(2000);
+						Sleep(1000);
 						TextColor(10);
 						cout << "\tDang nhap khoa hoc . . .\n";
-						Sleep(2000);
+						Sleep(1000);
 						TextColor(11);
 						cout << "\tDang nhap lop hoc va sinh vien . . . \n\n";
-						Sleep(3000);
+						Sleep(1000);
 						TextColor(6);
 						cout << "========================================================================================================================\n\n";
 						TextColor(7);
@@ -723,7 +723,7 @@ int main() {
 	}
 
 	cout << "\n\n\tChuong trinh ket thuc!!!\n\n\n";
-	//exportClass(pClass);
+	exportClass(pClass);
 	//ham delete 
 	{
 		deleteClass(pClass);

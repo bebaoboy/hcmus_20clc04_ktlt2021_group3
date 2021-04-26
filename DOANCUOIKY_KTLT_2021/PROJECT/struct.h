@@ -69,6 +69,7 @@ struct Student
 struct extraStudent
 {
 	int no;
+	int active = 1;
 	string full_name;
 	string id;
 	char gender; //M , F
@@ -99,6 +100,7 @@ struct StudentHistory
 {
 	Student* pStudent;
 	StudentHistory* pNext = nullptr;
+	string time;
 };
 
 struct UserAccount { //teacher only
