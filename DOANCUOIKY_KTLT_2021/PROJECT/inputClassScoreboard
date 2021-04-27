@@ -46,3 +46,25 @@ void inputClassScoreboard(Class*& pClass, Student*& pStudent, ifstream& input) /
 	}
 	pClass->pNext = nullptr;
 }
+
+void printClassScoreboard(Student*pStu)
+{
+system("cls");
+int s;
+cout <<"Nhap 0 de quay lai";
+cout <<"Nhap 1 de xem bang diem moi lop:";
+cout<<" Nhap so: "; cin>>s;
+switch(s)
+   {
+	case 0: return;
+	case 1:
+	Student*pSd= pStu->pStudent;
+	while(pSd!=nullptr)
+	{
+cout <<"\t STT  Ten lop  MSSV  Ten hoc sinh  Gioi tinh  Ngay thang nam sinh  username  password  GPA";
+cout<< pSd->no << "\t"<< pSd-> mainclass<< "\t" << pSd-> id << "\t" << pSd-> fullname <<"\t" << pSd-> gender<<"\t"
+    <<pSd->dob << "/" << pSd->mob << "/" << pSd->yob <<"\t"<< pSd->user_name<< "\t" << pSd->user_password<<"\t" << pSd->GPA<< endl;
+    pSd=pSd->pNext;
+	}
+   }
+}
