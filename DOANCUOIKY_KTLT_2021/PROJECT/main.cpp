@@ -619,7 +619,17 @@ int main() {
 								break;
 							case 2:
 								TextColor(3);
-								Enroll(pTemp->pEnroll, pTemp10, pTemp->pCourse);
+								for (int i = 0; i < 6; i++) {
+									for (int j = 0; j < 4; j++) {
+										if (pTemp10->pTable[i].session[j] == "X")
+										{
+											cout << "\n\n\tBan da dang ky hoc phan o mot hoc ky khac. Vui long kiem tra lai.\n\tNhap -1 de quay lai.\n\t";
+											cin >> option;
+										}
+										else
+											Enroll(pTemp->pEnroll, pTemp10, pTemp->pCourse);
+									}
+								}
 								break;
 							case 3:
 								TextColor(3);
@@ -750,8 +760,8 @@ void print_Staff_Menu() {
 	cout << "\t0. Xem thong tin tai khoan. " << endl;
 	gotoXY(35, 7);
 	cout << "\t1. Xem thong tin nam hoc. " << endl;
-	gotoXY(35, 8);
-	cout << "\t2. Tao nam hoc moi. " << endl;
+	//gotoXY(35, 8);
+	//cout << "\t2. Tao nam hoc moi. " << endl;
 	gotoXY(35, 9);
 	cout << "\t-1. Dang xuat. " << endl;
 	gotoXY(35, 10);

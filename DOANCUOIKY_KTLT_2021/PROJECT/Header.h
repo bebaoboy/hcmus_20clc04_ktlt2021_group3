@@ -35,6 +35,7 @@ void createClass(Class*& pClass, extraStudent* pExtra);
 void createCourse(Course*& pCourse);
 void createStudent(Student*& pStudent, int &num);
 void createTimeTable(Time*& p);
+void eraseTimeTable(Time* p);
 
 //ham show thong tin
 void showSchoolYear(SchoolYear* pSchoolYear);
@@ -94,19 +95,18 @@ void createHistory(StudentHistory*& pH, Student* pS);
 void showStudentHistory(StudentHistory* pH);
 
 //Ham diem
-void inputCourseScore(Course*& pC, Class* pClass, ifstream& input); //nhap hoc sinh va diem cua hoc phan
-void randomScore();
+void inputCourseScore(Course*& pC, Class* pClass); //nhap hoc sinh va diem cua hoc phan
+void randomScore(double &a, double &b, double &c, double &d);
 double toGPA(int n, string &grade);
 void printCourseScoreboard();
 void printClassScoreboard();
 void printStudentScoreboard(Student *pS);
 
 //Ham xuat file
-void exportStuInCourse(StudentInCourse* pStuInCourse, ofstream& output);
 void exportClass(Class *pClass); //student and score/gpa
-void exportStudentCourse(); //gv chon
+void exportStudentScore(); //gv chon
 void exportStudentHistory();
-void exportCourseScore(); //xuat diem cua rieng hoc sinh
+void exportCourseScore(StudentInCourse* pStuInCourse); //xuat diem cua 1 khoa hoc
 
 
 //void courseClassEnum(Class* pClass, StudentInCourse* p);

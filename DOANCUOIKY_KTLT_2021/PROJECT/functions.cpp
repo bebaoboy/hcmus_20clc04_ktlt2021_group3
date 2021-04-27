@@ -294,8 +294,8 @@ void createSchoolYear(SchoolYear*& pSchoolYear) {
 	cin >> n;
 	if (n == "0") {
 		if (p == pSchoolYear) {
-			delete p;
-			p = nullptr;
+			delete pSchoolYear;
+			pSchoolYear = nullptr;
 		}
 		else {
 			SchoolYear* pT = p;
@@ -576,6 +576,13 @@ void createTimeTable(Time* &p) {
 	p[5].day = "Sat";
 	for (int i = 0; i <= 5; i++) {
 		p[i].session = new string[4];
+		for (int j = 0; j < 4; j++) {
+			p[i].session[j] = "0";
+		}
+	}
+}
+void eraseTimeTable(Time* p) {
+	for (int i = 0; i <= 5; i++) {
 		for (int j = 0; j < 4; j++) {
 			p[i].session[j] = "0";
 		}
@@ -2074,6 +2081,8 @@ void toStudentCourse(Student*& pSC, Course* &pCourse, int no) {
 	p->pNext = nullptr;
 	p->pCourse = pCourse;
 	p->semester_no = no;
+	randomScore(p->midterm_mark, p->final_mark, p->progress_mark, p->total_mark);
+	p->GPA = toGPA(p->total_mark, p->grade);
 	Time* pCT = pCourse->pTime;
 	createTimeTable(p->pTime);
 	for (int i = 0; i < 6; i++) {
@@ -2464,34 +2473,34 @@ void showStudentHistory(StudentHistory* pH) {
 //ham diem(score)
 double toGPA(int n, string &grade) {
 	if (n < 0 || n > 10) {
-		grade = "F";
+		grade = "ER";
 		return 0;
 	}
-	if (n <= 9) {
+	if (n >= 9) {
 		grade = "A+";
 		return 4;
 	}
-	else if (n <= 8) {
+	else if (n >= 8) {
 		grade = "A";
 		return 3.5;
 	}
-	else if (n <= 7) {
+	else if (n >= 7) {
 		grade = "B+";
 		return 3;
 	}	
-	else if (n <= 6) {
+	else if (n >= 6) {
 		grade = "B";
 		return 2.5;
 	}
-	else if (n <= 5) {
+	else if (n >= 5) {
 		grade = "C";
 		return 2;
 	}	
-	else if (n <= 4) {
+	else if (n >= 4) {
 		grade = "D";
 		return 1.5;
 	}	
-	else if (n <= 3) {
+	else if (n >= 3) {
 		grade = "F";
 		return 1;
 	}
@@ -2499,6 +2508,52 @@ double toGPA(int n, string &grade) {
 		grade = "F-";
 		return 0;
 	}
+}
+void randomScore(double& a, double& b, double& c, double& d) {
+	srand(time(0));
+	double k = 1.0;
+
+	srand((unsigned int)time(nullptr));
+
+	k = 3.4 * (2 + (double)(rand() % 7)) / 3.5;
+	if (k - int(k) - 0.8 >= 0) k = int(k) + 1;
+	else
+		if (k - int(k) - 0.3 >= 0) k = int(k) + 0.5;
+		else
+			k = int(k);
+	a = k;
+	//cout << a << endl;
+
+	while (k == a) {
+		k = 3.4 * (3 + (double)(rand() % 7)) / 3.5;
+		if (k - int(k) - 0.8 >= 0) k = int(k) + 1;
+		else
+			if (k - int(k) - 0.3 >= 0) k = int(k) + 0.5;
+			else
+				k = int(k);
+	}
+	b = k;
+	//cout << b << endl;
+
+	while (k == a || k == b) {
+		k = 3.4 * (1 + (double)(rand() % 9)) / 3.5;
+		if (k - int(k) - 0.8 >= 0) k = int(k) + 1;
+		else
+			if (k - int(k) - 0.3 >= 0) k = int(k) + 0.5;
+			else
+				k = int(k);
+	}
+	c = k;
+	//cout << c << endl;
+
+	d = 0.2 * a + 0.5 * b + 0.3 * c;
+	if (d - int(d) - 0.8 >= 0) d = int(d) + 1;
+	else
+		if (d - int(d) - 0.3 >= 0) d = int(d) + 0.5;
+		else
+			d = int(d);
+	//cout << d;
+
 }
 void printCourseScoreboard() {
 
@@ -2511,11 +2566,12 @@ void printStudentScoreboard(Student *pS) {
 	int _ = 0;
 	StudentCourse* pSC = pS->pStuCourse;
 	cout << "\n\n\tSo khoa hoc trong hoc ki: " << pS->num_of_course << endl << endl;
-	cout << setw(60) << left << "\tMon hoc";
-	cout << "\tMidterm   Final   Progress   Total   GPA   Grade" << endl;
+	cout << setw(50) << left << "\tMon hoc";
+	cout << "Midterm   Final   Progress   Total   GPA   Grade" << endl;
 
 	while (pSC != nullptr) {
-		cout << setw(60) << left << "\t" << pSC->course_name << "\t" << pSC->midterm_mark << "   " << pSC->final_mark << "   " << pSC->progress_mark << "   " << pSC->total_mark << "   " << pSC->GPA <<"   " << pSC->grade << endl;
+		cout << "\t" << setw(50) << left << pSC->course_name;
+		cout << "  " << setw(3) << pSC->midterm_mark << "\t    " << setw(3) << pSC->final_mark << "\t     " << setw(3) << pSC->progress_mark << "       " << setw(3) << pSC->total_mark << "    " << setw(3) << pSC->GPA << "     " << setw(3) << pSC->grade << endl;
 		pSC = pSC->pNext;
 	}
 
