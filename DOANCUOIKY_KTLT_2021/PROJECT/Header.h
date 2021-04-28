@@ -96,12 +96,14 @@ void showStudentHistory(StudentHistory* pH);
 
 //Ham diem
 //void inputCourseScore(Course*& pC, Class* pClass); //nhap hoc sinh va diem cua hoc phan
+void gPA(Class* pClass);
 void randomScore(double &a, double &b, double &c, double &d);
 double toGPA (double n, string &grade);
 void printCourseScoreboard();
 void printClassScoreboard();
 void printStudentScoreboard(Student *pS);
 bool failCheck(double n);
+void inputCourseScore(Course* pC);
 
 //Ham xuat file
 void exportClass(Class *pClass); //student and score/gpa

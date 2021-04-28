@@ -151,22 +151,26 @@ int main() {
 		}
 		//neu la gv
 		if (pCur != nullptr) {
-			int i = 0;
+			int i = 1;
 			while (pCur->user_password != user_password) {
-				cout << "\nSai mat khau, nhap lai: ";
-				cin >> user_password;
-				if (i == 3) {
+				cout << "\n\tSai mat khau, nhap lai: ";
+				getPassword(user_password);
+				if (i >= 3) {
 					int h = 0;
 					TextColor(6);
 					system("cls");
 					cout << "========================================================================================================================\n\n";
 					TextColor(7);
-					cout << "Quen mat khau?";
-					cout << "\nNhap 1 de duoc giup do : ";
+					cout << "\n\tQuen mat khau?";
+					cout << "\n\tNhap 1 de duoc giup do : ";
 					cin >> h;
-					cout << "Mat khau cua ban la : " << pCur->user_password << endl;
+					cout << "\n\tMat khau cua ban la : " << pCur->user_password << endl;
+					cout << "\tNhap -1 de nhap lai.";
+					cin >> h;
+					cout << "\n\tNhap lai mat khau: ";
+					getPassword(user_password);
 					TextColor(6);
-					cout << "========================================================================================================================\n\n";
+					//cout << "========================================================================================================================\n\n";
 				}
 				i++;
 			}
@@ -203,27 +207,31 @@ int main() {
 			if (pCurClass == nullptr && pCur == nullptr) {
 				cout << "\n========================================================================================================================\n\n";
 				gotoXY(35, 15);
-				Run("\tKhong tim thay tai khoan!\n\n");
+				Run("\n\tKhong tim thay tai khoan!\n\n");
 				Sleep(100);
 				system("pause");
 				system("cls");
 				continue;
 			}
-			int i = 0;
+			int i = 1;
 			while (pTemp10->user_password != user_password) {
-				cout << "\tSai mat khau, nhap lai: ";
-				cin >> user_password;
-				if (i == 3) {
+				cout << "\n\tSai mat khau, nhap lai: ";
+				getPassword(user_password);
+				if (i >= 3) {
 					int h = 0;
 					cout << "========================================================================================================================\n\n";
 					gotoXY(35, 2);
-					cout << "\nQuen mat khau?";
+					cout << "\n\tQuen mat khau?";
 					gotoXY(35, 4);
-					cout << "\nNhap 1 de duoc giup do : ";
+					cout << "\n\tNhap 1 de duoc giup do : ";
 					cin >> h;
 					gotoXY(35, 6);
-					cout << "\tMat khau cua ban l a: " << pTemp10->user_password << endl;
-					cout << "========================================================================================================================\n\n";
+					cout << "\n\tMat khau cua ban la: " << pTemp10->user_password << endl;
+					cout << "\tNhap -1 de nhap lai.";
+					cin >> h;
+					cout << "\n\tNhap lai mat khau: ";
+					getPassword(user_password);
+					//cout << "========================================================================================================================\n\n";
 				}
 				i++;
 			}
@@ -245,6 +253,7 @@ int main() {
 		while (option != -1) {
 			system("CLS");
 			TextColor(6);
+			gPA(pClass);
 			print_Staff_Menu();
 			TextColor(7);
 			teacherClass(pUser, pClass);
@@ -307,6 +316,34 @@ int main() {
 					pp = pp->pNext;
 				}
 
+				//input hs vao khoa hoc 
+				if (pCourse->pStuInCourse == nullptr) {
+					StudentInCourse* pL = pCourse->pStuInCourse;
+					Course* pM = pCourse;
+					Class* pTT = pClass;
+					while (pTT != nullptr)
+						if (pTT->class_name == "20CLC04")
+							break;
+						else
+							pTT = pTT->pNext;
+
+					while (pM->course_id != "CSC10006") {
+						Student* pO = pTT->pStudent;
+						for (int i = 1; i <= 8; i++) {
+							srand(time(0));
+							pO->num_of_course++;
+							toStudentCourse(pO, pM, pSSchoolYear->pSemester->no);
+							toStudentInCourse(pM, pO);
+							schedule(pM->pTime, pO->pTable);
+							pO->pTable->semester_no = pSSchoolYear->pSemester->no;
+							pM->num_of_student++;
+
+							pO = pO->pNext;
+						}
+						pM = pM->pNext;
+					}
+				}
+				
 			}
 
 			switch (option) {
@@ -378,6 +415,8 @@ int main() {
 						gotoXY(35, 6);
 						cout << "\t2. Xem thoi gian nam hoc. " << endl;
 						gotoXY(35, 7);
+						cout << "\t3. Xuat thong tin lop hoc. " << endl;
+						gotoXY(35, 8);
 						TextColor(7);
 						cout << "\tTiep tuc voi:";
 						cin >> option1;
@@ -425,7 +464,6 @@ int main() {
 							int option = 10;
 							while (option != 0) {
 								system("cls");
-
 								TextColor(6);
 								gotoXY(35, 3);
 								cout << "=================================\n\n"
@@ -483,6 +521,9 @@ int main() {
 							TextColor(3);
 							showSchoolYear(pSSchoolYear);
 							break;
+						case 3:
+							exportClass(pClass);
+							break;
 						default:
 							TextColor(4);
 							cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
@@ -513,6 +554,7 @@ int main() {
 		while (option != -1) {
 			system("CLS");
 			pSSchoolYear = pSchoolYear;
+			gPA(pClass);
 			print_Student_Menu();
 			cin >> option;
 			//system("cls");
@@ -733,18 +775,19 @@ int main() {
 		cout << endl;
 		cout << endl;
 		cout << "========================================================================================================================\n\n";
-
+		cout << "\t\t";
 		system("pause");
 		system("cls");
 	}
 
 	cout << "\n\n\tChuong trinh ket thuc!!!\n\n\n";
-	exportClass(pClass);
+	
 	//ham delete 
 	{
 		deleteClass(pClass);
 		deleteUser(pUser);
 	}
+	cout << "\n\t\t";
 	system("pause");
 	return 0;
 }

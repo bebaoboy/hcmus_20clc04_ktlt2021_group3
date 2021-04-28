@@ -127,7 +127,7 @@ struct Course {
 	int max_student = 15;
 	int num_of_student = 0;
 	int num_of_class = 0;
-	double *class_GPA;
+	//double *class_GPA;
 	Time* pTime;
 	StudentInCourse* pStuInCourse;
 	Course* pNext;

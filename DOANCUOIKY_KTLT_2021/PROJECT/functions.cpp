@@ -5,6 +5,7 @@
 //for teacher only
 void getPassword(string& a) {
 	char c = '0';
+	a = "";
 
 	while (c != '\r')
 	{
@@ -592,15 +593,7 @@ void eraseTimeTable(Time* p) {
 //ham xem
 void showStudent(Student* &pStudent) {
 	int o = 10;
-	StudentCourse* pI = pStudent->pStuCourse;
-	int count = 0;
-	while (pI != nullptr) {
-		pStudent->GPA_10 += pI->total_mark * pI->num_of_credit;
-		count += pI->num_of_credit;
-		pI = pI->pNext;
-	}
-	pStudent->GPA_10 = pStudent->GPA_10 / double(count);
-	pStudent->GPA = toGPA(pStudent->GPA_10, pStudent->grade);
+
 	while (o != 0) {
 		system("cls");
 		if (pStudent == nullptr) {
@@ -752,6 +745,8 @@ void showCourse(Course* &pCourse) {
 		showTimeTable(pT);
 		cout << "\n\tNhap 1 de chinh sua khoa hoc";
 		cout << "\n\tNhap 2 de xem danh sach sv dang ky khoa hoc.";
+		cout << "\n\tNhap 3 de xuat danh sach sinh vien dang ky khoa hoc.";
+		cout << "\n\tNhap 4 de nhap diem.";
 		cout << "\n\tNhap 0 de quay lai.";
 		cin >> o;
 		if (o == 0) {
@@ -765,7 +760,14 @@ void showCourse(Course* &pCourse) {
 			courseClass(pCourse->pStuInCourse);
 			showStudentInCourse(pCourse->pStuInCourse,pCourse);
 		}
-		else {
+		else if (o == 3) {
+			exportStudentInCourse(pCourse->pStuInCourse);
+		}
+		else if (o == 4) {
+			inputCourseScore(pCourse);
+		} 
+		else
+		{
 			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
 			cin >> o;
 		}
@@ -2201,7 +2203,7 @@ void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
 						<< "\tSo tin chi: " << pC->num_of_credit << endl;
 					showTimeTable(pC->pTime);
 					cout << "\n\tGPA: " << pC->GPA
-						<< "\n\tDiem tong: " << pC->final_mark
+						<< "\n\tDiem tong: " << pC->total_mark
 						<< "\n\tFinal: " << pC->final_mark
 						<< "\n\tMidterm: " << pC->midterm_mark;
 					
@@ -2498,6 +2500,28 @@ void showStudentHistory(StudentHistory* pH) {
 }
 
 //ham diem(score)
+void gPA(Class* pClass) {
+	while (pClass != nullptr) {
+		Student* pStudent = pClass->pStudent;
+		while (pStudent != nullptr) {
+			StudentCourse* pI = pStudent->pStuCourse;
+			int count = 0;
+			pStudent->GPA_10 = 0;
+			while (pI != nullptr) {
+				if (pI->midterm_mark <= 1) break;
+				pStudent->GPA_10 += pI->total_mark * pI->num_of_credit;
+				count += pI->num_of_credit;
+				pI = pI->pNext;
+			}
+			if (pStudent->GPA_10 != 0) {
+				pStudent->GPA_10 = pStudent->GPA_10 / double(count);
+				pStudent->GPA = toGPA(pStudent->GPA_10, pStudent->grade);
+			}
+			pStudent = pStudent->pNext;
+		}
+		pClass = pClass->pNext;
+	}
+}
 double toGPA(double n, string &grade) {
 	if (n < 0 || n > 10) {
 		grade = "ER";
@@ -2615,6 +2639,59 @@ void printStudentScoreboard(Student *pS) {
 }
 bool failCheck(double n) {
 	return (n < 5) ? 0 : 1;
+}
+void inputCourseScore(Course* pC) {
+	ifstream input("CourseScoreboard.csv");
+	StudentInCourse* pS = pC->pStuInCourse;
+	int _ = 0;
+	string line = "";
+	string n = "";
+	string id = "";
+	if (!input.is_open()) {
+		cout << "\n\n\tKhong  mo duoc file. Nhap -1 de quay lai.";
+		cin >> _;
+		return;
+	}
+	else {
+		getline(input, line);
+		while (pS !=nullptr) {
+			getline(input, n, ',');
+			getline(input, id, ',');
+			getline(input, n, ',');
+			getline(input, n, ',');
+			getline(input, n, ',');
+			pS->midterm_mark = stod(n);
+			getline(input, n, ',');
+			pS->final_mark = stod(n);
+			getline(input, n, ',');
+			pS->progress_mark = stod(n);
+			getline(input, n, '\n');
+			pS->total_mark = stod(n);
+			pS->GPA = toGPA(pS->total_mark, n); 
+
+			StudentCourse* pSC = pS->pStudent->pStuCourse;
+			while (pSC != nullptr) {
+				if (pSC->course_id == pC->course_id)
+				{
+					pSC->midterm_mark = pS->midterm_mark;
+					pSC->final_mark = pS->final_mark;
+					pSC->progress_mark = pS->progress_mark;
+					pSC->total_mark = pS->total_mark;
+					pSC->GPA = toGPA(pSC->total_mark, pSC->grade);
+					break;
+				}
+				else
+				pSC = pSC->pNext;
+			}
+			
+			pS->GPA = pSC->GPA;
+
+			pS = pS->pNext;
+			if (input.eof()) break;
+			
+		}
+	}
+	input.close();
 }
 
 //ham delete tung cai
@@ -2736,7 +2813,7 @@ void exportClass(Class* pClass) {
 		return;
 	}
 	else {
-		cout << "\n\n\tDang nhap file . . .\n";
+		cout << "\n\n\tDang xuat file . . .\n";
 		output << "Ten lop,Ten hoc sinh,MSSV,Gioi tinh,STT,Ngay thang nam sinh,username,password,GPA" << endl;
 		while (pClass != nullptr) {
 			Student* pS = pClass->pStudent;
@@ -2762,7 +2839,36 @@ void exportClass(Class* pClass) {
 	}
 }
 void exportStudentInCourse(StudentInCourse* pStuInCourse) {
+	system("cls");
+	int _ = 0;
+	ofstream output("CourseScoreboard.csv");
 
+	if (!output.is_open()) {
+		cout << "\n\n\tKhong  mo duoc file. Nhap -1 de quay lai.";
+		cin >> _;
+		return;
+	}
+	else {
+		cout << "\n\n\tDang xuat file . . .\n";
+		output << "Ten hoc sinh,MSSV,Gioi tinh,Ngay thang nam sinh,Diem midterm,Diem final,Diem qua trinh,Diem tong ket" << endl;
+			while (pStuInCourse != nullptr) {
+				Student* pS = pStuInCourse->pStudent;
+				output << pS->full_name << ","
+					<< pS->id << ","
+					<< pS->gender << ","
+					<< pS->dob << "/" << pS->mob << "/" << pS->yob << ","
+					<< pStuInCourse->midterm_mark << ","
+					<< pStuInCourse->final_mark << ","
+					<< pStuInCourse->progress_mark << ","
+					<< pStuInCourse->total_mark << endl;
+				pStuInCourse = pStuInCourse->pNext;
+		}
+		output.close();
+
+		cout << "\n\tXuat file thanh cong! Nhan -1 de quay lai.";
+		cin >> _;
+		return;
+	}
 }
 
 //ham console
