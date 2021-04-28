@@ -592,6 +592,15 @@ void eraseTimeTable(Time* p) {
 //ham xem
 void showStudent(Student* &pStudent) {
 	int o = 10;
+	StudentCourse* pI = pStudent->pStuCourse;
+	int count = 0;
+	while (pI != nullptr) {
+		pStudent->GPA_10 += pI->total_mark * pI->num_of_credit;
+		count += pI->num_of_credit;
+		pI = pI->pNext;
+	}
+	pStudent->GPA_10 = pStudent->GPA_10 / double(count);
+	pStudent->GPA = toGPA(pStudent->GPA_10, pStudent->grade);
 	while (o != 0) {
 		system("cls");
 		if (pStudent == nullptr) {
@@ -607,7 +616,9 @@ void showStudent(Student* &pStudent) {
 			<< "\n\tGioi tinh: " << ((pStudent->gender == 'M') ? "Nam" : "Nu")
 			<< "\n\tNgay sinh: " << pStudent->dob << "/" << pStudent->mob << "/" << pStudent->yob
 			//<< "\n\tSocial ID: " 
+			<< "\n\tGPA_10: " << pStudent->GPA_10
 			<< "\n\tGPA: " << pStudent->GPA
+			<< "\n\tGrade: " << pStudent->grade
 			<< "\n\tLop chu nhiem: " << pStudent->mainclass << endl;
 		cout << "\tNhap 2 de xem danh sach hoc phan da dang ky." << endl;
 		cout << "\tNhap 3 de xem thoi khoa bieu" << endl;
@@ -1956,6 +1967,7 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 								toStudentCourse(pStudent, pC, no);
 								toStudentInCourse(pC, pStudent);
 								schedule(pC->pTime, pStudent->pTable);
+								pStudent->pTable->semester_no = no;
 								pC->num_of_student++;
 								//thanh cong
 								cout << "\n\n\tDang ky thanh cong!\n\tNhap -1 de quay lai.";
@@ -2083,6 +2095,7 @@ void toStudentCourse(Student*& pSC, Course* &pCourse, int no) {
 	p->semester_no = no;
 	randomScore(p->midterm_mark, p->final_mark, p->progress_mark, p->total_mark);
 	p->GPA = toGPA(p->total_mark, p->grade);
+	
 	Time* pCT = pCourse->pTime;
 	createTimeTable(p->pTime);
 	for (int i = 0; i < 6; i++) {
@@ -2107,6 +2120,20 @@ void toStudentInCourse(Course* &pC, Student*&pStudent) {
 	}
 	p->course_id = pC->course_id;
 	p->pStudent = pStudent;
+
+	StudentCourse* pK = p->pStudent->pStuCourse;
+	while (pK != nullptr) {
+		if (pK->course_id == pC->course_id) {
+			break;
+		}
+		else
+			pK = pK->pNext;
+	}
+	p->midterm_mark = pK->midterm_mark;
+	p->final_mark = pK->final_mark;
+	p->progress_mark = pK->progress_mark;
+	p->total_mark = pK->total_mark;
+	p->GPA = pK->GPA;
 	courseClass(p);
 	p->pNext = nullptr;
 }
@@ -2471,7 +2498,7 @@ void showStudentHistory(StudentHistory* pH) {
 }
 
 //ham diem(score)
-double toGPA(int n, string &grade) {
+double toGPA(double n, string &grade) {
 	if (n < 0 || n > 10) {
 		grade = "ER";
 		return 0;
@@ -2567,17 +2594,27 @@ void printStudentScoreboard(Student *pS) {
 	StudentCourse* pSC = pS->pStuCourse;
 	cout << "\n\n\tSo khoa hoc trong hoc ki: " << pS->num_of_course << endl << endl;
 	cout << setw(50) << left << "\tMon hoc";
-	cout << "Midterm   Final   Progress   Total   GPA   Grade" << endl;
+	cout << "Midterm   Final   Progress   Total   GPA   Grade    Hoc lai" << endl;
 
 	while (pSC != nullptr) {
 		cout << "\t" << setw(50) << left << pSC->course_name;
-		cout << "  " << setw(3) << pSC->midterm_mark << "\t    " << setw(3) << pSC->final_mark << "\t     " << setw(3) << pSC->progress_mark << "       " << setw(3) << pSC->total_mark << "    " << setw(3) << pSC->GPA << "     " << setw(3) << pSC->grade << endl;
+		cout << "  " << setw(3) << pSC->midterm_mark << "\t    " << setw(3) << pSC->final_mark << "\t     " << setw(3) << pSC->progress_mark << "       " << setw(3) << pSC->total_mark << "    " << setw(3) << pSC->GPA << "     " << setw(3) << pSC->grade;
+		if (!failCheck(pSC->total_mark)) {
+			pSC->passed = 0;
+			cout << "       Yes";
+		}
+		else
+			cout << "       No";
+		cout << endl;
 		pSC = pSC->pNext;
 	}
 
 	cout << "\n\tNhap 0 de quay lai.";
 	cin >> _;
 
+}
+bool failCheck(double n) {
+	return (n < 5) ? 0 : 1;
 }
 
 //ham delete tung cai
@@ -2723,6 +2760,9 @@ void exportClass(Class* pClass) {
 		cin >> _;
 		return;
 	}
+}
+void exportStudentInCourse(StudentInCourse* pStuInCourse) {
+
 }
 
 //ham console

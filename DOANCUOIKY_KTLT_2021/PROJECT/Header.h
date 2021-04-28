@@ -95,17 +95,19 @@ void createHistory(StudentHistory*& pH, Student* pS);
 void showStudentHistory(StudentHistory* pH);
 
 //Ham diem
-void inputCourseScore(Course*& pC, Class* pClass); //nhap hoc sinh va diem cua hoc phan
+//void inputCourseScore(Course*& pC, Class* pClass); //nhap hoc sinh va diem cua hoc phan
 void randomScore(double &a, double &b, double &c, double &d);
-double toGPA(int n, string &grade);
+double toGPA (double n, string &grade);
 void printCourseScoreboard();
 void printClassScoreboard();
 void printStudentScoreboard(Student *pS);
+bool failCheck(double n);
 
 //Ham xuat file
 void exportClass(Class *pClass); //student and score/gpa
 void exportStudentScore(); //gv chon
 void exportStudentHistory();
+void exportStudentInCourse(StudentInCourse* pStuInCourse);
 void exportCourseScore(StudentInCourse* pStuInCourse); //xuat diem cua 1 khoa hoc
 
 

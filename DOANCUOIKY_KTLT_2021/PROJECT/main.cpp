@@ -619,17 +619,22 @@ int main() {
 								break;
 							case 2:
 								TextColor(3);
-								for (int i = 0; i < 6; i++) {
-									for (int j = 0; j < 4; j++) {
-										if (pTemp10->pTable[i].session[j] == "X")
+								for (int i = 0; i < 6; i++)
+									for (int j =0; j < 4; j++)
+										if (pTemp10->pTable[i].session[j] == "X" && pTemp10->pTable->semester_no != pTemp->pEnroll->semester_no)
 										{
 											cout << "\n\n\tBan da dang ky hoc phan o mot hoc ky khac. Vui long kiem tra lai.\n\tNhap -1 de quay lai.\n\t";
 											cin >> option;
+											i = 6;
+											break;
 										}
-										else
+										else {
 											Enroll(pTemp->pEnroll, pTemp10, pTemp->pCourse);
-									}
-								}
+											i = 6;
+											break;
+										}
+											
+								
 								break;
 							case 3:
 								TextColor(3);

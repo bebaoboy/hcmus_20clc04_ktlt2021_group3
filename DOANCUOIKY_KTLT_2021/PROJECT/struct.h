@@ -26,6 +26,7 @@ struct Word
 struct Time {
 	string day; //mon to sat
 	string *session; //1(7h30), 2(9h30), 3(1h30), 4(15h30)
+	int semester_no;
 };
 
 struct StudentCourse {
@@ -44,6 +45,7 @@ struct StudentCourse {
 	StudentCourse* pNext;
 	Time* pTime;
 	Course* pCourse;
+	int passed = 1;
 };
 
 struct Student
@@ -62,7 +64,9 @@ struct Student
 	Time* pTable;
 	string user_name;
 	string user_password;
+	double GPA_10 = 0;
 	double GPA = 0;
+	string grade;
 	//int user_type = 1;
 
 };
