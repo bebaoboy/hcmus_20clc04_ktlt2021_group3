@@ -100,7 +100,7 @@ void gPA(Class* pClass);
 void randomScore(double &a, double &b, double &c, double &d);
 double toGPA (double n, string &grade);
 void printCourseScoreboard();
-void printClassScoreboard();
+void printClassScoreboard(Class *pClass);
 void printStudentScoreboard(Student *pS);
 bool failCheck(double n);
 void inputCourseScore(Course* pC);

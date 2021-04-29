@@ -370,13 +370,13 @@ int main() {
 						TextColor(9);
 						cout << "\n\tDang nhap thong tin nam hoc . . .\n";
 						inputSchoolYear(pSSchoolYear);
-						Sleep(1000);
+						Sleep(500);
 						TextColor(10);
 						cout << "\tDang nhap khoa hoc . . .\n";
-						Sleep(1000);
+						Sleep(500);
 						TextColor(11);
 						cout << "\tDang nhap lop hoc va sinh vien . . . \n\n";
-						Sleep(1000);
+						Sleep(500);
 						TextColor(6);
 						cout << "========================================================================================================================\n\n";
 						TextColor(7);
@@ -775,19 +775,21 @@ int main() {
 		cout << endl;
 		cout << endl;
 		cout << "========================================================================================================================\n\n";
-		cout << "\t\t";
+		//cout << "\t\t";
+		gotoXY(35, 10);
 		system("pause");
 		system("cls");
 	}
 
-	cout << "\n\n\tChuong trinh ket thuc!!!\n\n\n";
+	gotoXY(35, 11);
+	cout << "Chuong trinh ket thuc!!!\n\n\n";
 	
 	//ham delete 
 	{
 		deleteClass(pClass);
 		deleteUser(pUser);
 	}
-	cout << "\n\t\t";
+	gotoXY(35, 13);
 	system("pause");
 	return 0;
 }

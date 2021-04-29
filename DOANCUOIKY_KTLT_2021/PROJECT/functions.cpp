@@ -938,6 +938,7 @@ void showClass(Class* &pClass, Semester* &pSemester) {
 						break;
 					case 3:
 						//xem gpa tung nguoi va overall (list)
+						printClassScoreboard(pTemp2);
 						break;
 					default:
 						cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
@@ -1152,7 +1153,7 @@ void showExtraStudent(extraStudent* pExtra, Class* pClass) {
 					pS->pNext = new Student;
 					pS = pS->pNext;
 				}
-				for (int i = 1; i < t; i++)
+				for (int i = 0; i < t-1; i++)
 					pExtra = pExtra->pNext;
 
 				pS->full_name = pExtra->full_name;
@@ -2208,8 +2209,12 @@ void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
 						<< "\n\tMidterm: " << pC->midterm_mark;
 					
 					cout << "\n\tNhap 1 de xem danh sach hoc sinh cua hoc phan.";
+					cout << "\n\tNhap 2 de chinh Diem tong ket"
+						<< "\n\tNhap 3 de chinh Diem cuoi ki"
+						<< "\n\tNhap 4 de chinh diem giua ki";
 					cout << "\n\tNhap 0 de quay lai.";
 					cin >> o2;
+					StudentInCourse* pL = pC->pCourse->pStuInCourse;
 					switch (o2) {
 					case 0:
 						break;
@@ -2237,6 +2242,48 @@ void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
 								break;
 							}
 						}
+						break;
+					case 2:
+						system("cls");
+						cout << "\n\n\tNhap diem tong ket: ";
+						cin >> pC->total_mark;
+						while (pL != nullptr) {
+							if (pL->pStudent->id == pS->id)
+								break;
+							else
+								pL = pL->pNext;
+						}
+						pL->total_mark = pC->total_mark;
+						cout << "\n\tNhap diem thanh cong. Nhap -1 de quay lai.";
+						cin >> o2;
+						break;
+					case 3:
+						system("cls");
+						cout << "\n\n\tNhap diem cuoi ki: ";
+						cin >> pC->final_mark;
+						while (pL != nullptr) {
+							if (pL->pStudent->id == pS->id)
+								break;
+							else
+								pL = pL->pNext;
+						}
+						pL->final_mark = pC->final_mark;
+						cout << "\n\tNhap diem thanh cong. Nhap -1 de quay lai.";
+						cin >> o2;
+						break;
+					case 4:
+						system("cls");
+						cout << "\n\n\tNhap diem giua ki: ";
+						cin >> pC->midterm_mark;
+						while (pL != nullptr) {
+							if (pL->pStudent->id == pS->id)
+								break;
+							else
+								pL = pL->pNext;
+						}
+						pL->midterm_mark = pC->midterm_mark;
+						cout << "\n\tNhap diem thanh cong. Nhap -1 de quay lai.";
+						cin >> o2;
 						break;
 					default:
 						cout << "\tSo khong hop le, vui long nhap lai: ";
@@ -2609,7 +2656,36 @@ void randomScore(double& a, double& b, double& c, double& d) {
 void printCourseScoreboard() {
 
 }
-void printClassScoreboard() {
+void printClassScoreboard(Class* pClass) {
+	int _ = 0;
+	cout << "\n\n\t\t\t\tBANG DIEM LOP " << pClass->class_name << endl << endl;
+	cout << setw(8) << left << "\tID" << setw(30) << left << "\t      Ho ten";
+	cout << setw(10) << left << "   Diem cac mon" << setw(5) << left << "\t    GPA" << endl;
+	Student* pS = pClass->pStudent;
+	while (pS != nullptr) {
+		int i = 1;
+		StudentCourse *pSC = pS->pStuCourse;
+		cout << setw(5) << left << "     " << setw(9) << left << pS->id << "\t  " << setw(29) << left << pS->full_name;
+		while (pSC != nullptr) {
+			if (i == 1) {
+				cout << setw(1) << left << i << setw(2) << left << ". " << setw(10) << left << pSC->course_id << "(" << pSC->total_mark << ")";
+				cout << "      " << setw(5) << left << pS->GPA_10 << endl;
+			}
+			else {
+				cout << "\t\t\t\t\t       " << setw(1) << left << i << setw(2) << left << ". " << setw(10) << left << pSC->course_id << "(" << pSC->total_mark << ")";
+				cout << endl;
+			}
+			i++;
+			
+			pSC = pSC->pNext;
+		}
+		cout << endl;
+
+		pS = pS->pNext;
+	}
+	cout << "\n\n\tNhap -1 de quay lai. ";
+	cin >> _;
+	system("cls");
 
 }
 void printStudentScoreboard(Student *pS) {
