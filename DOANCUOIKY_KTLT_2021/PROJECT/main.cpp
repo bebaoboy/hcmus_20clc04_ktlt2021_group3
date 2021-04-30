@@ -165,7 +165,7 @@ int main() {
 					cout << "\n\tNhap 1 de duoc giup do : ";
 					cin >> h;
 					cout << "\n\tMat khau cua ban la : " << pCur->user_password << endl;
-					cout << "\tNhap -1 de nhap lai.";
+					cout << "\tNhap -1 de nhap lai : ";
 					cin >> h;
 					cout << "\n\tNhap lai mat khau: ";
 					getPassword(user_password);
@@ -227,7 +227,7 @@ int main() {
 					cin >> h;
 					gotoXY(35, 6);
 					cout << "\n\tMat khau cua ban la: " << pTemp10->user_password << endl;
-					cout << "\tNhap -1 de nhap lai.";
+					cout << "\tNhap -1 de nhap lai : ";
 					cin >> h;
 					cout << "\n\tNhap lai mat khau: ";
 					getPassword(user_password);
@@ -275,7 +275,7 @@ int main() {
 					pSSchoolYear->pSemester->pNext->pNext->pCourse = pCourse3;
 					pSSchoolYear->pSemester->pNext->pNext->pE = pExtra;
 				}
-					
+
 				Semester* pp = pSSchoolYear->pSemester;
 
 				while (pp != nullptr) {
@@ -343,12 +343,12 @@ int main() {
 						pM = pM->pNext;
 					}
 				}
-				
+
 			}
 
 			switch (option) {
 			case 0:
-				TextColor(3);
+				TextColor(6);
 				showUserAccount(pUser, pCur->user_name);
 				break;
 
@@ -368,14 +368,14 @@ int main() {
 					cout << "========================================================================================================================\n\n";
 					if (_ == 2) {
 						TextColor(9);
-						cout << "\n\tDang nhap thong tin nam hoc . . .\n";
+						cout << "\n\t\t\tDang nhap thong tin nam hoc . . .\n";
 						inputSchoolYear(pSSchoolYear);
 						Sleep(500);
 						TextColor(10);
-						cout << "\tDang nhap khoa hoc . . .\n";
+						cout << "\t\t\tDang nhap khoa hoc . . .\n";
 						Sleep(500);
 						TextColor(11);
-						cout << "\tDang nhap lop hoc va sinh vien . . . \n\n";
+						cout << "\t\t\tDang nhap lop hoc va sinh vien . . . \n\n";
 						Sleep(500);
 						TextColor(6);
 						cout << "========================================================================================================================\n\n";
@@ -390,7 +390,7 @@ int main() {
 						gotoXY(35, 12);
 						cout << "Chua co nam hoc nao!\n";
 						TextColor(7);
-						gotoXY(35, 15);
+						gotoXY(30, 15);
 						cout << "Vui long nhap 0 de tao nam hoc : \t";
 						cin >> option;
 						createSchoolYear(pSchoolYear);
@@ -418,7 +418,7 @@ int main() {
 						cout << "\t3. Xuat thong tin lop hoc. " << endl;
 						gotoXY(35, 8);
 						TextColor(7);
-						cout << "\tTiep tuc voi:";
+						cout << "\tTiep tuc voi: ";
 						cin >> option1;
 						system("cls");
 						Semester* p = pSSchoolYear->pSemester;
@@ -466,18 +466,18 @@ int main() {
 								system("cls");
 								TextColor(6);
 								gotoXY(35, 3);
-								cout << "=================================\n\n"
-									<< "\tNhap so de tiep tuc: \n"
-									<< "\t1. Xem thong tin cac lop hoc.\n"
-									<< "\t2. Xem thong tin cac khoa hoc.\n"
-									<< "\t3. Xem thoi gian hoc ky.\n"
-									<< "\t4. Xem phien dang ky hoc phan.\n"
-									<< "\tNhap 0 de quay lai.";
+								cout << "=================================\n\n";
+								cout << "\t\t\tNhap so de tiep tuc: \n"
+									<< "\t\t\t1. Xem thong tin cac lop hoc.\n"
+									<< "\t\t\t2. Xem thong tin cac khoa hoc.\n"
+									<< "\t\t\t3. Xem thoi gian hoc ky.\n"
+									<< "\t\t\t4. Xem phien dang ky hoc phan.\n"
+									<< "\t\t\tNhap 0 de quay lai.";
 								gotoXY(35, 11);
 								TextColor(7);
 								cout << "Lua chon cua ban : ";
 								cin >> option;
-								TextColor(11);
+								TextColor(6);
 								switch (option) {
 								case 0:
 									system("cls");
@@ -518,14 +518,14 @@ int main() {
 						}
 
 						case 2:
-							TextColor(3);
+							TextColor(6);
 							showSchoolYear(pSSchoolYear);
 							break;
 						case 3:
 							exportClass(pClass);
 							break;
 						default:
-							TextColor(4);
+							TextColor(6);
 							cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 							cin >> option1;
 							break;
@@ -561,12 +561,12 @@ int main() {
 			switch (option) {
 			case 1:
 				//xem thong tin hs
-				TextColor(3);
+				TextColor(6);
 				showStudent(pTemp10);
 				cin.get();
 				break;
 			case 2: {
-
+				TextColor(6);
 				int option1 = 1;
 				while (option1 != 0) {
 					system("CLS");
@@ -587,7 +587,8 @@ int main() {
 						if (option1 == 0) break;
 						system("cls");
 						gotoXY(35, 3);
-						cout << "\n\tChua co du lieu. Vui long quay lai sau!\n\tBam -1 de quay lai.\n";
+						TextColor(7);
+						cout << "\n\tChua co du lieu. Vui long quay lai sau!\n\tBam -1 de quay lai : \n";
 						cin >> option1;
 						//system("cls");
 						continue;
@@ -616,7 +617,7 @@ int main() {
 						cout << "\t\tHoc ky " << pTemp->no << endl;
 						cout << "========================================================================================================================\n\n";
 						TextColor(7);
-						cout << "\tNhap -1 de quay lai\n\t";
+						cout << "\tNhap -1 de quay lai : ";
 						cin >> no;
 						if (no == -1) break;
 
@@ -656,13 +657,13 @@ int main() {
 							case 0:
 								break;
 							case 1:
-								TextColor(3);
+								TextColor(6);
 								showMainClass(pCurClass);
 								break;
 							case 2:
-								TextColor(3);
+								TextColor(6);
 								for (int i = 0; i < 6; i++)
-									for (int j =0; j < 4; j++)
+									for (int j = 0; j < 4; j++)
 										if (pTemp10->pTable[i].session[j] == "X" && pTemp10->pTable->semester_no != pTemp->pEnroll->semester_no)
 										{
 											cout << "\n\n\tBan da dang ky hoc phan o mot hoc ky khac. Vui long kiem tra lai.\n\tNhap -1 de quay lai.\n\t";
@@ -675,11 +676,11 @@ int main() {
 											i = 6;
 											break;
 										}
-											
-								
+
+
 								break;
 							case 3:
-								TextColor(3);
+								TextColor(6);
 								showStudentCourse(pTemp10->pStuCourse, pTemp10);
 								break;
 							case 4:
@@ -687,20 +688,21 @@ int main() {
 								cout << endl << endl;
 								TextColor(3);
 								showTimeTable(pTemp10->pTable);
-								TextColor(7);
-								cout << "\tNhap -1 de quay lai.";
+								TextColor(6);
+								cout << "\tNhap -1 de quay lai : ";
 								cin >> op;
 								break;
 							case 5:
 								while (op != 0) {
 									system("cls");
 
-									TextColor(3);
+									TextColor(6);
 
 									cout << "========================================================================================================================\n\n";
 									cout << "\tHoc ki " << pSemester->no << ": " << endl;
 									cout << "\tThoi gian bat dau : " << pSemester->begin_date << "/" << pSemester->begin_month << "/" << pSemester->begin_year << endl;
 									cout << "\tThoi gian ket thuc: " << pSemester->end_date << "/" << pSemester->end_month << "/" << pSemester->end_year << endl;
+									TextColor(7);
 									cout << "\tNhap 0 de quay lai : " << endl;
 									cin >> op;
 									switch (op) {
@@ -740,10 +742,12 @@ int main() {
 						}
 						cout << "\tNgay ket thuc: " << pTemp->end_date << "/" << pTemp->end_month << "/" << pTemp->end_year << endl;
 						cout << "========================================================================================================================\n\n";
+						TextColor(7);
 						cout << "\tNhap -1 de quay lai : ";
 						cin >> option1;
 						break;
 					default:
+						TextColor(7);
 						cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 						cin >> option1;
 						break;
@@ -783,7 +787,7 @@ int main() {
 
 	gotoXY(35, 11);
 	cout << "Chuong trinh ket thuc!!!\n\n\n";
-	
+
 	//ham delete 
 	{
 		deleteClass(pClass);

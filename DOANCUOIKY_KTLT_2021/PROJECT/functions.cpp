@@ -2,6 +2,7 @@
 
 //trong ham: nhap 0 quay lai, trong switch: nhap -1 quay lai
 
+
 //for teacher only
 void getPassword(string& a) {
 	char c = '0';
@@ -29,32 +30,34 @@ void changeUserPassword(string& user_password) {
 	system("cls");
 	string temp_password1, temp_password2, old_password;
 	cin.ignore();
-	cout << "=====================================\n\n"
-		<< "\tNhap password cu: ";
+	gotoXY(35, 3);
+	cout << "=====================================\n\n";
+	cout << "\t\t\t\tNhap password cu: ";
 	getline(cin, old_password);
 	while (old_password != user_password) {
-		cout << "\tSai mat khau cu. Vui long nhap lai: ";
+		cout << "\t\t\t\tSai mat khau cu. Vui long nhap lai: ";
 		getline(cin, old_password);
 	}
 	system("cls");
-
-	cout << "=====================================\n\n"
-		<< "\tNhap password moi: ";
+	gotoXY(35, 3);
+	cout << "=====================================\n\n";
+	cout << "\t\t\t\tNhap password moi: ";
 	getline(cin, temp_password1);
-	cout << "\tNhap lai password moi: ";
+	cout << "\t\t\t\tNhap lai password moi: ";
 	getline(cin, temp_password2);
 
 	while (temp_password1 != temp_password2) {
-		cout << "\tPassword moi khong trung khop. Vui long nhap lai: ";
+		cout << "\t\t\t\tPassword moi khong trung khop. Vui long nhap lai: ";
 		getline(cin, temp_password2);
 	}
 	user_password = temp_password2;
 	system("cls");
 
-	cout << "==================================\n\n"
-		<< "\tDoi mat khau thanh cong!\n\tBam -1 de quay lai!\n"
-		<< "===================================\n";
+	cout << "\t\t\t\t==================================\n\n"
+		<< "\t\t\t\t\tDoi mat khau thanh cong!\n\t\t\t\t\tBam -1 de quay lai : ";
 	cin.get();
+	cout << "\t\t\t\t===================================\n";
+
 	return;
 }
 bool checkUserName(UserAccount* pUser, string user_name) {
@@ -72,7 +75,7 @@ bool checkUserName(UserAccount* pUser, string user_name) {
 void showUserAccount(UserAccount* pUser, string user_name) {
 	//system("cls");
 	UserAccount* pB = pUser;
-	
+
 	int opt = 10, o = 10, i = 1;
 	while (pUser != nullptr) {
 		if (pUser->user_name == user_name) break;
@@ -83,78 +86,97 @@ void showUserAccount(UserAccount* pUser, string user_name) {
 	Class* pTemp2 = pUser->pClass;
 	while (opt != 0) {
 		system("cls");
-		cout << "=============================\n\n"
-			<< "\tUsername: " << pUser->user_name
-			<< "\n\tFullname: " << pUser->full_name
-			<< "\n\tLop chu nhiem: " << pUser->user_class
-			<< "\n\tPassword: Nhap 1 de xem\n\tNhap 2 de doi password."
-			<< "\n\tNhap 3 de thay doi thong tin!";
+		gotoXY(35, 3);
+		cout << "=============================\n\n";
+		cout << "\t\t\t\tUsername: " << pUser->user_name
+			<< "\n\t\t\t\tFullname: " << pUser->full_name
+			<< "\n\t\t\t\tLop chu nhiem: " << pUser->user_class
+			<< "\n\t\t\t\tPassword: Nhap 1 de xem\n\t\t\t\tNhap 2 de doi password."
+			<< "\n\t\t\t\tNhap 3 de thay doi thong tin.";
 		if (pUser->user_class != "Giao vien bo mon")
-			cout << "\n\tNhap 4 de xem thong tin lop chu nhiem.";
-		cout << "\n\tNhap 0 de quay lai.";
+			cout << "\n\t\t\t\tNhap 4 de xem thong tin lop chu nhiem.";
+		cout << "\n\t\t\t\tNhap 0 de quay lai.";
+		gotoXY(35, 12);
+		cout << "=============================\n\n";
+		TextColor(7);
+		cout << "\n\t\t\t\tTiep tuc voi : ";
 		cin.ignore();
 		cin >> opt;
 		system("cls");
 		switch (opt) {
 		case 2:
+			TextColor(6);
 			changeUserPassword(pUser->user_password);
 			break;
 		case 3:
+			TextColor(6);
 			editUserAccount(pB, pUser->user_name);
 			break;
 		case 1:
 			//system("cls");
-			cout << "================================\n\n"
-				<< "\tPassword: " << pUser->user_password
+			gotoXY(35, 3);
+			TextColor(6);
+			cout << "================================\n\n";
+			gotoXY(40, 5);
+			cout << "Password: " << pUser->user_password
 				<< endl;
-			cout << "\tNhap -1 de tiep tuc.";
+			gotoXY(35, 7);
+			cout << "================================\n\n";
+			cout << "\t\t\t\t\tNhap -1 de tiep tuc : ";
 			cin >> opt;
 			break;
 		case 4:
 			if (pTemp2 == nullptr) {
-				cout << "\n\n\tChua co du lieu. Nhap -1 de quay lai.";
+				TextColor(6);
+				cout << "\n\n\t\t\tChua co du lieu. Nhap -1 de quay lai : ";
 				cin >> opt;
 			}
 			else
-			while (o != 0) {
-				cout << "=====================================\n\n"
-					<< "\tLop: " << pTemp2->class_name << endl
-					<< "\tGVCN: " << pTemp2->class_teacher << endl
-					<< "\tSo luong hoc sinh: " << pTemp2->num_of_student << endl
-					<< "\n\tNhap 1 de xem danh sach hoc sinh: "
-					<< "\n\tNhap 2 de chinh sua thong tin"
-					<< "\n\tNhap 3 de xem GPA cua lop"
-					<< "\n\tNhap 0 de quay lai.";
-				cin >> o;
-				system("cls");
-				switch (o) {
-				case 0:
-					break;
-				case 1:
-					if (pTemp2->pStudent == nullptr) {
-						cout << "\n\n\tChua co hoc sinh nao. Bam -1 de quay lai.";
-						cin >> o;
-					}
-					else
-						showStudentList(pTemp2->pStudent, pTemp2->num_of_student);
-					break;
-				case 2:
-					editClass(pTemp2);
-					break;
-				case 3:
-					//xem gpa tung nguoi va overall (list)
-					break;
-				default:
-					cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+				while (o != 0) {
+					TextColor(6);
+					gotoXY(35, 3);
+					cout << "=====================================\n\n";
+					cout << "\t\t\t\tLop: " << pTemp2->class_name << endl
+						<< "\t\t\t\tGVCN: " << pTemp2->class_teacher << endl
+						<< "\t\t\t\tSo luong hoc sinh: " << pTemp2->num_of_student << endl
+						<< "\n\t\t\t\tNhap 1 de xem danh sach hoc sinh: "
+						<< "\n\t\t\t\tNhap 2 de chinh sua thong tin."
+						<< "\n\t\t\t\tNhap 3 de xem GPA cua lop."
+						<< "\n\t\t\t\tNhap 0 de quay lai.";
+					gotoXY(35, 13);
+					cout << "=====================================\n\n";
+					TextColor(7);
+					cout << "\n\t\t\t\tTiep tuc voi : ";
 					cin >> o;
-					break;
+					system("cls");
+					switch (o) {
+					case 0:
+						break;
+					case 1:
+						if (pTemp2->pStudent == nullptr) {
+							cout << "\n\n\t\t\t\tChua co hoc sinh nao. Bam -1 de quay lai : ";
+							cin >> o;
+						}
+						else
+							showStudentList(pTemp2->pStudent, pTemp2->num_of_student);
+						break;
+					case 2:
+						editClass(pTemp2);
+						break;
+					case 3:
+						//xem gpa tung nguoi va overall (list)
+						break;
+					default:
+						cout << "\t\tNhap sai cu phap!\n\t\tNhap -1 de quay lai : ";
+						cin >> o;
+						break;
+					}
 				}
-			}
 			break;
 		case 0:
 			return;
 		default:
-			cout << "\tNhap sai cu phap.";
+			cout << "\t\t\t\tNhap sai cu phap.";
 			break;
 		}
 		//system("cls");
@@ -174,61 +196,67 @@ void editUserAccount(UserAccount* pUser, string user_name) {
 	}
 
 	while (opt != -1) {
-		cout << "==================================\n\n"
-			<< "\tNhap 1 de doi username\n"
-			<< "\tNhap 2 de doi fullname\n"
-			<< "\tNhap 3 de doi lop chu nhiem\n"
-			<< "\tNhap -1 de quay lai.";
-		
+		gotoXY(35, 3);
+		cout << "==================================\n\n";
+		cout << "\t\t\t\tNhap 1 de doi username.\n"
+			<< "\t\t\t\tNhap 2 de doi fullname.\n"
+			<< "\t\t\t\tNhap 3 de doi lop chu nhiem.\n"
+			<< "\t\t\t\tNhap -1 de quay lai.";
+		cout << "\n\t\t\t\tTiep tuc voi : ";
+
 		string temp;
 		cin >> opt;
 		system("cls");
 		cin.ignore();
 		switch (opt) {
 		case 1:
+			gotoXY(35, 3);
 			cout << "=================================\n\n"
-				<< "\tNhap username moi(Nhap 0 de quay lai): ";
+				<< "\t\t\t\t  Nhap username moi ( Nhap 0 de quay lai ) : ";
 			getline(cin, temp);
 			if (temp != "0") {
 				while (!checkUserName(pB, temp)) {
-					cout << "\n\tTen da duoc su dung boi tai khoan khac. Vui long nhap lai:";
+					cout << "\n\t\t\t\tT en da duoc su dung boi tai khoan khac. Vui long nhap lai: ";
 					getline(cin, temp);
 				}
 				pUser->user_name = temp;
-				cout << "\tDoi username thanh cong!\n";
+				cout << "\n\t\t\t\t\t Doi username thanh cong!\n";
 			}
 			break;
 		case 2:
+			gotoXY(35, 3);
 			cout << "=================================\n\n"
-				<< "\tNhap fullname moi(Nhap 0 de quay lai): ";
+				<< "\t\t\t   Nhap fullname moi ( Nhap 0 de quay lai ) : ";
 			getline(cin, temp);
 			if (temp != "0") {
 				pUser->full_name = temp;
-				cout << "\tDoi fullname thanh cong!\n";
+				cout << "\n\t\t\t\t  Doi fullname thanh cong!\n";
 			}
 			break;
 		case 3:
+			gotoXY(35, 3);
 			cout << "=================================\n\n"
-				<< "\tNhap lop chu nhiem moi(Nhap 0 de quay lai): ";
+				<< "\t\t\t\tNhap lop chu nhiem moi ( Nhap 0 de quay lai ) : ";
 			getline(cin, temp);
 			if (temp != "0") {
 				pUser->user_class = temp;
-				cout << "\tDoi lop thanh cong!\n";
+				cout << "\n\t\t\t\t Doi lop thanh cong!\n";
 			}
 			break;
 
 		case -1:
 			return;
 		default:
-			cout << "\tNhap sai cu phap.";
+			cout << "\n\t\t\t\t\tNhap sai cu phap.";
 			break;
 
 		}
-		cout << "\tNhap -1 de tiep tuc.";
+		cout << "\n\n\t\t\t\t  =================================\n\n";
+		cout << "\t\t\t\t\tNhap -1 de tiep tuc : ";
 		cin >> opt;
 		system("cls");
 	}
-	
+
 }
 void showTime() {
 	struct tm ltm;
@@ -262,7 +290,7 @@ void teacherClass(UserAccount* pUser, Class* pClass) {
 					pC->pU = p;
 					p->pClass = pC;
 				}
-				else 
+				else
 					p->pClass = nullptr;
 				pC = pC->pNext;
 			}
@@ -279,7 +307,7 @@ void createSchoolYear(SchoolYear*& pSchoolYear) {
 	if (p == nullptr) {
 		p = new SchoolYear;
 		pSchoolYear = p;
-	}	
+	}
 	else {
 		while (pSchoolYear->pNext != nullptr)
 			pSchoolYear = pSchoolYear->pNext;
@@ -288,10 +316,11 @@ void createSchoolYear(SchoolYear*& pSchoolYear) {
 	}
 	pSchoolYear->pSemester = nullptr;
 	system("cls");
-
-	cout << "====================================\n\n"
-		<< "\tNhap 0 de quay lai.\n"
-		<< "\tNhap nam bat dau (YYYY): ";
+	gotoXY(35, 3);
+	TextColor(6);
+	cout << "====================================\n\n";
+	cout << "\t\t\t\t\tNhap 0 de quay lai.\n"
+		<< "\t\t\t\t\tNhap nam bat dau (YYYY): ";
 	cin >> n;
 	if (n == "0") {
 		if (p == pSchoolYear) {
@@ -305,21 +334,22 @@ void createSchoolYear(SchoolYear*& pSchoolYear) {
 			delete pSchoolYear;
 			pT->pNext = nullptr;
 		}
-			
+
 		return;
 	}
 	year = stoi(n);
 	while (year <= 0 || year > 9999) {
+		TextColor(7);
 		cout << "\tVui long nhap lai nam: ";
 		cin >> year;
 	}
 	pSchoolYear->begin_year = year;
 	pSchoolYear->end_year = year + 1;
-
-	cout << "====================================\n\n"
-		<< "\tTao nam hoc thanh cong!\n"
-		<< "\tNam hoc: " << pSchoolYear->begin_year << " - " << pSchoolYear->end_year << endl
-		<< "\t\tNhap 1 de tiep tuc den tao hoc ky cho nam hoc nay!";
+	TextColor(6);
+	cout << "\t\t\t\t\t====================================\n\n";
+	cout << "\t\t\t\tTao nam hoc thanh cong!\n"
+		<< "\t\t\t\tNam hoc: " << pSchoolYear->begin_year << " - " << pSchoolYear->end_year << endl
+		<< "\t\t\t\tNhap 1 de tiep tuc den tao hoc ky cho nam hoc nay : ";
 
 	cin >> year;
 	createSemester(pSchoolYear->pSemester, pSchoolYear->begin_year);
@@ -330,14 +360,14 @@ void createSemester(Semester*& pSemester, int year) {
 	for (i = 1; i <= 3; i++) {
 		system("cls");
 		if (i > 2) {
-			cout << "\n\tNhap tiep hoc ky 3 (3 = yes, -1 = no): ";
+			cout << "\n\t\t\tNhap tiep hoc ky 3 (3 = yes, -1 = no): ";
 			cin >> i;
 			if (i == -1) break;
 		}
 		if (pSemester == nullptr) {
 			pSemester = new Semester;
 			pBeginning = pSemester;
-		}	
+		}
 		else {
 			pSemester->pNext = new Semester;
 			pSemester = pSemester->pNext;
@@ -346,8 +376,10 @@ void createSemester(Semester*& pSemester, int year) {
 		string n = "";
 		pSemester->no = i;
 		//cin.ignore();
-		cout << "===================================\n\n"
-			<< "\tHoc ky " << i << endl
+		gotoXY(35, 3);
+		TextColor(6);
+		cout << "===================================\n\n";
+		cout << "\tHoc ky " << i << endl
 			<< "\tNhap ngay bat dau (DD/MM/YYYY): ";
 		getline(cin, n, '/');
 		pSemester->begin_date = stoi(n);
@@ -370,14 +402,15 @@ void createSemester(Semester*& pSemester, int year) {
 		pSemester->pCourse = nullptr;
 		pSemester->pEnroll = nullptr;
 	}
-	
+
 	pSemester = pBeginning;
-	cout << "=================================\n\n"
-		<< "\tNhap hoc ky thanh cong!\n\tBam -1 de quay lai!";
+	TextColor(6);
+	cout << "\t\t\t\t=================================\n\n"
+		<< "\tNhap hoc ky thanh cong!\n\tBam -1 de quay lai : ";
 	cin >> i;
 
 }
-void createClass(Class*& pClass, extraStudent *pExtra) {
+void createClass(Class*& pClass, extraStudent* pExtra) {
 	system("cls");
 	int o = 10;
 	Class* pB = pClass;
@@ -393,9 +426,11 @@ void createClass(Class*& pClass, extraStudent *pExtra) {
 	}
 	while (o != 0) {
 		string n = "";
-		cout << "====================================\n\n"
-			<< "\tNhap 0 de quay lai!.\n";
-		cout << "\tNhap ten lop hoc: ";
+		gotoXY(35, 3);
+		TextColor(6);
+		cout << "====================================\n\n";
+		cout << "\t\t\t\tNhap 0 de quay lai!.\n";
+		cout << "\t\t\t\tNhap ten lop hoc: ";
 		cin.ignore();
 		getline(cin, n);
 		if (n == "0") {
@@ -410,17 +445,17 @@ void createClass(Class*& pClass, extraStudent *pExtra) {
 				delete pB;
 				pT->pNext = nullptr;
 			}
-				
+
 			return;
 		}
 		pB->class_name = n;
-		cout << "\tNhap ten giao vien chu nhiem: ";
+		cout << "\t\t\t\tNhap ten giao vien chu nhiem: ";
 		getline(cin, pB->class_teacher);
 
 		pB->pNext = nullptr;
 		pB->pStudent = nullptr;
 		showExtraStudent(pExtra, pB);
-		cout << "\n\tNhap lop hoc thanh cong. Nhan 0 de quay lai!\n";
+		cout << "\n\t\t\t\tNhap lop hoc thanh cong. Nhan 0 de quay lai : ";
 		cin >> o;
 		system("cls");
 	}
@@ -433,19 +468,23 @@ void createCourse(Course*& pCourse) {
 	if (pCourse == nullptr) {
 		pCourse = new Course;
 		pB = pCourse;
-	}	
+	}
 	else {
 		while (pB->pNext != nullptr)
 			pB = pB->pNext;
 		pB->pNext = new Course;
-		pB= pB->pNext;
+		pB = pB->pNext;
 	}
 
 	while (o != 0) {
 		string n = "";
-		cout << "====================================\n\n"
-			<< "\tNhap 0 de quay lai!.\n";
+		gotoXY(35, 3);
+		TextColor(6);
+		cout << "====================================\n\n";
+		cout << "\tNhap 0 de quay lai.\n";
 		cout << "\tNhap ten hoc phan: ";
+		TextColor(7);
+		cout << "\n\tTiep tuc voi : ";
 		cin.ignore();
 		getline(cin, n);
 		if (n == "0") {
@@ -460,7 +499,7 @@ void createCourse(Course*& pCourse) {
 				delete pB;
 				pT->pNext = nullptr;
 			}
-				
+
 			return;
 		}
 		pB->course_name = n;
@@ -477,8 +516,8 @@ void createCourse(Course*& pCourse) {
 			<< "\tNgay trong tuan: 2 -> 7 cho thu 2 -> thu 7\n"
 			<< "\tTiet hoc: S1 = 7h30, S2 = 9h30, S3 = 13h30, S4 = 15h30\n\n";
 		cout << "\tVi du: Thu 2 (tiet 1) thi nhap vao: 2 1\n\tNhap tung tiet hoc mot!\n";
-		cout << "\tNhap -1 de dung lai!\n";
-		
+		cout << "\tNhap -1 de dung lai\n";
+
 		createTimeTable(pB->pTime);
 
 		int a = 0, b = 0;
@@ -492,11 +531,11 @@ void createCourse(Course*& pCourse) {
 
 		pB->pNext = nullptr;
 		pB->pStuInCourse = nullptr;
-		cout << "\tNhap khoa hoc thanh cong. Nhan 0 de quay lai!\n";
+		cout << "\tNhap khoa hoc thanh cong. Nhan 0 de quay lai : \n";
 		cin >> o;
 		system("cls");
 	}
-	
+
 }
 void createStudent(Student*& pS, int& num) {
 	system("cls");
@@ -504,7 +543,7 @@ void createStudent(Student*& pS, int& num) {
 	if (pSS == nullptr) {
 		pSS = new Student;
 		pS = pSS;
-	}	
+	}
 	else {
 		while (pS->pNext != nullptr)
 			pS = pS->pNext;
@@ -514,6 +553,8 @@ void createStudent(Student*& pS, int& num) {
 	int opt = 10;
 	string n = "";
 	int l = 0, m = 0, p = 0;
+	gotoXY(35, 3);
+	TextColor(6);
 	cout << "===================================\n\n"
 		<< "\tNhap 0 de quay lai.\n"
 		<< "\tNhap Fullname: ";
@@ -531,7 +572,7 @@ void createStudent(Student*& pS, int& num) {
 			delete pS;
 			pT->pNext = nullptr;
 		}
-			
+
 		return;
 	}
 	num++;
@@ -550,7 +591,7 @@ void createStudent(Student*& pS, int& num) {
 	l = stoi(pS->dob);
 	m = stoi(pS->mob);
 	p = stoi(pS->yob);
-	checkDate(l,m, p, p);
+	checkDate(l, m, p, p);
 	pS->dob = to_string(l);
 	pS->mob = to_string(m);
 	pS->yob = to_string(p);
@@ -561,11 +602,11 @@ void createStudent(Student*& pS, int& num) {
 	pS->pStuCourse = nullptr;
 	pS->pNext = nullptr;
 	createTimeTable(pS->pTable);
-	cout << "\tNhap hoc sinh thanh cong. Nhap 0 de quay lai!\n";
+	cout << "\tNhap hoc sinh thanh cong. Nhap 0 de quay lai : \n";
 	cin >> n;
 	system("cls");
 }
-void createTimeTable(Time* &p) {
+void createTimeTable(Time*& p) {
 	//create student
 	//input class
 	p = new Time[6];
@@ -582,26 +623,19 @@ void createTimeTable(Time* &p) {
 		}
 	}
 }
-void eraseTimeTable(Time* p) {
-	for (int i = 0; i <= 5; i++) {
-		for (int j = 0; j < 4; j++) {
-			p[i].session[j] = "0";
-		}
-	}
-}
 
 //ham xem
-void showStudent(Student* &pStudent) {
+void showStudent(Student*& pStudent) {
 	int o = 10;
 
 	while (o != 0) {
 		system("cls");
 		if (pStudent == nullptr) {
-			cout << "\n\n\tKhong co hoc sinh nay!\n\tNhap 0 de quay lai.";
+			cout << "\n\n\tKhong co hoc sinh nay!\n\tNhap 0 de quay lai : ";
 			cin >> o;
 			break;
 		}
-		cout << "=====================================\n\n"
+		cout << "\t\t\t\t=====================================\n\n"
 			<< "\tUsername: " << pStudent->user_name
 			<< "\n\tPassword: Bam 1 de xem"
 			<< "\n\tFull name: " << pStudent->full_name
@@ -614,16 +648,19 @@ void showStudent(Student* &pStudent) {
 			<< "\n\tGrade: " << pStudent->grade
 			<< "\n\tLop chu nhiem: " << pStudent->mainclass << endl;
 		cout << "\tNhap 2 de xem danh sach hoc phan da dang ky." << endl;
-		cout << "\tNhap 3 de xem thoi khoa bieu" << endl;
-		cout << "\tNhap 4 de xem bang diem hoc ky" << endl;
-		cout << "\tNhap 5 de chinh sua thong tin" << endl;
-		cout << "\tNhap 0 de quay lai!";
+		cout << "\tNhap 3 de xem thoi khoa bieu." << endl;
+		cout << "\tNhap 4 de xem bang diem hoc ky." << endl;
+		cout << "\tNhap 5 de chinh sua thong tin." << endl;
+		cout << "\tNhap 0 de quay lai.";
+		cout << "\t\t\t\t=====================================\n\n";
+		cout << "\n\t\t\t\tTiep tuc voi : ";
 		cin >> o;
 		system("cls");
 		switch (o) {
 		case 1:
+			gotoXY(35, 3);
 			cout << "==================================\n\n"
-				<< "\tMat khau la: " << pStudent->user_password << endl;
+				<< "\t\tMat khau la: " << pStudent->user_password << endl;
 			cout << "\tNhap -1 de quay lai: ";
 			cin >> o;
 			system("cls");
@@ -640,7 +677,7 @@ void showStudent(Student* &pStudent) {
 		case 3:
 			cout << endl;
 			showTimeTable(pStudent->pTable);
-			cout << "\n\tNhap -1 de quay lai.";
+			cout << "\n\tNhap -1 de quay lai : ";
 			cin >> o;
 			system("cls");
 			break;
@@ -648,14 +685,14 @@ void showStudent(Student* &pStudent) {
 			printStudentScoreboard(pStudent);
 			break;
 		default:
-			cout << "\tNhap sai cu phap\nNhap -1 de tiep tuc.";
+			cout << "\tNhap sai cu phap\nNhap -1 de tiep tuc : ";
 			cin >> o;
 			break;
 		}
 	}
-	
+
 }
-void showStudentList(Student* pStudent, int &num) {
+void showStudentList(Student* pStudent, int& num) {
 	//nhap 0
 	Student* pB = pStudent;
 	int o = -1;
@@ -664,9 +701,9 @@ void showStudentList(Student* pStudent, int &num) {
 		int i = 1;
 		cout << "====================================\n\n"
 			<< "\tDanh sach hoc sinh (Bam so de xem): \n";
-		
+
 		if (pStudent == nullptr) {
-			cout << "\tKhong co hoc sinh nao. Nhan 0 de quay lai.";
+			cout << "\tKhong co hoc sinh nao. Nhan 0 de quay lai : ";
 			cin >> o;
 			break;
 		}
@@ -681,6 +718,7 @@ void showStudentList(Student* pStudent, int &num) {
 		cout << "\tNhap -1 + so thu tu de xoa hoc sinh.\n";
 		cout << "\tNhap -2 de them hoc sinh.\n"
 			<< "\tNhap 0 de quay lai.";
+		cout << "\n\tTiep tuc voi : ";
 		cin >> o;
 		int  t = 0;
 		pStudent = pB;
@@ -691,7 +729,7 @@ void showStudentList(Student* pStudent, int &num) {
 		else if (o == -2) {
 			//tao sv
 			createStudent(pStudent, num);
-			if (pStudent!=nullptr)
+			if (pStudent != nullptr)
 				pStudent->mainclass = pB->mainclass;
 		}
 		else if (o == -1) {
@@ -711,35 +749,37 @@ void showStudentList(Student* pStudent, int &num) {
 			num--;
 		}
 		else
-		{	pStudent = pB;
-		if (o > i||o<-2) {
-			cout << "\tSo khong hop le, nhap -1 de quay lai: ";
-			cin >> o;
-			break;
-		}
-		else {
-			for (int j = 1; j < o; j++) {
-				pStudent = pStudent->pNext;
+		{
+			pStudent = pB;
+			if (o > i || o < -2) {
+				cout << "\tSo khong hop le, nhap -1 de quay lai: ";
+				cin >> o;
+				break;
 			}
-			showStudent(pStudent);
-		}	
+			else {
+				for (int j = 1; j < o; j++) {
+					pStudent = pStudent->pNext;
+				}
+				showStudent(pStudent);
+			}
 		}
 
 	}
 }
-void showCourse(Course* &pCourse) {
+void showCourse(Course*& pCourse) {
 	int o = 10;
 	StudentInCourse* p = nullptr;
 	while (o != 0) {
 		system("cls");
+		gotoXY(35, 3);
 		cout << "================================\n\n";
-		cout << "\tTen khoa hoc: " << pCourse->course_name << endl
-			<< "\tMa hoc phan: " << pCourse->course_id << endl
-			<< "\tTen GVLT: " << pCourse->course_mainteacher << endl
-			<< "\tTen GVTH: " << pCourse->course_teacher << endl
-			<< "\tSo tin chi: " << pCourse->num_of_credit << endl
-			<< "\tSo hoc sinh toi da: " << pCourse->max_student << endl
-			<< "\tSo hoc sinh da dang ky: " << pCourse->num_of_student << endl;
+		cout << "\t\t\tTen khoa hoc: " << pCourse->course_name << endl
+			<< "\t\t\tMa hoc phan: " << pCourse->course_id << endl
+			<< "\t\t\tTen GVLT: " << pCourse->course_mainteacher << endl
+			<< "\t\t\tTen GVTH: " << pCourse->course_teacher << endl
+			<< "\t\t\tSo tin chi: " << pCourse->num_of_credit << endl
+			<< "\t\t\tSo hoc sinh toi da: " << pCourse->max_student << endl
+			<< "\t\t\tSo hoc sinh da dang ky: " << pCourse->num_of_student << endl;
 		//xem thoi gian hoc
 		Time* pT = pCourse->pTime;
 		showTimeTable(pT);
@@ -748,27 +788,28 @@ void showCourse(Course* &pCourse) {
 		cout << "\n\tNhap 3 de xuat danh sach sinh vien dang ky khoa hoc.";
 		cout << "\n\tNhap 4 de nhap diem.";
 		cout << "\n\tNhap 0 de quay lai.";
+		cout << "\n\tTiep tuc voi : ";
 		cin >> o;
 		if (o == 0) {
 			break;
 		}
-		else if (o==1)
+		else if (o == 1)
 		{
 			editCourse(pCourse);
 		}
-		else if (o==2) {
+		else if (o == 2) {
 			courseClass(pCourse->pStuInCourse);
-			showStudentInCourse(pCourse->pStuInCourse,pCourse);
+			showStudentInCourse(pCourse->pStuInCourse, pCourse);
 		}
 		else if (o == 3) {
 			exportStudentInCourse(pCourse->pStuInCourse);
 		}
 		else if (o == 4) {
 			inputCourseScore(pCourse);
-		} 
+		}
 		else
 		{
-			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 			cin >> o;
 		}
 	}
@@ -776,18 +817,19 @@ void showCourse(Course* &pCourse) {
 void showCourseClass(Course* pCourse) {
 
 }
-void showCourseList(Course* &pCourse) {
-	int o = 10;	
+void showCourseList(Course*& pCourse) {
+	int o = 10;
 	Course* pB = pCourse;
 	while (o != 0) {
 		pCourse = pB;
 		system("cls");
-		cout << "=================================================\n\n"
-			<< "\tDanh sach khoa hoc\n\t(Bam so tuong ung de truy cap): \n";
+		gotoXY(35, 3);
+		cout << "=================================================\n\n";
+		cout << "\tDanh sach khoa hoc\n\t(Bam so tuong ung de truy cap): \n";
 		int i = 0;
 		while (pCourse != nullptr) {
 			cout << "\t";
-			cout << i+1 << ". " << pCourse->course_name << endl;
+			cout << i + 1 << ". " << pCourse->course_name << endl;
 			pCourse = pCourse->pNext;
 			i++;
 		}
@@ -796,6 +838,7 @@ void showCourseList(Course* &pCourse) {
 		cout << "\n\tBam 0 de quay lai\n"
 			<< "\tBam -1 + so thu tu de xoa khoa hoc\n"
 			<< "\tBam -2 de them khoa hoc\n\t";
+		cout << "Tiep tuc voi : ";
 		cin >> o;
 		int t = 0;
 		switch (o) {
@@ -808,10 +851,10 @@ void showCourseList(Course* &pCourse) {
 		case -1:
 			//xoa khoa hoc
 			cin >> t;
-			for (int i = t-1; i > 0; i--) {
+			for (int i = t - 1; i > 0; i--) {
 				pTmp = pTmp->pNext;
 			}
-			for (int i = t-2; i > 0; i--) {
+			for (int i = t - 2; i > 0; i--) {
 				pCourse = pCourse->pNext;
 			}
 			pCourse->pNext = pTmp->pNext;
@@ -820,7 +863,7 @@ void showCourseList(Course* &pCourse) {
 			deleteCourse(pTmp);
 			break;
 		default:
-			if (o > i||o<-2) {
+			if (o > i || o < -2) {
 				cout << "\tSo khong hop le, nhap -1 de quay lai: ";
 				cin >> o;
 			}
@@ -834,7 +877,7 @@ void showCourseList(Course* &pCourse) {
 		}
 	}
 }
-void showClass(Class* &pClass, Semester* &pSemester) {
+void showClass(Class*& pClass, Semester*& pSemester) {
 	int opt = 100;
 	Student* ps = nullptr;
 	string name = "", id = "";
@@ -842,23 +885,24 @@ void showClass(Class* &pClass, Semester* &pSemester) {
 		system("cls");
 		int i = 0, t = -10;
 		Class* pB = pClass;
-
-		cout << "====================================\n\n"
-			<< "\tDanh sach lop chu nhiem:\n\t(Bam so tuong ung de truy cap) \n";
+		gotoXY(35, 3);
+		cout << "====================================\n\n";
+		cout << "\t\t\t\tDanh sach lop chu nhiem:\n\t(Bam so tuong ung de truy cap) \n";
 		while (pB != nullptr) {
-			cout << "\t" << i+1 << ". ";
+			cout << "\t" << i + 1 << ". ";
 			cout << pB->class_name << endl;
 			i++;
 			pB = pB->pNext;
 		}
 		pB = pClass;
-		cout << "\n\tNhap -1 + so thu tu lop hoc de xoa lop hoc\n"
-			<< "\tNhap -2 de tao lop hoc\n"
-			<< "\tNhap -3 de TRA CUU hoc sinh.\n\t"			
-			<< "\tNhap 0 de quay lai.\n\t";
+		cout << "\n\tNhap -1 + so thu tu lop hoc de xoa lop hoc.\n"
+			<< "\tNhap -2 de tao lop hoc.\n"
+			<< "\tNhap -3 de TRA CUU hoc sinh.\n"
+			<< "\tNhap 0 de quay lai.";
+		cout << "\n\tTiep tuc voi : ";
 		cin >> opt;
-	system("cls");
-	Class* pTemp2 = pClass;
+		system("cls");
+		Class* pTemp2 = pClass;
 		switch (opt) {
 		case 0:
 			break;
@@ -866,15 +910,15 @@ void showClass(Class* &pClass, Semester* &pSemester) {
 			//ham xoa
 			cin >> t;
 			if (t > i) {
-				cout << "\n\tNhap sai cu phap. Nhap -1 de quay lai.";
+				cout << "\n\tNhap sai cu phap. Nhap -1 de quay lai : ";
 				cin >> opt;
 				break;
 			}
-			for (int i = t-1; i > 0; i --) {
+			for (int i = t - 1; i > 0; i--) {
 				pB = pB->pNext;
 			}
 
-			for (int i = t-2; i > 0; i --) {
+			for (int i = t - 2; i > 0; i--) {
 				pTemp2 = pTemp2->pNext;
 			}
 			pTemp2->pNext = pB->pNext;
@@ -897,12 +941,12 @@ void showClass(Class* &pClass, Semester* &pSemester) {
 			cout << "\tNhap mssv: ";
 			cin >> id;
 			ps = searchStudent(name, id, pClass, pSemester);
-			if (ps!=nullptr)
+			if (ps != nullptr)
 				showStudent(ps);
 			break;
 		default:
-			if (opt > i||opt<-2) {
-				cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+			if (opt > i || opt < -2) {
+				cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 				cin >> opt;
 			}
 			else {
@@ -912,14 +956,16 @@ void showClass(Class* &pClass, Semester* &pSemester) {
 					pTemp2 = pTemp2->pNext;
 				}
 				while (o != 0) {
-					cout << "=====================================\n\n"
-						<< "\tLop: " << pTemp2->class_name << endl
+					gotoXY(35, 3);
+					cout << "=====================================\n\n";
+					cout << "\tLop: " << pTemp2->class_name << endl
 						<< "\tGVCN: " << pTemp2->class_teacher << endl
 						<< "\tSo luong hoc sinh: " << pTemp2->num_of_student << endl
-						<< "\n\tNhap 1 de xem danh sach hoc sinh: "
-						<< "\n\tNhap 2 de chinh sua thong tin"
-						<< "\n\tNhap 3 de xem GPA cua lop"
+						<< "\n\tNhap 1 de xem danh sach hoc sinh. "
+						<< "\n\tNhap 2 de chinh sua thong tin."
+						<< "\n\tNhap 3 de xem GPA cua lop."
 						<< "\n\tNhap 0 de quay lai.";
+					cout << "\n\tTiep tuc voi : ";
 					cin >> o;
 					system("cls");
 					switch (o) {
@@ -927,11 +973,11 @@ void showClass(Class* &pClass, Semester* &pSemester) {
 						break;
 					case 1:
 						if (pTemp2->pStudent == nullptr) {
-							cout << "\n\n\tChua co hoc sinh nao. Bam -1 de quay lai.";
+							cout << "\n\n\tChua co hoc sinh nao. Bam -1 de quay lai : ";
 							cin >> o;
 						}
 						else
-						showStudentList(pTemp2->pStudent, pTemp2->num_of_student);
+							showStudentList(pTemp2->pStudent, pTemp2->num_of_student);
 						break;
 					case 2:
 						editClass(pTemp2);
@@ -941,7 +987,7 @@ void showClass(Class* &pClass, Semester* &pSemester) {
 						printClassScoreboard(pTemp2);
 						break;
 					default:
-						cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+						cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 						cin >> o;
 						break;
 					}
@@ -957,12 +1003,14 @@ void showMainClass(Class* pClass) {
 	Student* pStudent = pClass->pStudent;
 	while (o1 != 0) {
 		system("cls");
+		gotoXY(35, 3);
 		cout << "=====================================\n\n"
 			<< "\tLop: " << pClass->class_name << endl
 			<< "\tGVCN: " << pClass->class_teacher << endl
 			<< "\tSo luong hoc sinh: " << pClass->num_of_student << endl
 			<< "\n\tNhap 1 de xem danh sach hoc sinh: "
 			<< "\n\tNhap 0 de quay lai.";
+		cout << "\n\tTiep tuc voi : ";
 		cin >> o1;
 		int o = -1;
 		system("cls");
@@ -973,21 +1021,21 @@ void showMainClass(Class* pClass) {
 			//system("cls");
 			while (o != 0) {
 				int i = 1;
-				cout << "====================================\n\n"
-					<< "\tDanh sach hoc sinh: \n";
+				cout << "========================================================================================================================\n\n";
+				cout << "\tDanh sach hoc sinh: \n";
 				while (pStudent != nullptr) {
 					cout << "\t" << i << ". " << pStudent->full_name << endl;
 					pStudent = pStudent->pNext;
 					i++;
 				}
-				cout << "\tNhap 0 de quay lai.";
+				cout << "\tNhap 0 de quay lai : ";
 				cin >> o;
 				system("cls");
 				if (o == 0) break;
 			}
 			break;
 		default:
-			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 			cin >> o1;
 			break;
 		}
@@ -999,12 +1047,13 @@ void showSemesterTime(Semester* pSemester, int year) {
 	int op = 10;
 	while (op != 0) {
 		system("cls");
-		cout << "===================================" << endl;
+		cout << "========================================================================================================================\n\n";
 		cout << "\tHoc ki " << pSemester->no << ": " << endl;
 		cout << "\tThoi gian bat dau : " << pSemester->begin_date << "/" << pSemester->begin_month << "/" << pSemester->begin_year << endl;
 		cout << "\tThoi gian ket thuc: " << pSemester->end_date << "/" << pSemester->end_month << "/" << pSemester->end_year << endl;
 		cout << "\n\tNhap 1 de chinh sua thoi gian. " << endl;
 		cout << "\tNhap 0 de quay lai." << endl;
+		cout << "\n\tTiep tuc voi : ";
 		cin >> op;
 		switch (op) {
 		case 0:
@@ -1014,7 +1063,7 @@ void showSemesterTime(Semester* pSemester, int year) {
 			editSemester(pSemester, year);
 			break;
 		default:
-			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 			cin >> op;
 			break;
 		}
@@ -1025,17 +1074,19 @@ void showSchoolYear(SchoolYear* pSchoolYear) {
 	Semester* p = pSchoolYear->pSemester;
 	while (opt != 0) {
 		system("cls");
-		cout << "===================================\n\n"
-			<< "\tNam hoc: ";
+		gotoXY(35, 3);
+		cout << "===================================\n\n";
+		cout << "\t\t\t\tNam hoc: ";
 		cout << pSchoolYear->begin_year << " / " << pSchoolYear->end_year << endl;
-		cout << "\tThoi gian bat dau: " << pSchoolYear->pSemester->begin_date << "/" << pSchoolYear->pSemester->begin_month << "/" << pSchoolYear->pSemester->begin_year << endl;
-		
+		cout << "\t\t\t\tThoi gian bat dau: " << pSchoolYear->pSemester->begin_date << "/" << pSchoolYear->pSemester->begin_month << "/" << pSchoolYear->pSemester->begin_year << endl;
+
 		while (pSchoolYear->pSemester->pNext != nullptr) {
 			pSchoolYear->pSemester = pSchoolYear->pSemester->pNext;
 		}
-		cout << "\tThoi gian bat dau: " << pSchoolYear->pSemester->end_date << "/" << pSchoolYear->pSemester->end_month << "/" << pSchoolYear->pSemester->end_year << endl;
-		cout << "\n\tNhap 1 de chinh sua nam hoc.\n";
-		cout << "\tNhap 0 de quay lai.";
+		cout << "\t\t\t\tThoi gian bat dau: " << pSchoolYear->pSemester->end_date << "/" << pSchoolYear->pSemester->end_month << "/" << pSchoolYear->pSemester->end_year << endl;
+		cout << "\n\t\t\t\tNhap 1 de chinh sua nam hoc.\n";
+		cout << "\t\t\t\tNhap 0 de quay lai.";
+		cout << "\n\n\t\t\t\tTiep tuc voi : ";
 		cin >> opt;
 		switch (opt) {
 		case 0:
@@ -1045,7 +1096,7 @@ void showSchoolYear(SchoolYear* pSchoolYear) {
 			editSchoolYear(pSchoolYear);
 			break;
 		default:
-			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 			cin >> opt;
 			break;
 		}
@@ -1064,7 +1115,7 @@ void showTimeTable(Time* pT) {
 		cout << endl;
 	}
 }
-Student* searchStudent(string full_name, string id, Class* &pClass, Semester*& pSemester) {
+Student* searchStudent(string full_name, string id, Class*& pClass, Semester*& pSemester) {
 	Class* pCurClass = pClass;
 	Student* pTemp = nullptr;
 	int _ = 0;
@@ -1075,7 +1126,7 @@ Student* searchStudent(string full_name, string id, Class* &pClass, Semester*& p
 		pTemp = pCurClass->pStudent;
 		while (pTemp != nullptr) {
 			if (pTemp->full_name == full_name && pTemp->id == id) {
-				cout << "\tDa tim thay!\n\n\tBam -1 de xem hoc sinh.\n\tBam 0 de dang ky hoc phan cho sv.\n\t";
+				cout << "\tDa tim thay!\n\n\tBam -1 de xem hoc sinh.\n\tBam 0 de dang ky hoc phan cho sv : ";
 				cin >> _;
 				if (_ == -1)
 					return pTemp;
@@ -1093,7 +1144,7 @@ Student* searchStudent(string full_name, string id, Class* &pClass, Semester*& p
 							return nullptr;
 					}
 				}
-			}	
+			}
 			else
 				pTemp = pTemp->pNext;
 		}
@@ -1104,8 +1155,9 @@ Student* searchStudent(string full_name, string id, Class* &pClass, Semester*& p
 			break;
 	}
 	if (pCurClass == nullptr) {
+		gotoXY(35, 3);
 		cout << "==================================\n\n"
-			<< "\tKhong tim thay sinh vien!\n\tBam -1 de quay lai";
+			<< "\tKhong tim thay sinh vien!\n\tBam -1 de quay lai : ";
 		cin >> _;
 		return nullptr;
 	}
@@ -1117,6 +1169,7 @@ void showExtraStudent(extraStudent* pExtra, Class* pClass) {
 		Student* pS = pClass->pStudent;
 		system("cls");
 		int i = 0;
+		gotoXY(35, 3);
 		cout << "====================================\n\n"
 			<< "\tDanh sach hoc sinh: \n";
 
@@ -1131,15 +1184,15 @@ void showExtraStudent(extraStudent* pExtra, Class* pClass) {
 
 		pExtra = pB;
 		cout << "\n\tNhap -1 + so thu tu de them hoc sinh vao lop.\n"
-			<< "\tNhap 0 de quay lai.";
+			<< "\tNhap 0 de quay lai : ";
 		cin >> o;
 		switch (o) {
-		case 0: 
+		case 0:
 			return;
-		default: 
+		default:
 			cin >> t;
-			if (t > i+1 || t < -1) {
-				cout << "\tNhap sai cu phap. Nhap -1 de quay lai.";
+			if (t > i + 1 || t < -1) {
+				cout << "\tNhap sai cu phap. Nhap -1 de quay lai : ";
 				cin >> o;
 			}
 			else {
@@ -1153,7 +1206,7 @@ void showExtraStudent(extraStudent* pExtra, Class* pClass) {
 					pS->pNext = new Student;
 					pS = pS->pNext;
 				}
-				for (int i = 0; i < t-1; i++)
+				for (int i = 0; i < t - 1; i++)
 					pExtra = pExtra->pNext;
 
 				pS->full_name = pExtra->full_name;
@@ -1167,7 +1220,7 @@ void showExtraStudent(extraStudent* pExtra, Class* pClass) {
 				j++;
 				createTimeTable(pS->pTable);
 				pS->user_name = pS->id;
-				
+
 				pS->user_password = "";
 				pS->user_password = pS->user_password + pS->dob + pS->mob + pS->yob;
 				pS->pNext = nullptr;
@@ -1186,6 +1239,7 @@ void editSchoolYear(SchoolYear*& pSchoolYear) {
 	system("cls");
 
 	while (opt != 0) {
+		gotoXY(35, 3);
 		cout << "====================================\n\n"
 			<< "\tNhap 0 de quay lai: " << endl
 			<< "\t Nhap lai nam hoc (nien khoa - YYYY): ";
@@ -1204,7 +1258,7 @@ void editSchoolYear(SchoolYear*& pSchoolYear) {
 		pSchoolYear->end_year = year + 1;
 		int m = pSchoolYear->pSemester->begin_year;
 		int n = year - m;
-		
+
 		//if (n < 0) {
 		//	int _ = 0;
 		//	while (n < 0) {
@@ -1229,10 +1283,11 @@ void editSchoolYear(SchoolYear*& pSchoolYear) {
 
 
 		system("cls");
+		gotoXY(35, 3);
 		cout << "====================================\n\n"
 			<< "\tChinh sua nam hoc thanh cong!\n"
 			<< "\tNam hoc: " << pSchoolYear->begin_year << " - " << pSchoolYear->end_year << endl
-			<< "\tNhap 0 de quay lai:" << endl;
+			<< "\tNhap 0 de quay lai: ";
 		cin >> opt;
 	}
 }
@@ -1248,6 +1303,7 @@ void editSemester(Semester*& pSemester, int year) {
 		case 0:
 			break;
 		case 1:
+			gotoXY(35, 5);
 			cout << "====================================\n\n";
 			cout << "\tNhap lai ngay bat dau (dd/mm/yyyy) : ";
 			getline(cin, n, '/');
@@ -1272,11 +1328,11 @@ void editSemester(Semester*& pSemester, int year) {
 			pSemester->end_year = stoi(n);
 			checkDate(pSemester->end_date, pSemester->end_month, pSemester->end_year, year);
 
-			cout << "\n\tChinh sua ngay thanh cong! Nhap 0 de quay lai." << endl;
+			cout << "\n\tChinh sua ngay thanh cong! Nhap 0 de quay lai :" << endl;
 			cin >> option;
 			break;
 		default:
-			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 			cin >> option;
 			break;
 		}
@@ -1285,6 +1341,7 @@ void editSemester(Semester*& pSemester, int year) {
 void editClass(Class*& pClass) {
 	int o = 10;
 	while (o != 0) {
+		gotoXY(35, 3);
 		cout << "=====================================\n\n"
 			<< "\tLop: " << pClass->class_name << endl
 			<< "\tGVCN: " << pClass->class_teacher << endl
@@ -1292,31 +1349,37 @@ void editClass(Class*& pClass) {
 			<< "\n\tNhap 1 de sua ten lop"
 			<< "\n\tNhap 2 de sua ten GVCN"
 			<< "\n\tNhap 0 de quay lai.";
+		cout << "\n\tTiep tuc voi : ";
 		cin >> o;
 		system("cls");
 		switch (o) {
 		case 0:
 			break;
 		case 1:
+			gotoXY(35, 3);
 			cout << "===================================\n\n"
 				<< "\tNhap ten lop moi: ";
 			cin >> pClass->class_name;
 			system("cls");
+			gotoXY(35, 3);
 			cout << "===================================\n\n"
-				<< "\tNhap ten lop thanh cong! Nhan -1 de quay lai.";
+				<< "\tNhap ten lop thanh cong! Nhan -1 de quay lai : ";
 			cin >> o;
 			break;
 		case 2:
+			gotoXY(35, 3);
 			cout << "===================================\n\n"
 				<< "\tNhap ten GVCN moi: ";
 			cin >> pClass->class_teacher;
 			system("cls");
+			gotoXY(35, 3);
 			cout << "===================================\n\n"
-				<< "\tNhap ten GVCN thanh cong! Nhan -1 de quay lai.";
+				<< "\tNhap ten GVCN thanh cong! Nhan -1 de quay lai : ";
 			cin >> o;
 			break;
 		default:
-			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+			gotoXY(35, 3);
+			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 			cin >> o;
 			break;
 		}
@@ -1335,6 +1398,7 @@ void editStudent(Student*& pStudent) {
 			<< "\tNhap 3 de thay doi gioi tinh\n"
 			<< "\tNhap 4 de thay doi ngay sinh\n"
 			<< "\tNhap 0 de quay lai.";
+		cout << "\n\tTiep tuc voi : ";
 		//<< "\n\tSocial ID: " 
 		cin >> opt;
 		cin.ignore();
@@ -1345,27 +1409,31 @@ void editStudent(Student*& pStudent) {
 		case 0:
 			break;
 		case 1:
+			gotoXY(35, 3);
 			cout << "==================================\n\n"
 				<< "\tNhap Full name moi: ";
 			getline(cin, pStudent->full_name);
-			cout << "\tDoi ten thanh cong!. Nhap -1 de quay lai!";
+			cout << "\tDoi ten thanh cong!. Nhap -1 de quay lai : ";
 			cin >> opt;
 			break;
 		case 2:
+			gotoXY(35, 3);
 			cout << "==================================\n\n"
 				<< "\tNhap MSSV moi: ";
 			cin >> pStudent->id;
-			cout << "\tDoi MSSV thanh cong!. Nhap -1 de quay lai!";
+			cout << "\tDoi MSSV thanh cong!. Nhap -1 de quay lai : ";
 			cin >> opt;
 			break;
 		case 3:
+			gotoXY(35, 3);
 			cout << "==================================\n\n"
 				<< "\tNhap gioi tinh moi (nam = M, nu = F): ";
 			cin >> pStudent->gender;
-			cout << "\tDoi gioi tinh thanh cong!. Nhap -1 de quay lai!";
+			cout << "\tDoi gioi tinh thanh cong!. Nhap -1 de quay lai : ";
 			cin >> opt;
 			break;
 		case 4:
+			gotoXY(35, 3);
 			cout << "====================================\n\n"
 				<< "\tNhap ngay sinh: dd/mm/yyyy: ";
 			getline(cin, pStudent->dob, '/');
@@ -1375,28 +1443,29 @@ void editStudent(Student*& pStudent) {
 			l = stoi(pStudent->dob);
 			m = stoi(pStudent->mob);
 			p = stoi(pStudent->yob);
-			checkDate(l,m, p, p);
+			checkDate(l, m, p, p);
 			pStudent->dob = to_string(l);
 			pStudent->mob = to_string(m);
 			pStudent->yob = to_string(p);
 
 			cout << "\tDoi ngay sinh thanh cong!. Ngay sinh cua ban la: " << pStudent->dob << "/" << pStudent->mob << "/" << pStudent->yob << endl
-				<< "\tNhap -1 de quay lai!";
+				<< "\tNhap -1 de quay lai : ";
 			cin >> opt;
 			break;
 		default:
-			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 			cin >> opt;
 			break;
 		}
 	}
-	
+
 }
 void editCourse(Course*& pCourse) {
 	int o = 10;
 	//system("cls");
 	while (o != 0) {
 		system("cls");
+		gotoXY(35, 3);
 		cout << "================================\n\n";
 		cout << "\tTen khoa hoc: " << pCourse->course_name << endl
 			<< "\tMa hoc phan: " << pCourse->course_id << endl
@@ -1405,18 +1474,19 @@ void editCourse(Course*& pCourse) {
 			<< "\tSo tin chi: " << pCourse->num_of_credit << endl
 			<< "\tSo hoc sinh toi da: " << pCourse->max_student << endl
 			<< "\tSo hoc sinh da dang ky: " << pCourse->num_of_student << endl;
-		
+
 		Time* pT = pCourse->pTime;
 		showTimeTable(pT);
 
-		cout << "\n\tNhap 1 de chinh ten khoa hoc\n"
-			<< "\tNhap 2 de chinh ma hoc phan\n"
-			<< "\tNhap 3 de chinh giao vien ly thuyet\n"
-			<< "\tNhap 4 de chinh giao vien thuc hanh\n"
-			<< "\tNhap 5 de chinh so tin chi\n"
-			<< "\tNhap 6 de chinh so hoc sinh toi da\n"
-			<< "\tNhap 7 de chinh thoi gian hoc\n";
+		cout << "\n\tNhap 1 de chinh ten khoa hoc.\n"
+			<< "\tNhap 2 de chinh ma hoc phan.\n"
+			<< "\tNhap 3 de chinh giao vien ly thuyet.\n"
+			<< "\tNhap 4 de chinh giao vien thuc hanh.\n"
+			<< "\tNhap 5 de chinh so tin chi.\n"
+			<< "\tNhap 6 de chinh so hoc sinh toi da.\n"
+			<< "\tNhap 7 de chinh thoi gian hoc.\n";
 		cout << "\n\tNhap 0 de quay lai.";
+		cout << "\n\tTiep tuc voi : ";
 		cin >> o;
 		int a = 0, b = 0;
 		cin.ignore();
@@ -1425,45 +1495,51 @@ void editCourse(Course*& pCourse) {
 		case 0:
 			break;
 		case 1:
+			gotoXY(35, 3);
 			cout << "==================================\n\n"
 				<< "\tNhap ten khoa hoc moi: ";
 			getline(cin, pCourse->course_name);
-			cout << "\tDoi ten khoa hoc thanh cong!. Nhap -1 de quay lai!";
+			cout << "\tDoi ten khoa hoc thanh cong!. Nhap -1 de quay lai : ";
 			cin >> o;
 			break;
 		case 2:
+			gotoXY(35, 3);
 			cout << "==================================\n\n"
 				<< "\tNhap ma hoc phan moi: ";
 			getline(cin, pCourse->course_id);
-			cout << "\tDoi ma hoc phan thanh cong!. Nhap -1 de quay lai!";
+			cout << "\tDoi ma hoc phan thanh cong!. Nhap -1 de quay lai : ";
 			cin >> o;
 			break;
 		case 3:
+			gotoXY(35, 3);
 			cout << "==================================\n\n"
 				<< "\tNhap ten GV ly thuyet: ";
 			getline(cin, pCourse->course_mainteacher);
-			cout << "\tDoi ten GV ly thuyet thanh cong!. Nhap -1 de quay lai!";
+			cout << "\tDoi ten GV ly thuyet thanh cong!. Nhap -1 de quay lai : ";
 			cin >> o;
 			break;
 		case 4:
+			gotoXY(35, 3);
 			cout << "==================================\n\n"
 				<< "\tNhap ten GV thuc hanh moi: ";
 			getline(cin, pCourse->course_teacher);
-			cout << "\tDoi ten GV thuc hanh thanh cong!. Nhap -1 de quay lai!";
+			cout << "\tDoi ten GV thuc hanh thanh cong!. Nhap -1 de quay lai : ";
 			cin >> o;
 			break;
 		case 5:
+			gotoXY(35, 3);
 			cout << "==================================\n\n"
 				<< "\tNhap so tin chi moi: ";
 			cin >> pCourse->num_of_credit;
-			cout << "\tDoi so tin chi thanh cong!. Nhap -1 de quay lai!";
+			cout << "\tDoi so tin chi thanh cong!. Nhap -1 de quay lai : ";
 			cin >> o;
 			break;
 		case 6:
+			gotoXY(35, 3);
 			cout << "==================================\n\n"
 				<< "\tNhap so hoc sinh toi da: ";
 			cin >> pCourse->max_student;
-			cout << "\tDoi thanh cong!. Nhap -1 de quay lai!";
+			cout << "\tDoi thanh cong!. Nhap -1 de quay lai : ";
 			cin >> o;
 			break;
 		case 7: {
@@ -1471,7 +1547,7 @@ void editCourse(Course*& pCourse) {
 			cout << "\n\tNgay trong tuan: 2 -> 7 cho thu 2 -> thu 7\n"
 				<< "\tTiet hoc: S1 = 7h30, S2 = 9h30, S3 = 13h30, S4 = 15h30\n\n";
 			cout << "\tVi du: Thu 2 (tiet 1) thi nhap vao: 2 1\n\tNhap tung tiet hoc mot!\n\n";
-			cout << "\tNhap -1 de dung lai!\n";
+			cout << "\tNhap -1 de dung lai : ";
 
 			showTimeTable(pT);
 
@@ -1486,13 +1562,13 @@ void editCourse(Course*& pCourse) {
 					pT[a].session[b] = "X";
 				else
 					pT[a].session[b] = "0";
-			}	
-			cout << "\n\n\tNhap thoi gian thanh cong!. Bam -1 de quay lai.";
+			}
+			cout << "\n\n\tNhap thoi gian thanh cong!. Bam -1 de quay lai : ";
 			cin >> o;
 			break;
 		}
 		default:
-			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+			cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 			cin >> o;
 			break;
 		}
@@ -1551,16 +1627,16 @@ void inputClass(Class*& pClass, ifstream& input) {
 		pClass->pNext = new Class;
 		pClass = pClass->pNext;
 	}
-	
+
 	string n = " ";
 	getline(input, pClass->class_name, '\n');
 	getline(input, pClass->class_teacher, '\n');
 	getline(input, n, '\n');
 	pClass->num_of_student = stoi(n);
 
-	pClass->pStudent = nullptr;		
+	pClass->pStudent = nullptr;
 	Student* pTemp = pClass->pStudent;
-	
+
 	while (!input.eof()) {
 		if (pTemp == nullptr)
 			pTemp = new Student;
@@ -1636,9 +1712,9 @@ void inputCourse(Course*& pCourse, ifstream& input) {
 		pCourse->num_of_student = 0;
 		getline(input, pCourse->course_mainteacher, ',');
 		getline(input, pCourse->course_teacher, ',');
-		
+
 		int i = 0;
-		
+
 		for (int j = 1; j <= pCourse->num_of_credit; j++) {
 			getline(input, n, '(');
 			for (i = 0; i < 6; i++) {
@@ -1647,7 +1723,7 @@ void inputCourse(Course*& pCourse, ifstream& input) {
 				}
 			}
 			getline(input, n, ')');
-			pCourse->pTime[i].session[stoi(n)-1] = "X";
+			pCourse->pTime[i].session[stoi(n) - 1] = "X";
 			if (j < pCourse->num_of_credit)
 				input >> _;
 			else
@@ -1703,80 +1779,80 @@ void createCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester) {
 		cout << "\n\tChua co phien dang ky nao! Vui long tao:\n";
 	}
 	else {
-		while (p->pNext != nullptr) 
+		while (p->pNext != nullptr)
 			p = p->pNext;
 		p->pNext = new CourseEnrollment;
 		p = p->pNext;
 	}
-		
-		cout << "======================================\n\n"
-			<< "\tPhien dang ky hoc phan - Hoc ky " << pSemester->no << endl
-			<< "\tThoi gian hoc ky: " << pSemester->begin_date << "/" << pSemester->begin_month << "/" << pSemester->begin_year << " - " << pSemester->end_date << "/" << pSemester->end_month << "/" << pSemester->end_year << endl
-			<< "\tNhap 0 de quay lai. ";
-		
-		cout << "\n\n\tNhap ma phien dkhp: ";
-		string n = "";
-		cin >> n;
-		if (n == "0") {
-			if (pEnroll == p) { 
-				delete pEnroll;
-				pEnroll = nullptr; 
-			}
-			else
-			{
-				CourseEnrollment* pT = pEnroll;
-				while (pT->pNext != p)
-					pT = pT->pNext;
-				delete p;
-				pT->pNext = nullptr;
-			}
-				
-			return;
+	gotoXY(35, 5);
+	cout << "======================================\n\n"
+		<< "\tPhien dang ky hoc phan - Hoc ky " << pSemester->no << endl
+		<< "\tThoi gian hoc ky: " << pSemester->begin_date << "/" << pSemester->begin_month << "/" << pSemester->begin_year << " - " << pSemester->end_date << "/" << pSemester->end_month << "/" << pSemester->end_year << endl
+		<< "\tNhap 0 de quay lai : ";
+
+	cout << "\n\n\tNhap ma phien dkhp: ";
+	string n = "";
+	cin >> n;
+	if (n == "0") {
+		if (pEnroll == p) {
+			delete pEnroll;
+			pEnroll = nullptr;
 		}
-		p->id = n;
-		cin.ignore();
-		cout << "\n\tNhap ngay bat dau (dd/mm): ";
+		else
+		{
+			CourseEnrollment* pT = pEnroll;
+			while (pT->pNext != p)
+				pT = pT->pNext;
+			delete p;
+			pT->pNext = nullptr;
+		}
+
+		return;
+	}
+	p->id = n;
+	cin.ignore();
+	cout << "\n\tNhap ngay bat dau (dd/mm): ";
+	getline(cin, n, '/');
+	p->start_date = stoi(n);
+	getline(cin, n, '\n');
+	p->start_month = stoi(n);
+	while (((p->start_month == pSemester->begin_month) && p->start_date < pSemester->begin_date) || p->start_month < pSemester->begin_month || p->end_month > pSemester->end_month) {
+		cout << "\tNhap sai ngay thang. Nhap lai (dd/mm): ";
 		getline(cin, n, '/');
 		p->start_date = stoi(n);
 		getline(cin, n, '\n');
 		p->start_month = stoi(n);
-		while ( ((p->start_month==pSemester->begin_month) && p->start_date < pSemester->begin_date) || p->start_month < pSemester->begin_month || p->end_month > pSemester->end_month) {
-			cout << "\tNhap sai ngay thang. Nhap lai (dd/mm): ";
-			getline(cin, n, '/');
-			p->start_date = stoi(n);
-			getline(cin, n, '\n');
-			p->start_month = stoi(n);
-		}
-		p->start_year = pSemester->begin_year;
-		checkDate(p->start_date, p->start_month, p->start_year, pSemester->begin_year);
+	}
+	p->start_year = pSemester->begin_year;
+	checkDate(p->start_date, p->start_month, p->start_year, pSemester->begin_year);
 
-		cout << "\n\tNhap ngay ket thuc (dd/mm/yyyy): ";
+	cout << "\n\tNhap ngay ket thuc (dd/mm/yyyy): ";
+	getline(cin, n, '/');
+	p->end_date = stoi(n);
+	getline(cin, n, '/');
+	p->end_month = stoi(n);
+	while (((p->end_month == pSemester->end_month) && p->end_date > pSemester->end_date) || p->end_month > pSemester->end_month) {
+		cout << "\tNhap sai ngay thang. Nhap lai (dd/mm): ";
 		getline(cin, n, '/');
 		p->end_date = stoi(n);
-		getline(cin, n, '/');
-		p->end_month = stoi(n);
-		while ( ((p->end_month == pSemester->end_month) && p->end_date > pSemester->end_date) || p->end_month > pSemester->end_month) {
-			cout << "\tNhap sai ngay thang. Nhap lai (dd/mm): ";
-			getline(cin, n, '/');
-			p->end_date = stoi(n);
-			getline(cin, n, '\n');
-			p->end_month = stoi(n);
-		}
 		getline(cin, n, '\n');
-		p->end_year = stoi(n);
-		checkDate(p->end_date, p->end_month, p->end_year, pSemester->begin_year);
-		while (p->end_year > pSemester->end_year) {
-			cout << "\tNhap sai nam. Nhap lai: ";
-			cin >> p->end_year;
-		}
+		p->end_month = stoi(n);
+	}
+	getline(cin, n, '\n');
+	p->end_year = stoi(n);
+	checkDate(p->end_date, p->end_month, p->end_year, pSemester->begin_year);
+	while (p->end_year > pSemester->end_year) {
+		cout << "\tNhap sai nam. Nhap lai: ";
+		cin >> p->end_year;
+	}
 
-		system("cls");
-		cout << "\n\n\tTao phien dang ky hoc phan thanh cong. Bam 0 de quay lai.";
-		cin >> n;
+	system("cls");
+	cout << "\n\n\tTao phien dang ky hoc phan thanh cong. Bam 0 de quay lai : ";
+	cin >> n;
 
-		p->semester_no = pSemester->no;
-		p->pCourse = pSemester->pCourse;
-		p->pNext = nullptr;
+	p->semester_no = pSemester->no;
+	p->pCourse = pSemester->pCourse;
+	p->pNext = nullptr;
 }
 void showCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester) {
 	//xoa phien dkhp
@@ -1785,12 +1861,13 @@ void showCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester) {
 	while (o != 0) {
 		system("cls");
 		pEnroll = p;
+		gotoXY(35, 3);
 		cout << "===============================================\n\n"
 			<< "\tBam so tuong ung de truy cap: "
 			<< "\n\tCac phien dang ky hoc phan trong hoc ky " << pSemester->no << ": " << endl;
 		int i = 0;
 		while (pEnroll != nullptr) {
-			cout << "\t" << i+1 << ". ";
+			cout << "\t" << i + 1 << ". ";
 			if (pEnroll->status == 1)
 				cout << "(On) ";
 			else
@@ -1801,8 +1878,9 @@ void showCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester) {
 		}
 		pEnroll = p;
 		cout << "\n\tNhan -1 + so thu tu de bat/tat phien dkhp."
-			<< "\n\tNhap -2 de them phien dang ky hoc phan.\n\t" 
+			<< "\n\tNhap -2 de them phien dang ky hoc phan.\n\t"
 			<< "\n\tNhap 0 de quay lai.";
+		cout << "\n\tTiep tuc voi : ";
 		cin >> o;
 		switch (o) {
 		case 0:
@@ -1818,49 +1896,51 @@ void showCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester) {
 			createCourseEnrollment(pEnroll, pSemester);
 			break;
 		default:
-			while (o > i||o<-2) {
+			while (o > i || o < -2) {
 				cout << "\tNhap sai cu phap. Vui long nhap lai: ";
 				cin >> o;
 			}
-				for (int j = 1; j < o; j++) {
-					pEnroll = pEnroll->pNext;
-				}
-				o2 = 10;
-				while (o2 != 0) {
-					system("cls");
-					cout << "================================\n\n"
-						<< "\tPhien dang ky hoc phan " << pEnroll->id << " - Hoc ky " << pSemester->no << endl
-						<< "\tThoi gian: " << pEnroll->start_date << "/" << pEnroll->start_month << "/" << pEnroll->start_year << " - " << pEnroll->end_date << "/" << pEnroll->end_month << "/" << pEnroll->end_year << endl
-						<< "\n\tNhap 1 de chinh sua thoi gian.\n"
-						<< "\tNhap 2 de xem danh sach khoa hoc.\n";
-					cout << "\tNhap 3 de xem hoc sinh da vao phien dkhp.\n"
-						<< "\tNhap 0 de quay lai.\n";
+			for (int j = 1; j < o; j++) {
+				pEnroll = pEnroll->pNext;
+			}
+			o2 = 10;
+			while (o2 != 0) {
+				system("cls");
+				gotoXY(35, 3);
+				cout << "================================\n\n"
+					<< "\tPhien dang ky hoc phan " << pEnroll->id << " - Hoc ky " << pSemester->no << endl
+					<< "\tThoi gian: " << pEnroll->start_date << "/" << pEnroll->start_month << "/" << pEnroll->start_year << " - " << pEnroll->end_date << "/" << pEnroll->end_month << "/" << pEnroll->end_year << endl
+					<< "\n\tNhap 1 de chinh sua thoi gian.\n"
+					<< "\tNhap 2 de xem danh sach khoa hoc.\n";
+				cout << "\tNhap 3 de xem hoc sinh da vao phien dkhp.\n"
+					<< "\tNhap 0 de quay lai.\n";
+				cout << "\tTiep tuc voi : ";
+				cin >> o2;
+				switch (o2) {
+				case 0:
+					break;
+				case 1:
+					editCourseEnrollment(pEnroll, pSemester);
+					break;
+				case 2:
+					showCourseList(pEnroll->pCourse);
+					break;
+				case 3:
+					showStudentHistory(pEnroll->pStudentHistory);
+					break;
+				default:
+					cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 					cin >> o2;
-					switch (o2) {
-					case 0:
-						break;
-					case 1:
-						editCourseEnrollment(pEnroll, pSemester);
-						break;
-					case 2:
-						showCourseList(pEnroll->pCourse);
-						break;
-					case 3:
-						showStudentHistory(pEnroll->pStudentHistory);
-						break;
-					default:
-						cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
-						cin >> o2;
-						break;
-					}
+					break;
 				}
-			
+			}
+
 			break;
 		}
 	}
 	pEnroll = p;
 }
-void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) { 
+void Enroll(CourseEnrollment*& pEnroll, Student*& pStudent, Course*& pCourse) {
 	//pStudent = tk cua sv
 	//student num of course ++, max = 5
 	//cho sv dang ky show list cac phien dkhp
@@ -1868,19 +1948,20 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 	CourseEnrollment* p = pEnroll;
 	CourseEnrollment* pTempp = pEnroll;
 	Course* P = pCourse;
-	Course* &pC = pCourse;
+	Course*& pC = pCourse;
 	int o = 10, o2 = 10, t = 0;
 	int _ = 0;
 	while (o != 0) {
 		system("cls");
 		pEnroll = p;
 		if (pEnroll == nullptr) {
-			cout << "\n\n\tChua co phien dang ky hoc phan nao. Vui long quay lai sau!\n\tBam 0 de quay lai.";
+			cout << "\n\n\tChua co phien dang ky hoc phan nao. Vui long quay lai sau!\n\tBam 0 de quay lai : ";
 			cin >> o;
 			break;
 		}
-		cout << "===============================================\n\n"
-			<< "\tBam so tuong ung de truy cap: \n"
+		gotoXY(35, 5);
+		cout << "===============================================\n\n";
+		cout << "\tBam so tuong ung de truy cap: \n"
 			<< "\tCac phien dang ky hoc phan: \n";
 		int i = 0;
 		while (pEnroll != nullptr) {
@@ -1892,14 +1973,14 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 			pEnroll = pEnroll->pNext;
 		}
 		pEnroll = p;
-		cout << "\n\tNhap 0 de quay lai!\n\t";
+		cout << "\n\tNhap 0 de quay lai : ";
 		cin >> o;
 		switch (o) {
 		case 0:
 			break;
 		default:
 			if (o > i || o < 0) {
-				cout << "\tNhap sai cu phap. Nhap -1 de quay lai.";
+				cout << "\tNhap sai cu phap. Nhap -1 de quay lai : ";
 				cin >> o;
 				break;
 			}
@@ -1909,7 +1990,7 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 						i--;
 					else if (o == 1) break;
 					else
-					pEnroll = pEnroll->pNext;
+						pEnroll = pEnroll->pNext;
 				}
 				while (pTempp != nullptr) {
 					if (pTempp->id == pEnroll->id)
@@ -1922,9 +2003,9 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 				while (o2 != 0) {
 					pC = P;
 					system("cls");
-					
-					cout << "================================\n\n"
-						<< "\tPhien dang ky hoc phan " << pEnroll->id << endl
+					gotoXY(35, 3);
+					cout << "================================\n\n";
+					cout << "\tPhien dang ky hoc phan " << pEnroll->id << endl
 						<< "\tThoi gian: " << pEnroll->start_date << "/" << pEnroll->start_month << "/" << pEnroll->start_year << " - " << pEnroll->end_date << "/" << pEnroll->end_month << "/" << pEnroll->end_year << endl;
 					cout << "\n\tDanh sach khoa hoc (Bam so de xem): \n";
 					int i = 0;
@@ -1935,13 +2016,14 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 						i++;
 					}
 					if (i == 0) {
-						cout << "\tChua co phien dkhp nao. Vui long nhap 0 de quay lai.";
+						cout << "\tChua co phien dkhp nao. Vui long nhap 0 de quay lai : ";
 						cin >> o2;
 						break;
 					}
 					cout << endl;
 					cout << "\n\tNhap -1 + so thu tu de dang ky khoa hoc.\n";
 					cout << "\tNhap 0 de quay lai.\n\t";
+					cout << "Tiep tuc voi : ";
 					pC = P;
 					cin >> o2;
 					switch (o2) {
@@ -1949,7 +2031,7 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 						break;
 					case -1:
 						cin >> t;
-						
+
 						for (int j = 1; j < t; j++) {
 							pC = pC->pNext;
 						}
@@ -1962,26 +2044,26 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 							if (checkSchedule(pC->pTime, pStudent->pTable)) {
 								pStudent->num_of_course++;
 								if (pStudent->num_of_course > 5) {
-									cout << "\n\n\tVuot qua gioi han hoc phan toi da (5). \n\tNhap -1 de quay lai.";
+									cout << "\n\n\tVuot qua gioi han hoc phan toi da (5). \n\tNhap -1 de quay lai : ";
 									pStudent->num_of_course--;
 									cin >> o2;
 									break;
-								}	
+								}
 								toStudentCourse(pStudent, pC, no);
 								toStudentInCourse(pC, pStudent);
 								schedule(pC->pTime, pStudent->pTable);
 								pStudent->pTable->semester_no = no;
 								pC->num_of_student++;
 								//thanh cong
-								cout << "\n\n\tDang ky thanh cong!\n\tNhap -1 de quay lai.";
+								cout << "\n\n\tDang ky thanh cong!\n\tNhap -1 de quay lai : ";
 								cin >> o2;
 							}
 							else {
 								//ko thanh cong
-								cout << "\n\n\tTrung TKB, khong the dang ky khoa hoc nay!.\n\tNhap -1 de quay lai.";;
+								cout << "\n\n\tTrung TKB, khong the dang ky khoa hoc nay!.\n\tNhap -1 de quay lai : ";;
 								cin >> o2;
 							}
-							
+
 						}
 						break;
 					default:
@@ -2003,15 +2085,15 @@ void Enroll(CourseEnrollment* &pEnroll, Student* &pStudent, Course* &pCourse) {
 							cout << "\t\tS1\tS2\tS3\tS4\n";
 							Time* pT = pC->pTime;
 							showTimeTable(pT);
-							cout << "\n\tNhap -1 de quay lai.";
+							cout << "\n\tNhap -1 de quay lai : ";
 							cin >> o2;
 						}
 						else {
-							cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai!";
+							cout << "\tNhap sai cu phap!\n\tNhap -1 de quay lai : ";
 							cin >> o2;
 						}
 						break;
-						
+
 					}
 				}
 			}
@@ -2025,12 +2107,13 @@ void editCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester) {
 	while (o != 0) {
 		system("cls");
 		string n = "";
+		gotoXY(35, 3);
 		cout << "=====================================\n\n" << endl;
 		cout << "Chinh sua phien dang ki hoc phan ! " << endl;
 
 		cout << "\tPhien dang ky hoc phan - Hoc ky " << pSemester->no << endl
 			<< "\tThoi gian hoc ky: " << pSemester->begin_date << "/" << pSemester->begin_month << "/" << pSemester->begin_year << " - " << pSemester->end_date << "/" << pSemester->end_month << "/" << pSemester->end_year << endl
-			<< "\tNhap 0 de quay lai. ";
+			<< "\tNhap 0 de quay lai :  ";
 
 		cout << "\n\tNhap ngay bat dau (dd/mm): ";
 		getline(cin, n, '/');
@@ -2072,11 +2155,11 @@ void editCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester) {
 		}
 
 		system("cls");
-		cout << "\n\n\tChinh sua phien dang ky hoc phan thanh cong. Bam 0 de quay lai.";
+		cout << "\n\n\tChinh sua phien dang ky hoc phan thanh cong. Bam 0 de quay lai : ";
 		cin >> n;
 	}
 }
-void toStudentCourse(Student*& pSC, Course* &pCourse, int no) {
+void toStudentCourse(Student*& pSC, Course*& pCourse, int no) {
 	//course to student course list
 	StudentCourse* p = pSC->pStuCourse;
 	if (pSC->pStuCourse == nullptr) {
@@ -2098,7 +2181,7 @@ void toStudentCourse(Student*& pSC, Course* &pCourse, int no) {
 	p->semester_no = no;
 	randomScore(p->midterm_mark, p->final_mark, p->progress_mark, p->total_mark);
 	p->GPA = toGPA(p->total_mark, p->grade);
-	
+
 	Time* pCT = pCourse->pTime;
 	createTimeTable(p->pTime);
 	for (int i = 0; i < 6; i++) {
@@ -2108,7 +2191,7 @@ void toStudentCourse(Student*& pSC, Course* &pCourse, int no) {
 	}
 
 }
-void toStudentInCourse(Course* &pC, Student*&pStudent) {
+void toStudentInCourse(Course*& pC, Student*& pStudent) {
 	//current student into student in course
 	StudentInCourse* p = pC->pStuInCourse;
 	if (pC->pStuInCourse == nullptr) {
@@ -2140,38 +2223,40 @@ void toStudentInCourse(Course* &pC, Student*&pStudent) {
 	courseClass(p);
 	p->pNext = nullptr;
 }
-void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
+void showStudentCourse(StudentCourse*& pStuCourse, Student*& pS) {
 	//chay list pCourse
 	system("cls");
 	StudentCourse* p = pStuCourse;
 	StudentCourse* pC = pStuCourse;
-	
+
 	int o3 = 10;
 	int o = 10, o2 = 10;
 	while (o != 0) {
 		p = pStuCourse;
 		system("cls");
+		gotoXY(35, 3);
 		cout << "====================================\n\n"
 			<< "\tDanh sach khoa hoc da dang ky (Bam so de xem): \n\n";
 		int i = 0;
 		if (p == nullptr) {
-			cout << "\n\n\tKhong co khoa hoc nao! Nhap 0 de quay lai.";
+			cout << "\n\n\tKhong co khoa hoc nao! Nhap 0 de quay lai : ";
 			cin >> o;
 			break;
 		}
 		while (p != nullptr) {
-			cout << "\t" << i+1 << ". " << "(HK" << p->semester_no << ") " << p->course_name << endl;
+			cout << "\t" << i + 1 << ". " << "(HK" << p->semester_no << ") " << p->course_name << endl;
 			p = p->pNext;
 			i++;
 		}
-		
+
 		p = pStuCourse;
 		StudentInCourse* pSIC = pC->pCourse->pStuInCourse;
 		StudentCourse* pTemp2 = pStuCourse;
 		int t = 0;
 		cout << "\tNhap -1 + so thu tu de huy dang ky khoa hoc.\n";
-		cout << "\tNhap -2 de xem bang diem hoc sinh theo tung mon.\n";
-		cout << "\tNhap 0 de quay lai!\n\t";
+		//cout << "\tNhap -2 de xem bang diem hoc sinh theo tung mon.\n";
+		cout << "\tNhap 0 de quay lai.\n\t";
+		cout << "Tiep tuc voi : ";
 		cin >> o;
 		switch (o) {
 		case 0:
@@ -2181,9 +2266,6 @@ void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
 			cin >> t;
 			removeRegCourse1(pS, t);
 			pS->num_of_course--;
-			break;
-		case -2:
-			//xem scoreboard
 			break;
 		default:
 			if (o > i || o < -2) {
@@ -2195,8 +2277,9 @@ void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
 				while (o2 != 0) {
 					system("cls");
 					pC = pStuCourse;
-					for (int j = 1; j < o;j++)
+					for (int j = 1; j < o; j++)
 						pC = pC->pNext;
+					gotoXY(35, 3);
 					cout << "================================\n\n";
 					cout << "\tTen khoa hoc: " << pC->course_name << endl
 						<< "\tMa hoc phan: " << pC->course_id << endl
@@ -2207,12 +2290,13 @@ void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
 						<< "\n\tDiem tong: " << pC->total_mark
 						<< "\n\tFinal: " << pC->final_mark
 						<< "\n\tMidterm: " << pC->midterm_mark;
-					
+
 					cout << "\n\tNhap 1 de xem danh sach hoc sinh cua hoc phan.";
-					cout << "\n\tNhap 2 de chinh Diem tong ket"
-						<< "\n\tNhap 3 de chinh Diem cuoi ki"
-						<< "\n\tNhap 4 de chinh diem giua ki";
+					cout << "\n\tNhap 2 de chinh Diem tong ket."
+						<< "\n\tNhap 3 de chinh Diem cuoi ki."
+						<< "\n\tNhap 4 de chinh diem giua ki.";
 					cout << "\n\tNhap 0 de quay lai.";
+					cout << "\n\tTiep tuc voi : ";
 					cin >> o2;
 					StudentInCourse* pL = pC->pCourse->pStuInCourse;
 					switch (o2) {
@@ -2222,8 +2306,10 @@ void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
 						while (o3 != 0) {
 							system("cls");
 							pSIC = pC->pCourse->pStuInCourse;
-							cout << "===================================\n\n"
-								<< "\tDanh sach hoc sinh da dang ky: \n\n";
+							gotoXY(35, 3);
+							cout << "===================================\n\n";
+							gotoXY(35, 5);
+							cout << "\tDanh sach hoc sinh da dang ky: \n\n";
 							int i = 0;
 							while (pSIC != nullptr) {
 								cout << "\t" << i + 1 << ". " << "(Class " << pSIC->course_class << ") " << pSIC->pStudent->full_name << endl;
@@ -2237,7 +2323,7 @@ void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
 							case 0:
 								break;
 							default:
-								cout << "\tNhap sai cu phap, nhap -1 de quay lai.";
+								cout << "\tNhap sai cu phap, nhap -1 de quay lai : ";
 								cin >> o3;
 								break;
 							}
@@ -2254,7 +2340,7 @@ void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
 								pL = pL->pNext;
 						}
 						pL->total_mark = pC->total_mark;
-						cout << "\n\tNhap diem thanh cong. Nhap -1 de quay lai.";
+						cout << "\n\tNhap diem thanh cong. Nhap -1 de quay lai : ";
 						cin >> o2;
 						break;
 					case 3:
@@ -2268,7 +2354,7 @@ void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
 								pL = pL->pNext;
 						}
 						pL->final_mark = pC->final_mark;
-						cout << "\n\tNhap diem thanh cong. Nhap -1 de quay lai.";
+						cout << "\n\tNhap diem thanh cong. Nhap -1 de quay lai : ";
 						cin >> o2;
 						break;
 					case 4:
@@ -2282,7 +2368,7 @@ void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
 								pL = pL->pNext;
 						}
 						pL->midterm_mark = pC->midterm_mark;
-						cout << "\n\tNhap diem thanh cong. Nhap -1 de quay lai.";
+						cout << "\n\tNhap diem thanh cong. Nhap -1 de quay lai : ";
 						cin >> o2;
 						break;
 					default:
@@ -2291,20 +2377,21 @@ void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS) {
 						break;
 					}
 				}
-				
+
 			}
 			break;
 		}
 	}
 
 }
-void showStudentInCourse(StudentInCourse* &pStuInCourse, Course *&pCourse) {
+void showStudentInCourse(StudentInCourse*& pStuInCourse, Course*& pCourse) {
 	//chay list 
 	StudentInCourse* p = pStuInCourse;
 	int o = 10, o2 = 10, t = 0;
 	while (o != 0) {
 		system("cls");
 		p = pStuInCourse;
+		gotoXY(35, 3);
 		cout << "===================================\n\n"
 			<< "\tDanh sach hoc sinh da dang ky: (Bam so de xem)\n\n";
 		int i = 0;
@@ -2316,6 +2403,7 @@ void showStudentInCourse(StudentInCourse* &pStuInCourse, Course *&pCourse) {
 		p = pStuInCourse;
 		cout << "\n\tNhap 0 de quay lai!";
 		cout << "\n\tNhap -1 + so thu thu de xoa hoc sinh da dang ky.";
+		cout << "\n\tTiep tuc voi : ";
 		cin >> o;
 		StudentInCourse* pTemp2 = pStuInCourse;
 		StudentCourse* p2 = nullptr;
@@ -2329,12 +2417,12 @@ void showStudentInCourse(StudentInCourse* &pStuInCourse, Course *&pCourse) {
 			break;
 		default:
 			if (o > i || o < -2) {
-				cout << "\tNhap sai cu phap, nhap -1 de quay lai.";
+				cout << "\tNhap sai cu phap, nhap -1 de quay lai : ";
 				cin >> o;
 				break;
 			}
 			else {
-				for (int j = 1;j < o;j++) {
+				for (int j = 1; j < o; j++) {
 					p = p->pNext;
 				}
 				showStudent(p->pStudent);
@@ -2370,7 +2458,7 @@ void courseClass(StudentInCourse* p) {
 bool checkSchedule(Time* pTime, Time* pTable) {
 	for (int i = 0; i < 6; i++) {
 		for (int j = 0; j < 4; j++) {
-			if (pTime[i].session[j]=="X")
+			if (pTime[i].session[j] == "X")
 				if (pTime[i].session[j] == pTable[i].session[j]) {
 					return false;
 				}
@@ -2378,10 +2466,10 @@ bool checkSchedule(Time* pTime, Time* pTable) {
 	}
 	return true;
 }
-void removeRegCourse1(Student* &pS, int t) {
+void removeRegCourse1(Student*& pS, int t) {
 	StudentCourse* P = pS->pStuCourse;
 	StudentCourse* pT = pS->pStuCourse;
-	StudentCourse* &pTemp = pS->pStuCourse;
+	StudentCourse*& pTemp = pS->pStuCourse;
 	StudentCourse* p = pS->pStuCourse;
 	for (int i = t - 2; i > 0; i--) {
 		p = p->pNext;
@@ -2394,10 +2482,10 @@ void removeRegCourse1(Student* &pS, int t) {
 	p->pNext = pTemp->pNext;
 	deschedule(pT->pCourse->pTime, pS->pTable);
 	pT->pCourse->num_of_student--;
-	StudentInCourse*pT2 = pT->pCourse->pStuInCourse;
+	StudentInCourse* pT2 = pT->pCourse->pStuInCourse;
 	StudentInCourse* P2 = pT->pCourse->pStuInCourse;
 	StudentInCourse* p2 = pT->pCourse->pStuInCourse;
-	StudentInCourse* &pTemp2 = pT->pCourse->pStuInCourse;
+	StudentInCourse*& pTemp2 = pT->pCourse->pStuInCourse;
 
 	while (pTemp2 != nullptr)
 		if (pTemp2->pStudent->full_name == pS->full_name)
@@ -2425,9 +2513,9 @@ void removeRegCourse1(Student* &pS, int t) {
 	deleteStuCourse(pT);
 	pTemp2 = P2;
 	pTemp = P;
-	
+
 }
-void removeRegCourse2(Course* &pC, int t) {
+void removeRegCourse2(Course*& pC, int t) {
 	StudentInCourse* P = pC->pStuInCourse;
 	StudentInCourse* pT = pC->pStuInCourse;
 	StudentInCourse*& pTemp = pC->pStuInCourse; //mainpointer
@@ -2437,20 +2525,20 @@ void removeRegCourse2(Course* &pC, int t) {
 	}
 
 	for (int i = t - 1; i > 0; i--) {
-		pTemp = pTemp->pNext;	
+		pTemp = pTemp->pNext;
 	}
 	pT = pTemp;
 	p->pNext = pTemp->pNext;
 	/*if (pTemp == p) {
-		pC->pStuInCourse = pC->pStuInCourse->pNext;
-		P = pC->pStuInCourse;
+	pC->pStuInCourse = pC->pStuInCourse->pNext;
+	P = pC->pStuInCourse;
 	}*/
 	pT->pStudent->num_of_course--;
 	deschedule(pC->pTime, pT->pStudent->pTable);
 	StudentCourse* P2 = pT->pStudent->pStuCourse;
-	StudentCourse*pT2 = pT->pStudent->pStuCourse;
+	StudentCourse* pT2 = pT->pStudent->pStuCourse;
 	StudentCourse* p2 = pT->pStudent->pStuCourse;
-	StudentCourse* &pTemp2 = pT->pStudent->pStuCourse;
+	StudentCourse*& pTemp2 = pT->pStudent->pStuCourse;
 
 	while (pTemp2 != nullptr)
 		if (pTemp2->pCourse->course_id == pC->course_id)
@@ -2542,7 +2630,7 @@ void showStudentHistory(StudentHistory* pH) {
 		pH = pH->pNext;
 		i++;
 	}
-	cout << "\tNhan 0 de quay lai!";
+	cout << "\tNhan 0 de quay lai : ";
 	cin >> i;
 }
 
@@ -2569,7 +2657,7 @@ void gPA(Class* pClass) {
 		pClass = pClass->pNext;
 	}
 }
-double toGPA(double n, string &grade) {
+double toGPA(double n, string& grade) {
 	if (n < 0 || n > 10) {
 		grade = "ER";
 		return 0;
@@ -2585,7 +2673,7 @@ double toGPA(double n, string &grade) {
 	else if (n >= 7) {
 		grade = "B+";
 		return 3;
-	}	
+	}
 	else if (n >= 6) {
 		grade = "B";
 		return 2.5;
@@ -2593,11 +2681,11 @@ double toGPA(double n, string &grade) {
 	else if (n >= 5) {
 		grade = "C";
 		return 2;
-	}	
+	}
 	else if (n >= 4) {
 		grade = "D";
 		return 1.5;
-	}	
+	}
 	else if (n >= 3) {
 		grade = "F";
 		return 1;
@@ -2664,7 +2752,7 @@ void printClassScoreboard(Class* pClass) {
 	Student* pS = pClass->pStudent;
 	while (pS != nullptr) {
 		int i = 1;
-		StudentCourse *pSC = pS->pStuCourse;
+		StudentCourse* pSC = pS->pStuCourse;
 		cout << setw(5) << left << "     " << setw(9) << left << pS->id << "\t  " << setw(29) << left << pS->full_name;
 		while (pSC != nullptr) {
 			if (i == 1) {
@@ -2676,19 +2764,19 @@ void printClassScoreboard(Class* pClass) {
 				cout << endl;
 			}
 			i++;
-			
+
 			pSC = pSC->pNext;
 		}
 		cout << endl;
 
 		pS = pS->pNext;
 	}
-	cout << "\n\n\tNhap -1 de quay lai. ";
+	cout << "\n\n\tNhap -1 de quay lai :  ";
 	cin >> _;
 	system("cls");
 
 }
-void printStudentScoreboard(Student *pS) {
+void printStudentScoreboard(Student* pS) {
 	system("cls");
 	int _ = 0;
 	StudentCourse* pSC = pS->pStuCourse;
@@ -2709,7 +2797,7 @@ void printStudentScoreboard(Student *pS) {
 		pSC = pSC->pNext;
 	}
 
-	cout << "\n\tNhap 0 de quay lai.";
+	cout << "\n\tNhap 0 de quay lai : ";
 	cin >> _;
 
 }
@@ -2724,13 +2812,13 @@ void inputCourseScore(Course* pC) {
 	string n = "";
 	string id = "";
 	if (!input.is_open()) {
-		cout << "\n\n\tKhong  mo duoc file. Nhap -1 de quay lai.";
+		cout << "\n\n\tKhong  mo duoc file. Nhap -1 de quay lai : ";
 		cin >> _;
 		return;
 	}
 	else {
 		getline(input, line);
-		while (pS !=nullptr) {
+		while (pS != nullptr) {
 			getline(input, n, ',');
 			getline(input, id, ',');
 			getline(input, n, ',');
@@ -2743,7 +2831,7 @@ void inputCourseScore(Course* pC) {
 			pS->progress_mark = stod(n);
 			getline(input, n, '\n');
 			pS->total_mark = stod(n);
-			pS->GPA = toGPA(pS->total_mark, n); 
+			pS->GPA = toGPA(pS->total_mark, n);
 
 			StudentCourse* pSC = pS->pStudent->pStuCourse;
 			while (pSC != nullptr) {
@@ -2757,21 +2845,21 @@ void inputCourseScore(Course* pC) {
 					break;
 				}
 				else
-				pSC = pSC->pNext;
+					pSC = pSC->pNext;
 			}
-			
+
 			pS->GPA = pSC->GPA;
 
 			pS = pS->pNext;
 			if (input.eof()) break;
-			
+
 		}
 	}
 	input.close();
 }
 
 //ham delete tung cai
-void deleteClass(Class* &pClass) {
+void deleteClass(Class*& pClass) {
 	Student* p = pClass->pStudent;
 	while (p != nullptr) {
 		deleteStudent(p);
@@ -2833,7 +2921,7 @@ void checkDate(int& date, int& month, int& year, int year2) {
 		cout << "\tNhap sai ngay, vui long nhap lai ngay: ";
 		cin >> date;
 	}
-	while (month == 2 && (((date > 29) && ( (year % 4 == 0 && year % 100 != 0) || (year%400==0) )) || date > 28)) { //k phai nam nhuan ma nhap 29 ngay
+	while (month == 2 && (((date > 29) && ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))) || date > 28)) { //k phai nam nhuan ma nhap 29 ngay
 		cout << "\tNhap sai ngay, vui long nhap lai ngay: ";
 		cin >> date;
 		//nam nhuan = chia het cho 4 va k chia het cho 100 || chia het cho 400
@@ -2884,7 +2972,7 @@ void exportClass(Class* pClass) {
 	ofstream output("ClassScoreboard.csv");
 
 	if (!output.is_open()) {
-		cout << "\n\n\tKhong  mo duoc file. Nhap -1 de quay lai.";
+		cout << "\n\n\tKhong  mo duoc file. Nhap -1 de quay lai : ";
 		cin >> _;
 		return;
 	}
@@ -2901,7 +2989,7 @@ void exportClass(Class* pClass) {
 					<< pS->no << ","
 					<< pS->dob << "/" << pS->mob << "/" << pS->yob << ","
 					<< pS->user_name << ","
-					<< pS->user_password << "," 
+					<< pS->user_password << ","
 					<< pS->GPA << "," << endl;
 				pS = pS->pNext;
 			}
@@ -2909,7 +2997,7 @@ void exportClass(Class* pClass) {
 		}
 		output.close();
 
-		cout << "\tXuat file thanh cong! Nhan -1 de quay lai.";
+		cout << "\tXuat file thanh cong! Nhan -1 de quay lai : ";
 		cin >> _;
 		return;
 	}
@@ -2920,28 +3008,28 @@ void exportStudentInCourse(StudentInCourse* pStuInCourse) {
 	ofstream output("CourseScoreboard.csv");
 
 	if (!output.is_open()) {
-		cout << "\n\n\tKhong  mo duoc file. Nhap -1 de quay lai.";
+		cout << "\n\n\tKhong  mo duoc file. Nhap -1 de quay lai : ";
 		cin >> _;
 		return;
 	}
 	else {
 		cout << "\n\n\tDang xuat file . . .\n";
 		output << "Ten hoc sinh,MSSV,Gioi tinh,Ngay thang nam sinh,Diem midterm,Diem final,Diem qua trinh,Diem tong ket" << endl;
-			while (pStuInCourse != nullptr) {
-				Student* pS = pStuInCourse->pStudent;
-				output << pS->full_name << ","
-					<< pS->id << ","
-					<< pS->gender << ","
-					<< pS->dob << "/" << pS->mob << "/" << pS->yob << ","
-					<< pStuInCourse->midterm_mark << ","
-					<< pStuInCourse->final_mark << ","
-					<< pStuInCourse->progress_mark << ","
-					<< pStuInCourse->total_mark << endl;
-				pStuInCourse = pStuInCourse->pNext;
+		while (pStuInCourse != nullptr) {
+			Student* pS = pStuInCourse->pStudent;
+			output << pS->full_name << ","
+				<< pS->id << ","
+				<< pS->gender << ","
+				<< pS->dob << "/" << pS->mob << "/" << pS->yob << ","
+				<< pStuInCourse->midterm_mark << ","
+				<< pStuInCourse->final_mark << ","
+				<< pStuInCourse->progress_mark << ","
+				<< pStuInCourse->total_mark << endl;
+			pStuInCourse = pStuInCourse->pNext;
 		}
 		output.close();
 
-		cout << "\n\tXuat file thanh cong! Nhan -1 de quay lai.";
+		cout << "\n\tXuat file thanh cong! Nhan -1 de quay lai : ";
 		cin >> _;
 		return;
 	}
