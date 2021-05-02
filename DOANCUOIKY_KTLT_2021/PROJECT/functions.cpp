@@ -484,7 +484,7 @@ void createCourse(Course*& pCourse) {
 		cout << "\tNhap 0 de quay lai.\n";
 		cout << "\tNhap ten hoc phan: ";
 		TextColor(7);
-		cout << "\n\tTiep tuc voi : ";
+		//cout << "\n\tTiep tuc voi : ";
 		cin.ignore();
 		getline(cin, n);
 		if (n == "0") {
@@ -1986,9 +1986,10 @@ void Enroll(CourseEnrollment*& pEnroll, Student*& pStudent, Course*& pCourse) {
 			}
 			else {
 				for (int j = 1; j <= o; j++) {
+					//if (pEnroll == nullptr) break;
 					if (pEnroll->status == 0)
-						i--;
-					else if (o == 1) break;
+						j--;
+					else if (o == 1 || j == o) break;
 					else
 						pEnroll = pEnroll->pNext;
 				}
