@@ -345,6 +345,7 @@ void createSchoolYear(SchoolYear*& pSchoolYear) {
 	}
 	pSchoolYear->begin_year = year;
 	pSchoolYear->end_year = year + 1;
+	pSchoolYear->pNext = nullptr;
 	TextColor(6);
 	cout << "\t\t\t\t\t====================================\n\n";
 	cout << "\t\t\t\tTao nam hoc thanh cong!\n"
@@ -813,9 +814,6 @@ void showCourse(Course*& pCourse) {
 			cin >> o;
 		}
 	}
-}
-void showCourseClass(Course* pCourse) {
-
 }
 void showCourseList(Course*& pCourse) {
 	int o = 10;
@@ -1577,18 +1575,31 @@ void editCourse(Course*& pCourse) {
 
 //ham input
 void inputSchoolYear(SchoolYear*& pSchoolYear) {
-	pSchoolYear = new SchoolYear;
-	pSchoolYear->begin_year = 2020;
-	pSchoolYear->end_year = 2021;
+	if (pSchoolYear == nullptr)
+		pSchoolYear = new SchoolYear;
+	else { 
+		pSchoolYear->pNext = new SchoolYear; 
+		pSchoolYear = pSchoolYear->pNext;
+	}
+	int n = 0;
+	system("cls");
+	gotoXY(35, 3);
+	TextColor(6);
+	cout << "====================================\n\n";
+	cout << "\t\t\t\t\tNhap nam bat dau (YYYY): ";
+	cin >> n;
+	pSchoolYear->begin_year = n;
+	pSchoolYear->end_year = n+1;
 	pSchoolYear->pSemester = new Semester;
+	pSchoolYear->pNext = nullptr;
 	Semester* p = pSchoolYear->pSemester;
 	p->no = 1;
 	p->begin_date = 1;
 	p->begin_month = 9;
-	p->begin_year = 2020;
+	p->begin_year = pSchoolYear->begin_year;
 	p->end_date = 1;
 	p->end_month = 12;
-	p->end_year = 2020;
+	p->end_year = pSchoolYear->begin_year;
 	p->pEnroll = nullptr;
 	p->pClass = nullptr;
 	p->pCourse = nullptr;
@@ -1598,27 +1609,33 @@ void inputSchoolYear(SchoolYear*& pSchoolYear) {
 	p->no = 2;
 	p->begin_date = 1;
 	p->begin_month = 1;
-	p->begin_year = 2021;
+	p->begin_year = pSchoolYear->end_year;
 	p->end_date = 1;
 	p->end_month = 4;
-	p->end_year = 2021;
+	p->end_year = pSchoolYear->end_year;
 	p->pEnroll = nullptr;
 	p->pClass = nullptr;
 	p->pCourse = nullptr;
-
-	p->pNext = new Semester;
-	p = p->pNext;
-	p->no = 3;
-	p->begin_date = 1;
-	p->begin_month = 5;
-	p->begin_year = 2021;
-	p->end_date = 1;
-	p->end_month = 7;
-	p->end_year = 2021;
-	p->pEnroll = nullptr;
 	p->pNext = nullptr;
-	p->pClass = nullptr;
-	p->pCourse = nullptr;
+
+	int i = 0;
+	cout << "\n\t\t\t\t\tNhap tiep hoc ky 3 (3 = yes, -1 = no): ";
+	cin >> i;
+	if (i == 3) {
+		p->pNext = new Semester;
+		p = p->pNext;
+		p->no = 3;
+		p->begin_date = 1;
+		p->begin_month = 5;
+		p->begin_year = pSchoolYear->end_year;
+		p->end_date = 1;
+		p->end_month = 7;
+		p->end_year = pSchoolYear->end_year;
+		p->pEnroll = nullptr;
+		p->pNext = nullptr;
+		p->pClass = nullptr;
+		p->pCourse = nullptr;
+	}
 }
 void inputClass(Class*& pClass, ifstream& input) {
 	if (pClass == nullptr)
@@ -1912,7 +1929,7 @@ void showCourseEnrollment(CourseEnrollment*& pEnroll, Semester* pSemester) {
 					<< "\tThoi gian: " << pEnroll->start_date << "/" << pEnroll->start_month << "/" << pEnroll->start_year << " - " << pEnroll->end_date << "/" << pEnroll->end_month << "/" << pEnroll->end_year << endl
 					<< "\n\tNhap 1 de chinh sua thoi gian.\n"
 					<< "\tNhap 2 de xem danh sach khoa hoc.\n";
-				cout << "\tNhap 3 de xem hoc sinh da vao phien dkhp.\n"
+				cout //<< "\tNhap 3 de xem hoc sinh da vao phien dkhp.\n"
 					<< "\tNhap 0 de quay lai.\n";
 				cout << "\tTiep tuc voi : ";
 				cin >> o2;
@@ -2865,20 +2882,25 @@ void deleteClass(Class*& pClass) {
 	while (p != nullptr) {
 		deleteStudent(p);
 	}
+	pClass->pU = nullptr;
 	delete pClass;
+	pClass = nullptr;
 }
 void deleteStudent(Student*& pStudent) {
 	Student* pTmp = pStudent;
 	deleteTimeTable(pStudent->pTable);
+	deleteStuCourse(pStudent->pStuCourse);
+	pStudent->pStuCourse == nullptr;
 	pStudent = pStudent->pNext;
 	delete pTmp;
+	pTmp = nullptr;
 }
 void deleteCourse(Course*& pCourse) {
 	StudentInCourse* p = pCourse->pStuInCourse;
 	while (p != nullptr) {
 		StudentInCourse* pTmp = p;
 		p = p->pNext;
-		delete pTmp;
+		deleteStuInCourse(pTmp);
 	}
 	deleteTimeTable(pCourse->pTime);
 	delete pCourse;
@@ -2893,21 +2915,77 @@ void deleteUser(UserAccount*& pUser) {
 	while (pUser != nullptr) {
 		UserAccount* p = pUser;
 		pUser = pUser->pNext;
+		p->pClass = nullptr;
 		delete p;
 	}
 }
 void deleteStuInCourse(StudentInCourse*& pTemp2) {
+	if (pTemp2 == nullptr) return;
 	pTemp2->pStudent = nullptr;
 	delete pTemp2;
 	pTemp2 = nullptr;
 }
 void deleteStuCourse(StudentCourse*& pTemp2) {
+	if (pTemp2 == nullptr) return;
 	pTemp2->pCourse = nullptr;
 	Time* p = pTemp2->pTime;
 	deleteTimeTable(p);
 	delete pTemp2;
 	pTemp2 = nullptr;
 	p = nullptr;
+}
+
+//ham delete het
+void deleteExtraStudent(extraStudent*& pE) {
+	while (pE != nullptr) {
+		extraStudent* pO = pE;
+		pE = pE->pNext;
+		delete pO;
+	}
+}
+void deleteCourseEnrollment(CourseEnrollment*& pCE) {
+	while (pCE != nullptr) {
+		CourseEnrollment* pT = pCE;
+		pCE = pCE->pNext;
+		StudentHistory* pH = pT->pStudentHistory;
+		while (pH != nullptr) {
+			StudentHistory* pF = pH;
+			pH = pH->pNext;
+			pF->pStudent = nullptr;
+			delete pF;
+		}
+		pT->pCourse = nullptr;
+		delete pT;
+	}
+}
+void deleteSchoolYear(SchoolYear* pSchoolYear) {
+	Semester* pS = pSchoolYear->pSemester;
+	while (pS != nullptr) {
+		if (pS->no != 1) {
+			pS->pClass = nullptr;
+			pS->pE = nullptr;
+		}	
+
+		while (pS->pClass != nullptr) {
+			Class* pL = pS->pClass;
+			pS->pClass = pS->pClass->pNext;
+			deleteClass(pL);
+			pL = nullptr;
+		}
+
+		while (pS->pCourse != nullptr) {
+			Course* pC = pS->pCourse;
+			pS->pCourse = pS->pCourse->pNext;
+			deleteCourse(pC);
+			pC = nullptr;
+		}
+		
+		deleteCourseEnrollment(pS->pEnroll);
+		deleteExtraStudent(pS->pE);
+
+		pS = pS->pNext;
+		
+	}
 }
 void checkDate(int& date, int& month, int& year, int year2) {
 	while (year < year2 || year > year2 + 1) {
@@ -3084,3 +3162,7 @@ void Run(string s) {
 		Sleep(30);
 	}
 }
+
+//void showCourseClass(Course* pCourse) {
+//
+//}

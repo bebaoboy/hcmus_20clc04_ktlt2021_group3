@@ -35,7 +35,6 @@ void createClass(Class*& pClass, extraStudent* pExtra);
 void createCourse(Course*& pCourse);
 void createStudent(Student*& pStudent, int &num);
 void createTimeTable(Time*& p);
-void eraseTimeTable(Time* p);
 
 //ham show thong tin
 void showSchoolYear(SchoolYear* pSchoolYear);
@@ -43,7 +42,6 @@ void showSemesterTime(Semester* pSemester, int year);
 void showClass(Class* &pClass, Semester *&pSemester);
 void showCourseList(Course* &pCourse);
 void showCourse(Course* &pCourse);
-void showCourseClass(Course* pCourse);
 void showStudentCourse(StudentCourse* &pStuCourse, Student *&pS);
 void showStudentInCourse(StudentInCourse* &pStuInCourse, Course* &pCourse);
 void showStudent(Student* &pStudent);
@@ -77,6 +75,9 @@ void deleteTimeTable(Time*& p);
 void deleteUser(UserAccount*& pUser);
 void deleteStuInCourse(StudentInCourse*& pTemp2);
 void deleteStuCourse(StudentCourse*& pTemp2);
+void deleteSchoolYear(SchoolYear* pSchoolYear);
+void deleteCourseEnrollment(CourseEnrollment*& pCE);
+void deleteExtraStudent(extraStudent*& pE);
 
 //Ham dk hp 
 void createCourseEnrollment(CourseEnrollment*& pEnroll, Semester *pSemester);
@@ -107,11 +108,12 @@ void inputCourseScore(Course* pC);
 
 //Ham xuat file
 void exportClass(Class *pClass); //student and score/gpa
-void exportStudentScore(); //gv chon
-void exportStudentHistory();
 void exportStudentInCourse(StudentInCourse* pStuInCourse);
-void exportCourseScore(StudentInCourse* pStuInCourse); //xuat diem cua 1 khoa hoc
-
 
 //void courseClassEnum(Class* pClass, StudentInCourse* p);
+//void eraseTimeTable(Time* p);
+//void showCourseClass(Course* pCourse);
+//void exportStudentScore(); //gv chon
+//void exportStudentHistory();
+//void exportCourseScore(StudentInCourse* pStuInCourse); //xuat diem cua 1 khoa hoc
 #endif // !_MY_H_

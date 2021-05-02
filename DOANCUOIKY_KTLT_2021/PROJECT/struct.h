@@ -84,11 +84,6 @@ struct extraStudent
 
 struct StudentInCourse
 {
-/*string full_name;
-string id;
-char gender;
-string dob, mob, yob;
-string mainclass;*/
 	int course_class=0;
 	string course_classroom;
 	string course_id;

@@ -43,26 +43,6 @@ int main() {
 	{
 		ifstream input("TeacherUser.txt");
 		inputTeacher(pUser, input);
-		/*pUser = new UserAccount;
-		pUser->full_name = "H M Bao";
-		pUser->user_class = "20CLC04";
-		pUser->user_name = "bebaoboy";
-		pUser->user_password = "abcdefgh";
-		pUser->pNext = new UserAccount;
-
-		pUser->pNext->full_name = "H M Bap";
-		pUser->pNext->user_class = "20CLC02";
-		pUser->pNext->user_name = "bebaoboy2";
-		pUser->pNext->user_password = "abcdefgh";
-		pUser->pNext->pNext = new UserAccount;
-
-		pUser->pNext->pNext->full_name = "H M aaaBap";
-		pUser->pNext->pNext->user_class = "20CLC02";
-		pUser->pNext->pNext->user_name = "bebaoboy3";
-		pUser->pNext->pNext->user_password = "abcdefgh";
-		pUser->pNext->pNext->pNext = nullptr;*/
-
-		//showUserAccount(pUser, pUser->pNext->user_name);
 		input.close();
 	}
 
@@ -80,39 +60,6 @@ int main() {
 
 	//input phien dkhp hk1 (unused)
 	{
-		/*pEnroll = new CourseEnrollment;
-		pEnroll2 = pEnroll;
-		pEnroll2->id = "WX00001";
-		pEnroll2->start_date = 1;
-		pEnroll2->start_month = 5;
-		pEnroll2->start_year = 2020;
-		pEnroll2->end_date = 1;
-		pEnroll2->end_month = 6;
-		pEnroll2->end_year = 2020;
-
-		pEnroll2->pNext = new CourseEnrollment;
-		pEnroll2 = pEnroll2->pNext;
-		pEnroll2->id = "WX00002";
-		pEnroll2->start_date = 15;
-		pEnroll2->start_month = 5;
-		pEnroll2->start_year = 2020;
-		pEnroll2->end_date = 20;
-		pEnroll2->end_month = 6;
-		pEnroll2->end_year = 2020;
-
-		pEnroll2->pNext = new CourseEnrollment;
-		pEnroll2 = pEnroll2->pNext;
-		pEnroll2->id = "WX00003";
-		pEnroll2->start_date = 1;
-		pEnroll2->start_month = 5;
-		pEnroll2->start_year = 2020;
-		pEnroll2->end_date = 1;
-		pEnroll2->end_month = 6;
-		pEnroll2->end_year = 2020;
-
-		pEnroll2->pNext = nullptr;
-		pEnroll2 = pEnroll;*/
-
 	}
 
 	//main program
@@ -258,6 +205,7 @@ int main() {
 			TextColor(7);
 			teacherClass(pUser, pClass);
 			cin >> option;
+			int __ = 10;
 			int _ = 0;
 			//system("cls");
 
@@ -367,9 +315,9 @@ int main() {
 					TextColor(6);
 					cout << "========================================================================================================================\n\n";
 					if (_ == 2) {
+						inputSchoolYear(pSSchoolYear);
 						TextColor(9);
 						cout << "\n\t\t\tDang nhap thong tin nam hoc . . .\n";
-						inputSchoolYear(pSSchoolYear);
 						Sleep(500);
 						TextColor(10);
 						cout << "\t\t\tDang nhap khoa hoc . . .\n";
@@ -383,6 +331,7 @@ int main() {
 						gotoXY(30, 20);
 						cout << "\tNhap thanh cong! Bam -1 de tiep tuc : ";
 						cin >> _;
+						if (pSchoolYear == nullptr) pSchoolYear = pSSchoolYear;
 					}
 					else {
 
@@ -536,7 +485,82 @@ int main() {
 				break;
 			}
 
-					//case 2: tao nam hoc
+			//them nam hoc moi
+			case 2:
+				while (__ != 0) {
+					system("cls");
+					TextColor(6);
+					cout << "\n\n\t\t\t\tChon nam hoc (nhap nam bat dau de chon): \n";
+					SchoolYear* pY = pSchoolYear;
+					while (pY != nullptr) {
+						cout << "\t\t\t\t\t" << pY->begin_year << " - " << pY->end_year << endl;
+						pY = pY->pNext;
+					}
+					cout << "\n\t\t\tNhap -1 de tao nam hoc moi.\n";
+					cout << "\t\t\tNhap 0 de quay lai.\n\t\t\t\t";
+					pY = pSchoolYear;
+					cin >> __;
+					switch (__) {
+					case 0: 
+						break;
+					case -1:
+						system("cls");
+						TextColor(7);
+						gotoXY(30, 7);
+						cout << "\n\n\t\tNhap nam hoc thu cong (1) hay tu dong (2) : ";
+						cin >> __;
+						if (__ == 2) {
+							cout << "\n\n========================================================================================================================\n\n";
+							if (pY == nullptr)
+							{
+							}
+							else {
+								while (pY->pNext != nullptr)
+									pY = pY->pNext;
+							}
+							inputSchoolYear(pY);
+							TextColor(9);
+							cout << "\n\t\t\tDang nhap thong tin nam hoc . . .\n";
+							Sleep(500);
+							TextColor(10);
+							cout << "\t\t\tDang nhap khoa hoc . . .\n";
+							Sleep(500);
+							TextColor(11);
+							cout << "\t\t\tDang nhap lop hoc va sinh vien . . . \n\n";
+							Sleep(500);
+							TextColor(6);
+							cout << "========================================================================================================================\n\n";
+							TextColor(7);
+							gotoXY(30, 20);
+							cout << "\tNhap thanh cong! Bam -1 de tiep tuc : ";
+							cin >> __;
+
+						}
+						else {
+						TextColor(6);
+						createSchoolYear(pSchoolYear);
+						}
+						break;
+					default:
+						while (pY != nullptr) {
+							if (pY->begin_year == __)
+								break;
+							else
+								pY = pY->pNext;
+							
+						}
+						if (pY == pSSchoolYear) {
+							__ = 0;
+							break;
+						}
+						else {
+							pSSchoolYear = pY;
+							goto teacher;
+						}
+						break;
+					}
+				}
+				break;
 
 			case -1:
 				// log out
@@ -553,7 +577,7 @@ int main() {
 	student:
 		while (option != -1) {
 			system("CLS");
-			pSSchoolYear = pSchoolYear;
+			//pSSchoolYear = pSchoolYear;
 			gPA(pClass);
 			print_Student_Menu();
 			cin >> option;
@@ -789,10 +813,12 @@ int main() {
 	cout << "Chuong trinh ket thuc!!!\n\n\n";
 
 	//ham delete 
-	{
-		deleteClass(pClass);
-		deleteUser(pUser);
+	while (pSchoolYear != nullptr) {
+		SchoolYear* pSSS = pSchoolYear;
+		pSchoolYear = pSchoolYear->pNext;
+		deleteSchoolYear(pSSS);
 	}
+
 	gotoXY(35, 13);
 	system("pause");
 	return 0;
@@ -815,7 +841,7 @@ void print_Staff_Menu() {
 	gotoXY(35, 7);
 	cout << "\t1. Xem thong tin nam hoc. " << endl;
 	//gotoXY(35, 8);
-	//cout << "\t2. Tao nam hoc moi. " << endl;
+	//cout << "\t2. Chuyen nam hoc. " << endl;
 	gotoXY(35, 9);
 	cout << "\t-1. Dang xuat. " << endl;
 	gotoXY(35, 10);
