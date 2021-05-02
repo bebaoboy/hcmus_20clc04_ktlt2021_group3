@@ -586,7 +586,73 @@ int main() {
 			case 1:
 				//xem thong tin hs
 				TextColor(6);
-				showStudent(pTemp10);
+				//showStudent(pTemp10);
+				{
+					int o = 10;
+					Student* pStudent = pTemp10;
+					while (o != 0) {
+						system("cls");
+						if (pStudent == nullptr) {
+							cout << "\n\n\tKhong co hoc sinh nay!\n\tNhap 0 de quay lai : ";
+							cin >> o;
+							break;
+						}
+						cout << "\t\t\t\t=====================================\n\n"
+							<< "\tUsername: " << pStudent->user_name
+							<< "\n\tPassword: Bam 1 de xem"
+							<< "\n\tFull name: " << pStudent->full_name
+							<< "\n\tMSSV: " << pStudent->id
+							<< "\n\tGioi tinh: " << ((pStudent->gender == 'M') ? "Nam" : "Nu")
+							<< "\n\tNgay sinh: " << pStudent->dob << "/" << pStudent->mob << "/" << pStudent->yob
+							//<< "\n\tSocial ID: " 
+							<< "\n\tGPA_10: " << pStudent->GPA_10
+							<< "\n\tGPA: " << pStudent->GPA
+							<< "\n\tGrade: " << pStudent->grade
+							<< "\n\tLop chu nhiem: " << pStudent->mainclass << endl;
+						//cout << "\tNhap 2 de xem danh sach hoc phan da dang ky." << endl;
+						cout << "\tNhap 3 de xem thoi khoa bieu." << endl;
+						cout << "\tNhap 4 de xem bang diem hoc ky." << endl;
+						cout << "\tNhap 5 de chinh sua thong tin." << endl;
+						cout << "\tNhap 0 de quay lai.";
+						cout << "\t\t\t\t=====================================\n\n";
+						cout << "\n\t\t\t\tTiep tuc voi : ";
+						cin >> o;
+						system("cls");
+						switch (o) {
+						case 1:
+							gotoXY(35, 3);
+							cout << "==================================\n\n"
+								<< "\t\tMat khau la: " << pStudent->user_password << endl;
+							cout << "\tNhap -1 de quay lai: ";
+							cin >> o;
+							system("cls");
+							break;
+						case 5:
+							editStudent(pStudent);
+							break;
+						case 0:
+							break;
+						/*case 2:
+							showStudentCourse(pStudent->pStuCourse, pStudent);
+							system("cls");
+							break;*/
+						case 3:
+							cout << endl;
+							showTimeTable(pStudent->pTable);
+							cout << "\n\tNhap -1 de quay lai : ";
+							cin >> o;
+							system("cls");
+							break;
+						case 4:
+							printStudentScoreboard(pStudent);
+							break;
+						default:
+							cout << "\tNhap sai cu phap\nNhap -1 de tiep tuc : ";
+							cin >> o;
+							break;
+						}
+					}
+				}
 				cin.get();
 				break;
 			case 2: {
@@ -705,7 +771,123 @@ int main() {
 								break;
 							case 3:
 								TextColor(6);
-								showStudentCourse(pTemp10->pStuCourse, pTemp10);
+								{
+									system("cls");
+									StudentCourse* p = pTemp10->pStuCourse;
+									StudentCourse* pC = pTemp10->pStuCourse;
+
+									int o3 = 10;
+									int o = 10, o2 = 10;
+									while (o != 0) {
+										p = pTemp10->pStuCourse;
+										system("cls");
+										gotoXY(35, 3);
+										cout << "====================================\n\n"
+											<< "\tDanh sach khoa hoc da dang ky (Bam so de xem): \n\n";
+										int i = 0;
+										if (p == nullptr) {
+											cout << "\n\n\tKhong co khoa hoc nao! Nhap 0 de quay lai : ";
+											cin >> o;
+											break;
+										}
+										while (p != nullptr) {
+											cout << "\t" << i + 1 << ". " << "(HK" << p->semester_no << ") " << p->course_name << endl;
+											p = p->pNext;
+											i++;
+										}
+
+										p = pTemp10->pStuCourse;
+										StudentInCourse* pSIC = pC->pCourse->pStuInCourse;
+										StudentCourse* pTemp2 = pTemp10->pStuCourse;
+										int t = 0;
+										cout << "\tNhap -1 + so thu tu de huy dang ky khoa hoc.\n";
+										//cout << "\tNhap -2 de xem bang diem hoc sinh theo tung mon.\n";
+										cout << "\tNhap 0 de quay lai.\n\t";
+										cout << "Tiep tuc voi : ";
+										cin >> o;
+										switch (o) {
+										case 0:
+											break;
+										case -1:
+											//xoa
+											cin >> t;
+											removeRegCourse1(pTemp10, t);
+											pTemp10->num_of_course--;
+											break;
+										default:
+											if (o > i || o < -2) {
+												cout << "\tSo khong hop le, vui long nhap lai: ";
+												cin >> o;
+											}
+											else {
+												o2 = 10;
+												while (o2 != 0) {
+													system("cls");
+													pC = pTemp10->pStuCourse;
+													for (int j = 1; j < o; j++)
+														pC = pC->pNext;
+													gotoXY(35, 3);
+													cout << "================================\n\n";
+													cout << "\tTen khoa hoc: " << pC->course_name << endl
+														<< "\tMa hoc phan: " << pC->course_id << endl
+														<< "\tTen GVLT: " << pC->course_teacher << endl
+														<< "\tSo tin chi: " << pC->num_of_credit << endl;
+													showTimeTable(pC->pTime);
+													cout << "\n\tGPA: " << pC->GPA
+														<< "\n\tDiem tong: " << pC->total_mark
+														<< "\n\tFinal: " << pC->final_mark
+														<< "\n\tMidterm: " << pC->midterm_mark;
+
+													cout << "\n\tNhap 1 de xem danh sach hoc sinh cua hoc phan.";
+													
+													cout << "\n\tNhap 0 de quay lai.";
+													cout << "\n\tTiep tuc voi : ";
+													cin >> o2;
+													StudentInCourse* pL = pC->pCourse->pStuInCourse;
+													switch (o2) {
+													case 0:
+														break;
+													case 1:
+														while (o3 != 0) {
+															system("cls");
+															pSIC = pC->pCourse->pStuInCourse;
+															gotoXY(35, 3);
+															cout << "===================================\n\n";
+															gotoXY(35, 5);
+															cout << "\tDanh sach hoc sinh da dang ky: \n\n";
+															int i = 0;
+															while (pSIC != nullptr) {
+																cout << "\t" << i + 1 << ". " << "(Class " << pSIC->course_class << ") " << pSIC->pStudent->full_name << endl;
+																pSIC = pSIC->pNext;
+																i++;
+															}
+															pSIC = pC->pCourse->pStuInCourse;
+															cout << "\n\tNhap 0 de quay lai!";
+															cin >> o3;
+															switch (o3) {
+															case 0:
+																break;
+															default:
+																cout << "\tNhap sai cu phap, nhap -1 de quay lai : ";
+																cin >> o3;
+																break;
+															}
+														}
+														break;
+													
+													default:
+														cout << "\tSo khong hop le, vui long nhap lai: ";
+														cin >> o2;
+														break;
+													}
+												}
+
+											}
+											break;
+										}
+									}
+
+								}
 								break;
 							case 4:
 								system("cls");
